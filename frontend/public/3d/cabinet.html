@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Casemod Rift — cabinet, 3D</title>
+<link rel="stylesheet" href="ds/styles.css" />
+<script src="ds/bundle.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; display: flex; flex-direction: column; }
+  three-d-stage:not(:defined) { visibility: hidden; }
+  three-d-stage { flex: 1; min-height: 0; }
+  .bar { display: flex; align-items: baseline; gap: var(--space-6); padding: var(--space-4) var(--space-8); flex-wrap: wrap; }
+  .bar h1 { font-size: 20px; }
+  .kicker { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); }
+  .note { font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-left: auto; }
+  .controls { display: flex; gap: var(--space-2); padding: 0 var(--space-8) var(--space-4); flex-wrap: wrap; align-items: center; }
+  body.embed .bar { display: none; }
+  /* Embedded on a marketing page: the viewer's own chrome is hidden. The
+     export buttons in particular have no place in a hero — visitors are not
+     downloading the mesh. Orbit and auto-rotate still work, which is the
+     interaction that matters here. */
+  body.embed .controls { display: none !important; }
+
+  body.embed { background: var(--color-bg); }
+  body.embed .controls {
+    position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 2;
+    padding: 0; gap: 6px; flex-wrap: nowrap;
+  }
+  body.embed .controls .btn {
+    height: 28px; font-size: 11px; padding: 0 9px;
+    background: color-mix(in srgb, #08080a 72%, transparent);
+    backdrop-filter: blur(6px);
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <span class="kicker">Casemod</span>
+    <h1>Rift mid-tower — cabinet run</h1>
+    <span class="note">Drag to orbit · wheel to zoom · exports as OBJ + MTL or GLB (static pose)</span>
+  </header>
+  <div class="controls">
+    <button class="btn btn-primary" id="spin">Pause fans</button>
+    <button class="btn btn-secondary" id="lights">Lighting run: on</button>
+    <button class="btn btn-secondary" id="glass">Hide glass panel</button>
+    <button class="btn btn-secondary" id="scheme">Lighting: Crimson</button>
+  </div>
+  <three-d-stage name="casemod-rift-cabinet" background="#08080a" autorotate></three-d-stage>
+
+  <script src="three-d-stage.js"></script>
+  <script>
+    if (new URLSearchParams(location.search).has('embed')) {
+      document.body.classList.add('embed');
+
+      /* The export toolbar is built inside the stage's open shadow root during
+         init, so it may not exist yet — watch for it rather than assume. */
+      (() => {
+        const stageEl = document.querySelector('three-d-stage');
+        const hide = () => {
+          const bar = stageEl && stageEl.shadowRoot && stageEl.shadowRoot.querySelector('.toolbar');
+          if (!bar) return false;
+          bar.style.display = 'none';
+          return true;
+        };
+        if (hide()) return;
+        const observer = new MutationObserver(() => { if (hide()) observer.disconnect(); });
+        const start = () => {
+          if (stageEl && stageEl.shadowRoot) {
+            observer.observe(stageEl.shadowRoot, { childList: true, subtree: true });
+            // Give up rather than observe forever if the toolbar never appears.
+            setTimeout(() => observer.disconnect(), 15000);
+          } else {
+            setTimeout(start, 120);
+          }
+        };
+        start();
+      })();
+      // Blend into the host page rather than sitting on its own black slab.
+      // Hex triple only — this value comes from the query string and is
+      // written straight into a style property and an attribute.
+      const bg = new URLSearchParams(location.search).get('bg');
+      if (bg && /^#?[0-9a-f]{3,8}$/i.test(bg)) {
+        const c = '#' + bg.replace('#', '');
+        document.body.style.background = c;
+        const st = document.querySelector('three-d-stage');
+        st.setAttribute('background', c);
+        st.style.background = c;
+      }
+      // compact labels so the strip stays on one row inside a card
+      document.getElementById('spin').textContent = 'Fans';
+      document.getElementById('lights').textContent = 'Glow';
+      document.getElementById('glass').textContent = 'Glass';
+      document.getElementById('scheme').textContent = 'Colour';
+      document.querySelectorAll('.controls .btn').forEach(b => b.dataset.compact = '1');
+    }
+    // The store's reduced-motion rule only stops CSS animation; the turntable
+    // is a rAF loop inside this frame, so it has to opt out for itself.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelector('three-d-stage').removeAttribute('autorotate');
+    }
+  </script>
+  <script type="module">
+    const stage = document.querySelector('three-d-stage');
+    const { THREE } = await stage.ready;
+
+    const M = {
+      chassis:  new THREE.MeshStandardMaterial({ name: 'chassis',  color: 0x17181c, roughness: 0.68, metalness: 0.42 }),
+      mesh:     new THREE.MeshStandardMaterial({ name: 'mesh',     color: 0x101114, roughness: 0.94, metalness: 0.10 }),
+      blade:    new THREE.MeshStandardMaterial({ name: 'blade',    color: 0x6e7178, roughness: 0.40, metalness: 0.30 }),
+      brushed:  new THREE.MeshStandardMaterial({ name: 'brushed',  color: 0x2a2c32, roughness: 0.44, metalness: 0.52 }),
+      accent:   new THREE.MeshStandardMaterial({ name: 'accent',   color: 0xff2d1f, roughness: 0.4,  metalness: 0.1, emissive: 0xff2d1f, emissiveIntensity: 1.4 }),
+      glass:    new THREE.MeshStandardMaterial({ name: 'glass',    color: 0x14151a, roughness: 0.06, metalness: 0.3, transparent: true, opacity: 0.05, side: THREE.DoubleSide })
+    };
+
+    const box = (name, w, h, d, x, y, z, mat) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+      m.name = name; m.position.set(x, y, z);
+      return m;
+    };
+
+    const cabinet = new THREE.Group();
+    cabinet.name = 'cabinet_rift';
+
+    const W = 0.22, D = 0.45, Y0 = 0.016, Y1 = 0.498, T = 0.006;
+
+    // feet
+    [[-0.085, 0.19], [0.085, 0.19], [-0.085, -0.19], [0.085, -0.19]].forEach(([x, z], i) => {
+      const f = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.019, Y0, 24), M.brushed);
+      f.name = 'foot_' + (i + 1); f.position.set(x, Y0 / 2, z);
+      cabinet.add(f);
+    });
+
+    cabinet.add(box('panel_bottom', W, T, D, 0, Y0 + T / 2, 0, M.chassis));
+    // open roof: two rails only, the radiator and its fans sit exposed beneath
+    cabinet.add(box('roof_rail_front', W, T, 0.024, 0, Y1 - T / 2, D / 2 - 0.012, M.chassis));
+    cabinet.add(box('roof_rail_back', W, T, 0.024, 0, Y1 - T / 2, -D / 2 + 0.012, M.chassis));
+    cabinet.add(box('roof_rail_left', 0.010, T, D, -W / 2 + 0.005, Y1 - T / 2, 0, M.chassis));
+    cabinet.add(box('roof_rail_right', 0.010, T, D, W / 2 - 0.005, Y1 - T / 2, 0, M.chassis));
+    cabinet.add(box('panel_back', W, Y1 - Y0, T, 0, (Y0 + Y1) / 2, -D / 2 + T / 2, M.chassis));
+    cabinet.add(box('panel_side_right', T, Y1 - Y0, D, W / 2 - T / 2, (Y0 + Y1) / 2, 0, M.chassis));
+    // open perforated front: slats with gaps, so the fan rings read through the face
+    for (let i = 0; i < 11; i++) {
+      const y = Y0 + 0.014 + i * ((Y1 - Y0 - 0.028) / 10);
+      cabinet.add(box('front_slat_' + (i + 1), W - 0.020, 0.008, 0.008, 0, y, D / 2 - 0.004, M.mesh));
+    }
+    // front frame edges keep the mesh recessed
+    cabinet.add(box('frame_front_left', 0.010, Y1 - Y0, 0.018, -W / 2 + 0.005, (Y0 + Y1) / 2, D / 2 - 0.009, M.chassis));
+    cabinet.add(box('frame_front_right', 0.010, Y1 - Y0, 0.018, W / 2 - 0.005, (Y0 + Y1) / 2, D / 2 - 0.009, M.chassis));
+    cabinet.add(box('frame_front_top', W, 0.012, 0.018, 0, Y1 - 0.006, D / 2 - 0.009, M.chassis));
+    cabinet.add(box('frame_front_bottom', W, 0.012, 0.018, 0, Y0 + 0.006, D / 2 - 0.009, M.chassis));
+
+    const glass = box('panel_glass', 0.004, Y1 - Y0 - 0.020, D - 0.030, -W / 2 + 0.003, (Y0 + Y1) / 2, 0.004, M.glass);
+    cabinet.add(glass);
+
+    // interior
+    // shroud pulled back to the rear half, leaving a bottom intake bay up front
+    cabinet.add(box('psu_shroud', W - 0.016, 0.075, 0.190, 0, Y0 + 0.050, -0.118, M.chassis));
+    cabinet.add(box('motherboard', 0.005, 0.285, 0.245, W / 2 - 0.016, 0.300, -0.052, M.mesh));
+    cabinet.add(box('gpu_body', 0.125, 0.042, 0.265, -0.010, 0.170, -0.010, M.chassis));
+    cabinet.add(box('gpu_backplate', 0.128, 0.006, 0.268, -0.010, 0.193, -0.010, M.brushed));
+    cabinet.add(box('gpu_light', 0.004, 0.010, 0.180, -0.073, 0.176, -0.010, M.accent));
+    cabinet.add(box('cooler_tower', 0.092, 0.140, 0.108, -0.006, 0.372, -0.086, M.brushed));
+    cabinet.add(box('cooler_top', 0.096, 0.008, 0.112, -0.006, 0.446, -0.086, M.chassis));
+    for (let i = 0; i < 4; i++) {
+      cabinet.add(box('ram_' + (i + 1), 0.006, 0.042, 0.128, 0.052 + i * 0.010, 0.398, 0.008, M.chassis));
+    }
+    cabinet.add(box('io_shield', 0.004, 0.045, 0.160, W / 2 - 0.022, 0.430, -0.140, M.brushed));
+
+    // fans
+    const fans = [], rings = [], haloes = [];
+    function makeFan(name, radius) {
+      const g = new THREE.Group(); g.name = name;
+      const shroud = new THREE.Mesh(new THREE.TorusGeometry(radius, 0.007, 12, 40), M.chassis);
+      shroud.name = name + '_shroud'; shroud.rotation.x = Math.PI / 2;
+      g.add(shroud);
+      // the signature: a lit ring inset just under the shroud lip
+      const rmat = M.accent.clone(); rmat.name = 'accent';
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(radius - 0.010, 0.0035, 10, 48), rmat);
+      ring.name = name + '_ring'; ring.rotation.x = Math.PI / 2; ring.position.y = 0.007;
+      rings.push(ring); g.add(ring);
+      const halo = new THREE.PointLight(0xff2d1f, 0.5, 0.30, 2);
+      halo.name = name + '_halo'; halo.position.y = 0.02;
+      haloes.push(halo); g.add(halo);
+      // a dim fill just inside the ring so the rotor is never a black hole
+      const fill = new THREE.PointLight(0xffffff, 0.22, 0.16, 2);
+      fill.name = name + '_fill'; fill.position.y = 0.05;
+      g.add(fill);
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(radius * 2.14, 0.012, radius * 2.14), M.chassis);
+      frame.name = name + '_frame'; frame.position.y = -0.004;
+      g.add(frame);
+      const rotor = new THREE.Group(); rotor.name = name + '_rotor';
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.34, radius * 0.34, 0.018, 28), M.blade);
+      hub.name = name + '_hub'; rotor.add(hub);
+      const cap = new THREE.Mesh(new THREE.CylinderGeometry(radius * 0.19, radius * 0.19, 0.021, 24), M.accent);
+      cap.name = name + '_cap'; cap.position.y = 0.001; rotor.add(cap);
+      for (let i = 0; i < 9; i++) {
+        const blade = new THREE.Mesh(new THREE.BoxGeometry(radius * 0.72, 0.004, 0.030), M.blade);
+        blade.name = name + '_blade_' + (i + 1);
+        const a = (i / 9) * Math.PI * 2;
+        blade.position.set(Math.cos(a) * radius * 0.60, 0, Math.sin(a) * radius * 0.60);
+        blade.rotation.y = -a; blade.rotation.z = 0.42;
+        rotor.add(blade);
+      }
+      g.add(rotor);
+      g.rotation.x = Math.PI / 2;
+      fans.push(rotor);
+      return g;
+    }
+
+    // three intake fans on the front face, seen edge-on through the open frame
+    [0.112, 0.250, 0.388].forEach((y, i) => {
+      const f = makeFan('fan_front_' + (i + 1), 0.058);
+      f.position.set(0, y, D / 2 - 0.030);
+      cabinet.add(f);
+    });
+    const rear = makeFan('fan_rear', 0.048);
+    rear.position.set(0.006, 0.420, -D / 2 + 0.022);
+    cabinet.add(rear);
+
+    // top radiator with its own lit fans, laid flat under the roof
+    cabinet.add(box('radiator', 0.132, 0.028, 0.300, -0.020, Y1 - 0.030, -0.010, M.brushed));
+    [-0.096, 0.010, 0.116].forEach((z, i) => {
+      const f = makeFan('fan_top_' + (i + 1), 0.050);
+      f.position.set(-0.020, Y1 - 0.058, z);
+      f.rotation.set(0, 0, 0);
+      cabinet.add(f);
+    });
+    // floor vent under the intake bay
+    for (let i = 0; i < 7; i++) {
+      cabinet.add(box('floor_slat_' + (i + 1), W - 0.024, 0.005, 0.009, 0, Y0 + T, 0.016 + i * 0.019, M.mesh));
+    }
+    // coolant tubing running from the radiator down to the block
+    [[-0.052, 0.130], [-0.052, 0.086]].forEach(([x, z], i) => {
+      const path = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(x, Y1 - 0.048, z),
+        new THREE.Vector3(x - 0.020, 0.400, z - 0.030),
+        new THREE.Vector3(x - 0.004, 0.330, -0.020),
+        new THREE.Vector3(0.010, 0.300, -0.050)
+      ]);
+      const tmat = M.accent.clone(); tmat.name = 'accent'; tmat.emissiveIntensity = 0.35;
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 40, 0.007, 12, false), tmat);
+      tube.name = 'coolant_tube_' + (i + 1);
+      rings.push(tube);
+      cabinet.add(tube);
+    });
+    cabinet.add(box('cpu_block', 0.062, 0.026, 0.062, 0.010, 0.296, -0.050, M.brushed));
+
+    // two bottom intakes standing in the open bay ahead of the shroud
+    [0.058, 0.150].forEach((z, i) => {
+      const f = makeFan('fan_bottom_' + (i + 1), 0.048);
+      f.position.set(-0.014, Y0 + 0.046, z);
+      f.rotation.set(0, 0, 0);
+      cabinet.add(f);
+    });
+
+    // front light strip — segments run bottom to top
+    const segs = [];
+    const SEG = 16, segH = (Y1 - Y0 - 0.040) / SEG;
+    for (let i = 0; i < SEG; i++) {
+      const mat = M.accent.clone(); mat.name = 'accent';
+      const s = new THREE.Mesh(new THREE.BoxGeometry(0.008, segH * 0.82, 0.005), mat);
+      s.name = 'light_segment_' + (i + 1);
+      s.position.set(-W / 2 + 0.014, Y0 + 0.020 + segH * (i + 0.5), D / 2 + 0.001);
+      segs.push(s); cabinet.add(s);
+    }
+
+    stage.setObject(cabinet);
+
+    // Embedded in a page: never steal wheel scroll or one-finger touch.
+    // Mouse drag still orbits; the standalone page keeps zoom.
+    if (document.body.classList.contains('embed')) {
+      const c = stage._controls;
+      if (c) {
+        c.enableZoom = false;
+        c.enablePan = false;
+        c.touches.ONE = THREE.TOUCH.PAN;
+      }
+    }
+
+    // Rim and interior lighting — colour arrives as light, not as painted panels.
+    const rimL = new THREE.PointLight(0xff3a24, 2.2, 3.2, 2);
+    rimL.name = 'light_rim_left'; rimL.position.set(-0.62, 0.46, 0.34);
+    const rimR = new THREE.PointLight(0x8c1410, 1.6, 3.2, 2);
+    rimR.name = 'light_rim_right'; rimR.position.set(0.58, 0.30, -0.42);
+    const wash = new THREE.PointLight(0xb5abfc, 1.1, 1.1, 2);
+    wash.name = 'light_interior'; wash.position.set(-0.02, 0.26, 0.02);
+    const floor = new THREE.PointLight(0x353b80, 1.4, 1.6, 2);
+    floor.name = 'light_floor'; floor.position.set(0, -0.14, 0.16);
+    cabinet.add(rimL, rimR, wash, floor);
+
+    const SCHEMES = [
+      { name: 'Crimson', strip: 0xff2d1f, rim: 0xff3a24, back: 0x8c1410, wash: 0xff5436, floor: 0x5e0c0a },
+      { name: 'Blurple', strip: 0x968ae0, rim: 0x968ae0, back: 0x4c5397, wash: 0xb5abfc, floor: 0x353b80 },
+      { name: 'Deep indigo', strip: 0x4c5397, rim: 0x353b80, back: 0x262a60, wash: 0x796cbf, floor: 0x262a60 },
+      { name: 'Ice violet', strip: 0xd2cefd, rim: 0xb5abfc, back: 0x5d5294, wash: 0xe7e5fe, floor: 0x423a6a },
+      { name: 'Dual tone', strip: 0xb5abfc, rim: 0x968ae0, back: 0x353b80, wash: 0x968ae0, floor: 0x4c5397 }
+    ];
+    let scheme = 0;
+    function applyScheme() {
+      const c = SCHEMES[scheme];
+      rimL.color.setHex(c.rim); rimR.color.setHex(c.back);
+      wash.color.setHex(c.wash); floor.color.setHex(c.floor);
+      M.accent.color.setHex(c.strip); M.accent.emissive.setHex(c.strip);
+      segs.forEach(s => { s.material.color.setHex(c.strip); s.material.emissive.setHex(c.strip); });
+      rings.forEach(r => { r.material.color.setHex(c.strip); r.material.emissive.setHex(c.strip); });
+      haloes.forEach(h => h.color.setHex(c.rim));
+      document.getElementById('scheme').textContent =
+        document.body.classList.contains('embed') ? 'Colour' : 'Lighting: ' + c.name;
+    }
+    document.getElementById('scheme').onclick = () => { scheme = (scheme + 1) % SCHEMES.length; applyScheme(); };
+    applyScheme();
+
+    let spinning = true, running = true, t = 0;
+    (function tick() {
+      requestAnimationFrame(tick);
+      t += 0.016;
+      if (spinning) fans.forEach((r, i) => { r.rotation.y += 0.16 + i * 0.012; });
+      if (running) {
+        const b = 0.85 + 0.35 * Math.sin(t * 1.6);
+        wash.intensity = 1.1 * b;
+        rimL.intensity = 2.4 * (0.9 + 0.18 * Math.sin(t * 1.1));
+        rings.forEach((r, i) => {
+          r.material.emissiveIntensity = 1.15 + 0.65 * Math.sin(t * 1.9 - i * 0.55);
+        });
+        haloes.forEach((h, i) => { h.intensity = 0.45 + 0.28 * Math.sin(t * 1.9 - i * 0.55); });
+      } else {
+        rings.forEach(r => { r.material.emissiveIntensity = 1.0; });
+        haloes.forEach(h => { h.intensity = 0.4; });
+      }
+      segs.forEach((s, i) => {
+        if (!running) { s.material.emissiveIntensity = 0.55; return; }
+        const phase = (t * 0.9 - i / SEG) % 1;
+        const p = phase < 0 ? phase + 1 : phase;
+        s.material.emissiveIntensity = 0.25 + 1.5 * Math.pow(Math.max(0, 1 - p * 3), 2);
+      });
+    })();
+
+    const compact = document.body.classList.contains('embed');
+    document.getElementById('spin').onclick = (e) => {
+      spinning = !spinning;
+      e.target.textContent = compact ? 'Fans' : (spinning ? 'Pause fans' : 'Spin fans');
+    };
+    document.getElementById('lights').onclick = (e) => {
+      running = !running;
+      e.target.textContent = compact ? 'Glow' : 'Lighting run: ' + (running ? 'on' : 'off');
+    };
+    document.getElementById('glass').onclick = (e) => {
+      glass.visible = !glass.visible;
+      e.target.textContent = compact ? 'Glass' : (glass.visible ? 'Hide' : 'Show') + ' glass panel';
+    };
+  </script>
+</body>
+</html>

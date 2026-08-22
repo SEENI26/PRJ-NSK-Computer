@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Casemod Anvil — tower and display, 3D</title>
+<link rel="stylesheet" href="ds/styles.css" />
+<script src="ds/bundle.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+  html, body { height: 100%; }
+  body { margin: 0; display: flex; flex-direction: column; position: relative; }
+  three-d-stage:not(:defined) { visibility: hidden; }
+  three-d-stage { flex: 1; min-height: 0; }
+  .bar { display: flex; align-items: baseline; gap: var(--space-6); padding: var(--space-4) var(--space-8); flex-wrap: wrap; }
+  .bar h1 { font-size: 20px; }
+  .kicker { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent); }
+  .note { font-size: 12px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-left: auto; }
+  .controls { display: flex; gap: var(--space-2); padding: 0 var(--space-8) var(--space-4); flex-wrap: wrap; align-items: center; }
+  body.embed .bar { display: none; }
+  /* Embedded on a marketing page: the viewer's own chrome is hidden. The
+     export buttons in particular have no place in a hero — visitors are not
+     downloading the mesh. Orbit and auto-rotate still work, which is the
+     interaction that matters here. */
+  body.embed .controls { display: none !important; }
+
+  body.embed .controls {
+    position: absolute; left: var(--space-3); bottom: var(--space-3); z-index: 2;
+    padding: 0; gap: 6px; flex-wrap: nowrap;
+  }
+  body.embed .controls .btn {
+    height: 28px; font-size: 11px; padding: 0 9px;
+    background: color-mix(in srgb, var(--color-bg) 72%, transparent);
+    backdrop-filter: blur(6px);
+  }
+</style>
+</head>
+<body>
+  <header class="bar">
+    <span class="kicker">Casemod</span>
+    <h1>Anvil tower and reference display</h1>
+    <span class="note">Drag to orbit · wheel to zoom · exports as OBJ + MTL or GLB (static pose)</span>
+  </header>
+  <div class="controls">
+    <button class="btn btn-primary" id="spin">Pause fan</button>
+    <button class="btn btn-secondary" id="screen">Screen: on</button>
+    <button class="btn btn-secondary" id="power">Power LED: on</button>
+    <button class="btn btn-secondary" id="view">View: desk</button>
+    <button class="btn btn-secondary" id="rgb">Interior RGB: on</button>
+  </div>
+  <three-d-stage name="casemod-anvil-tower-display" background="#161826" autorotate></three-d-stage>
+
+  <script src="three-d-stage.js"></script>
+  <script>
+    if (new URLSearchParams(location.search).has('embed')) {
+      document.body.classList.add('embed');
+
+      /* The export toolbar is built inside the stage's open shadow root during
+         init, so it may not exist yet — watch for it rather than assume. */
+      (() => {
+        const stageEl = document.querySelector('three-d-stage');
+        const hide = () => {
+          const bar = stageEl && stageEl.shadowRoot && stageEl.shadowRoot.querySelector('.toolbar');
+          if (!bar) return false;
+          bar.style.display = 'none';
+          return true;
+        };
+        if (hide()) return;
+        const observer = new MutationObserver(() => { if (hide()) observer.disconnect(); });
+        const start = () => {
+          if (stageEl && stageEl.shadowRoot) {
+            observer.observe(stageEl.shadowRoot, { childList: true, subtree: true });
+            // Give up rather than observe forever if the toolbar never appears.
+            setTimeout(() => observer.disconnect(), 15000);
+          } else {
+            setTimeout(start, 120);
+          }
+        };
+        start();
+      })();
+      document.getElementById('spin').textContent = 'Fan';
+      document.getElementById('screen').textContent = 'Screen';
+      document.getElementById('power').textContent = 'LED';
+      document.getElementById('view').textContent = 'View';
+      document.getElementById('rgb').textContent = 'RGB';
+      // Hex triple only — this value comes from the query string and is
+      // written straight into a style property and an attribute.
+      const bg = new URLSearchParams(location.search).get('bg');
+      if (bg && /^#?[0-9a-f]{3,8}$/i.test(bg)) {
+        const c = '#' + bg.replace('#', '');
+        document.body.style.background = c;
+        const st = document.querySelector('three-d-stage');
+        st.setAttribute('background', c);
+        st.style.background = c;
+      }
+    }
+    // The store's reduced-motion rule only stops CSS animation; the turntable
+    // is a rAF loop inside this frame, so it has to opt out for itself.
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelector('three-d-stage').removeAttribute('autorotate');
+    }
+  </script>
+  <script type="module">
+    const stage = document.querySelector('three-d-stage');
+    const { THREE } = await stage.ready;
+
+    const M = {
+      steel:  new THREE.MeshStandardMaterial({ name: 'steel',  color: 0x33353e, roughness: 0.58, metalness: 0.44 }),
+      bezel:  new THREE.MeshStandardMaterial({ name: 'bezel',  color: 0x25272e, roughness: 0.72, metalness: 0.22 }),
+      dark:   new THREE.MeshStandardMaterial({ name: 'dark',   color: 0x16171c, roughness: 0.9,  metalness: 0.08 }),
+      trim:   new THREE.MeshStandardMaterial({ name: 'trim',   color: 0x7f838f, roughness: 0.36, metalness: 0.6 }),
+      glass:  new THREE.MeshStandardMaterial({ name: 'glass',  color: 0x2c2f3d, roughness: 0.06, metalness: 0.3, transparent: true, opacity: 0.10, side: THREE.DoubleSide }),
+      led:    new THREE.MeshStandardMaterial({ name: 'led',    color: 0x968ae0, roughness: 0.4, metalness: 0.1, emissive: 0x968ae0, emissiveIntensity: 1.6 }),
+      panelLit: new THREE.MeshStandardMaterial({ name: 'screen', color: 0x1a1d2c, roughness: 0.22, metalness: 0.1, emissive: 0x4c5397, emissiveIntensity: 0.9 })
+    };
+
+    const box = (name, w, h, d, x, y, z, mat) => {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+      m.name = name; m.position.set(x, y, z);
+      return m;
+    };
+
+    const scene = new THREE.Group();
+    scene.name = 'anvil_workstation';
+
+    /* ---------- tower: closed panels, bezel with drive bays ---------- */
+    const tower = new THREE.Group(); tower.name = 'tower';
+    const TW = 0.21, TH = 0.46, TD = 0.47, F = TD / 2;
+
+    // shell built as separate panels — the -X side stays open behind the glass
+    const TT = 0.006, CY = TH / 2 + 0.014;
+    tower.add(box('panel_bottom', TW, TT, TD, 0, 0.014 + TT / 2, 0, M.steel));
+    tower.add(box('panel_top', TW, TT, TD, 0, TH + 0.014 - TT / 2, 0, M.steel));
+    tower.add(box('panel_back', TW, TH, TT, 0, CY, -TD / 2 + TT / 2, M.steel));
+    tower.add(box('panel_side_right', TT, TH, TD, TW / 2 - TT / 2, CY, 0, M.steel));
+    // left side: a frame around the window opening, not a wall
+    tower.add(box('side_rail_front', TT, TH, 0.030, -TW / 2 + TT / 2, CY, TD / 2 - 0.015, M.steel));
+    tower.add(box('side_rail_back', TT, TH, 0.030, -TW / 2 + TT / 2, CY, -TD / 2 + 0.015, M.steel));
+    tower.add(box('side_rail_top', TT, 0.026, TD, -TW / 2 + TT / 2, TH + 0.001, 0, M.steel));
+    tower.add(box('side_rail_bottom', TT, 0.026, TD, -TW / 2 + TT / 2, 0.040, 0, M.steel));
+    // recessed window
+    tower.add(box('window_glass', 0.004, TH - 0.070, TD - 0.110, -TW / 2 - 0.001, CY, -0.012, M.glass));
+    tower.add(box('window_frame_top', 0.008, 0.010, TD - 0.100, -TW / 2 - 0.001, TH - 0.024, -0.012, M.bezel));
+    tower.add(box('window_frame_bottom', 0.008, 0.010, TD - 0.100, -TW / 2 - 0.001, 0.062, -0.012, M.bezel));
+
+    // front bezel plate, standing slightly proud like the reference
+    tower.add(box('front_bezel', TW + 0.008, TH + 0.008, 0.016, 0, TH / 2 + 0.014, F + 0.008, M.bezel));
+
+    // four 5.25" drive bays at the top
+    for (let i = 0; i < 4; i++) {
+      const y = TH - 0.030 - i * 0.036;
+      tower.add(box('drive_bay_' + (i + 1), TW - 0.030, 0.026, 0.006, 0, y, F + 0.017, M.dark));
+      tower.add(box('drive_bay_lip_' + (i + 1), TW - 0.030, 0.003, 0.009, 0, y + 0.014, F + 0.018, M.trim));
+    }
+    // two 3.5" bays below
+    for (let i = 0; i < 2; i++) {
+      tower.add(box('small_bay_' + (i + 1), TW - 0.052, 0.018, 0.006, 0, 0.300 - i * 0.026, F + 0.017, M.dark));
+    }
+
+    // four small round buttons + one ringed port
+    const leds = [];
+    [-0.048, -0.024, 0.000, 0.024].forEach((x, i) => {
+      const b = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.006, 20), M.dark);
+      b.name = 'button_' + (i + 1); b.rotation.x = Math.PI / 2;
+      b.position.set(x, 0.246, F + 0.018);
+      tower.add(b);
+    });
+    const portRing = new THREE.Mesh(new THREE.TorusGeometry(0.009, 0.002, 10, 26), M.trim);
+    portRing.name = 'port_ring'; portRing.position.set(0.056, 0.246, F + 0.019);
+    tower.add(portRing);
+
+    // large round power button with a lit ring
+    const pwrBody = new THREE.Mesh(new THREE.CylinderGeometry(0.019, 0.019, 0.008, 28), M.dark);
+    pwrBody.name = 'power_button'; pwrBody.rotation.x = Math.PI / 2;
+    pwrBody.position.set(0.010, 0.176, F + 0.018);
+    tower.add(pwrBody);
+    const pwrRing = new THREE.Mesh(new THREE.TorusGeometry(0.014, 0.0022, 10, 32), M.led);
+    pwrRing.name = 'power_ring'; pwrRing.position.set(0.010, 0.176, F + 0.021);
+    leds.push(pwrRing); tower.add(pwrRing);
+
+    // angled intake vents down the lower bezel
+    for (let i = 0; i < 9; i++) {
+      const v = box('vent_slat_' + (i + 1), 0.052, 0.005, 0.008, -0.062, 0.150 - i * 0.014, F + 0.017, M.dark);
+      v.rotation.z = 0.30;
+      tower.add(v);
+    }
+
+    // rear panel: I/O cutout, expansion slots, exhaust fan, mesh grille
+    tower.add(box('io_panel', 0.062, 0.048, 0.004, -0.052, 0.396, -F - 0.002, M.dark));
+    for (let i = 0; i < 7; i++) {
+      tower.add(box('expansion_slot_' + (i + 1), 0.088, 0.011, 0.004, -0.020, 0.318 - i * 0.019, -F - 0.002, M.dark));
+      tower.add(box('slot_screw_' + (i + 1), 0.006, 0.006, 0.005, 0.036, 0.318 - i * 0.019, -F - 0.003, M.trim));
+    }
+    // honeycomb-ish grille above the rear fan
+    for (let r = 0; r < 4; r++) {
+      for (let c = 0; c < 7; c++) {
+        const h = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.004, 6), M.dark);
+        h.name = 'grille_cell_' + (r * 7 + c + 1);
+        h.rotation.x = Math.PI / 2;
+        h.position.set(-0.070 + c * 0.0125 + (r % 2) * 0.006, 0.442 - r * 0.011, -F - 0.001);
+        tower.add(h);
+      }
+    }
+
+    // rear exhaust fan, visible through its own cutout
+    const rotors = [];
+    const fan = new THREE.Group(); fan.name = 'fan_rear';
+    const shroud = new THREE.Mesh(new THREE.TorusGeometry(0.055, 0.005, 12, 40), M.bezel);
+    shroud.name = 'fan_rear_shroud'; shroud.rotation.x = Math.PI / 2;
+    fan.add(shroud);
+    const frame = new THREE.Mesh(new THREE.BoxGeometry(0.118, 0.010, 0.118), M.bezel);
+    frame.name = 'fan_rear_frame'; frame.position.y = -0.004; fan.add(frame);
+    [[-0.052, -0.052], [0.052, -0.052], [-0.052, 0.052], [0.052, 0.052]].forEach(([a, b], i) => {
+      const s = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.012, 12), M.trim);
+      s.name = 'fan_screw_' + (i + 1); s.position.set(a, 0, b); fan.add(s);
+    });
+    const rotor = new THREE.Group(); rotor.name = 'fan_rear_rotor';
+    const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.019, 0.019, 0.016, 26), M.trim);
+    hub.name = 'fan_rear_hub'; rotor.add(hub);
+    for (let i = 0; i < 9; i++) {
+      const blade = new THREE.Mesh(new THREE.BoxGeometry(0.042, 0.004, 0.030), M.trim);
+      blade.name = 'fan_rear_blade_' + (i + 1);
+      const a = (i / 9) * Math.PI * 2;
+      blade.position.set(Math.cos(a) * 0.034, 0, Math.sin(a) * 0.034);
+      blade.rotation.y = -a; blade.rotation.z = 0.44;
+      rotor.add(blade);
+    }
+    rotors.push(rotor); fan.add(rotor);
+    fan.rotation.x = Math.PI / 2;
+    fan.position.set(-0.020, 0.386, -F - 0.008);
+    tower.add(fan);
+
+    // stand feet
+    [[-0.072, 0.176], [0.072, 0.176], [-0.072, -0.176], [0.072, -0.176]].forEach(([x, z], i) => {
+      const f = new THREE.Mesh(new THREE.BoxGeometry(0.040, 0.014, 0.048), M.bezel);
+      f.name = 'foot_' + (i + 1); f.position.set(x, 0.007, z);
+      tower.add(f);
+    });
+
+    tower.position.set(-0.34, 0, 0.02);
+    scene.add(tower);
+
+    /* ---------- interior: modern gaming build behind the window ---------- */
+    const rgbParts = [];
+    const litClone = (hex, intensity) => {
+      const m = M.led.clone(); m.name = 'led';
+      m.color.setHex(hex); m.emissive.setHex(hex); m.emissiveIntensity = intensity;
+      return m;
+    };
+
+    tower.add(box('psu_shroud', TW - 0.014, 0.070, TD - 0.070, 0, 0.052, -0.012, M.bezel));
+    tower.add(box('shroud_face_light', 0.004, 0.006, TD - 0.130, -TW / 2 + 0.010, 0.082, -0.012, M.led));
+    rgbParts.push(tower.children[tower.children.length - 1]);
+    tower.add(box('motherboard', 0.005, 0.270, 0.240, TW / 2 - 0.016, 0.276, -0.040, M.dark));
+    tower.add(box('chipset_heatsink', 0.010, 0.052, 0.052, TW / 2 - 0.024, 0.170, 0.010, M.trim));
+
+    /* graphics card — triple-slot, two fans, lit edge, sagging bracket */
+    const gpu = new THREE.Group(); gpu.name = 'graphics_card';
+    gpu.add(box('gpu_pcb', 0.128, 0.010, 0.250, 0, 0, 0, M.dark));
+    gpu.add(box('gpu_shroud', 0.132, 0.046, 0.256, 0, 0.028, 0, M.bezel));
+    gpu.add(box('gpu_backplate', 0.134, 0.005, 0.258, 0, -0.008, 0, M.trim));
+    gpu.add(box('gpu_fin_stack', 0.120, 0.034, 0.140, 0, 0.026, -0.048, M.trim));
+    const gpuEdge = box('gpu_edge_light', 0.004, 0.008, 0.210, -0.066, 0.030, 0.004, M.led);
+    rgbParts.push(gpuEdge); gpu.add(gpuEdge);
+    const gpuLogo = box('gpu_logo_bar', 0.052, 0.005, 0.006, -0.010, 0.052, 0.086, M.led);
+    rgbParts.push(gpuLogo); gpu.add(gpuLogo);
+    gpu.add(box('gpu_bracket', 0.004, 0.052, 0.020, 0.064, 0.014, -0.118, M.trim));
+    const gpuFans = [];
+    [0.058, -0.030].forEach((z, i) => {
+      const g = new THREE.Group(); g.name = 'gpu_fan_' + (i + 1);
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(0.040, 0.003, 10, 34), M.bezel);
+      ring.name = 'gpu_fan_ring_' + (i + 1); ring.rotation.x = Math.PI / 2; g.add(ring);
+      const r = new THREE.Group(); r.name = 'gpu_fan_rotor_' + (i + 1);
+      const h = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.012, 20), M.trim);
+      h.name = 'gpu_fan_hub_' + (i + 1); r.add(h);
+      for (let b = 0; b < 11; b++) {
+        const bl = new THREE.Mesh(new THREE.BoxGeometry(0.030, 0.003, 0.016), M.trim);
+        bl.name = 'gpu_fan_' + (i + 1) + '_blade_' + (b + 1);
+        const a = (b / 11) * Math.PI * 2;
+        bl.position.set(Math.cos(a) * 0.024, 0, Math.sin(a) * 0.024);
+        bl.rotation.y = -a; bl.rotation.z = 0.38;
+        r.add(bl);
+      }
+      gpuFans.push(r); g.add(r);
+      g.position.set(0, 0.052, z);
+      gpu.add(g);
+    });
+    gpu.position.set(-0.006, 0.160, -0.010);
+    tower.add(gpu);
+
+    /* memory with lit diffusers */
+    for (let i = 0; i < 4; i++) {
+      tower.add(box('ram_' + (i + 1), 0.006, 0.046, 0.126, 0.044 + i * 0.011, 0.368, 0.010, M.dark));
+      const d = box('ram_light_' + (i + 1), 0.005, 0.005, 0.120, 0.044 + i * 0.011, 0.393, 0.010, M.led);
+      rgbParts.push(d); tower.add(d);
+    }
+
+    /* AIO pump block and top radiator */
+    tower.add(box('radiator', 0.120, 0.026, 0.270, -0.014, TH - 0.016, -0.020, M.trim));
+    const pump = box('cpu_pump', 0.058, 0.024, 0.058, 0.004, 0.300, -0.046, M.bezel);
+    tower.add(pump);
+    const pumpRing = new THREE.Mesh(new THREE.TorusGeometry(0.018, 0.0022, 10, 30), M.led);
+    pumpRing.name = 'pump_ring'; pumpRing.rotation.y = Math.PI / 2;
+    pumpRing.position.set(-0.026, 0.300, -0.046);
+    rgbParts.push(pumpRing); tower.add(pumpRing);
+    [[0.120, 0.030], [0.086, 0.030]].forEach(([z, r], i) => {
+      const path = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-0.040, TH - 0.034, z),
+        new THREE.Vector3(-0.048, 0.380, z - 0.020),
+        new THREE.Vector3(-0.020, 0.330, -0.010),
+        new THREE.Vector3(0.004, 0.312, -0.040)
+      ]);
+      const tube = new THREE.Mesh(new THREE.TubeGeometry(path, 36, 0.006, 10, false), M.dark);
+      tube.name = 'coolant_tube_' + (i + 1);
+      tower.add(tube);
+    });
+
+    /* vertical RGB strip down the window edge */
+    for (let i = 0; i < 12; i++) {
+      const s = new THREE.Mesh(new THREE.BoxGeometry(0.005, 0.020, 0.005), litClone(0x968ae0, 1.2));
+      s.name = 'interior_strip_' + (i + 1);
+      s.position.set(-TW / 2 + 0.014, 0.100 + i * 0.028, F - 0.030);
+      rgbParts.push(s); tower.add(s);
+    }
+
+    const interiorGlow = new THREE.PointLight(0x968ae0, 1.1, 0.62, 2);
+    interiorGlow.name = 'interior_glow'; interiorGlow.position.set(-0.030, 0.240, 0.010);
+    tower.add(interiorGlow);
+
+    /* ---------- monitor ---------- */
+    // Screen content: drop a file in the project and set this to its path
+    // (or pass ?screen=shots/ui.png) to show a real image instead of the drawn UI.
+    const SCREEN_IMAGE = new URLSearchParams(location.search).get('screen') || null;
+
+    function drawnScreenTexture() {
+      /* The monitor in this scene shows the site itself. Rebranded to NSK and
+         stripped of prices — this is a showcase, and a rendered price tag on a
+         3D model would be the one place a figure sneaks back in. */
+      const c = document.createElement('canvas');
+      c.width = 1024; c.height = 600;
+      const x = c.getContext('2d');
+      x.fillStyle = '#080808'; x.fillRect(0, 0, 1024, 600);
+      const g = x.createRadialGradient(760, 40, 20, 760, 40, 620);
+      g.addColorStop(0, 'rgba(34,211,238,0.20)'); g.addColorStop(1, 'rgba(8,8,8,0)');
+      x.fillStyle = g; x.fillRect(0, 0, 1024, 600);
+      // header
+      x.fillStyle = '#22d3ee'; x.fillRect(48, 40, 10, 26);
+      x.fillStyle = '#ffffff'; x.font = '600 24px Inter, sans-serif';
+      x.letterSpacing = '5px';
+      x.fillText('NSK', 70, 62);
+      x.fillStyle = 'rgba(255,255,255,0.45)'; x.font = '17px Inter, sans-serif';
+      x.letterSpacing = '0px';
+      ['Gaming', 'Professional', 'Hardware', 'Accessories'].forEach((s2, i) => x.fillText(s2, 300 + i * 140, 62));
+      x.strokeStyle = 'rgba(255,255,255,0.10)'; x.lineWidth = 1;
+      x.beginPath(); x.moveTo(48, 88); x.lineTo(976, 88); x.stroke();
+      // headline
+      x.fillStyle = '#ffffff'; x.font = '600 62px Inter, sans-serif';
+      x.fillText('Build better.', 48, 196);
+      x.fillStyle = '#22d3ee';
+      x.fillText('Perform faster.', 48, 268);
+      x.fillStyle = 'rgba(255,255,255,0.55)'; x.font = '20px Inter, sans-serif';
+      x.fillText('Hardware, systems and custom builds.', 48, 312);
+      // buttons
+      x.fillStyle = '#22d3ee'; x.fillRect(48, 340, 200, 48);
+      x.fillStyle = '#08090b'; x.font = '500 18px Inter, sans-serif';
+      x.fillText('Explore Gaming', 74, 370);
+      x.strokeStyle = 'rgba(255,255,255,0.22)'; x.lineWidth = 2;
+      x.strokeRect(266, 340, 220, 48);
+      x.fillStyle = 'rgba(255,255,255,0.8)'; x.fillText('Explore Professional', 292, 370);
+      // department tiles — names only, no figures
+      ['Processors', 'Graphics', 'Workstations'].forEach((label, i) => {
+        const cx = 48 + i * 310;
+        x.fillStyle = '#171717'; x.fillRect(cx, 424, 286, 128);
+        x.fillStyle = 'rgba(255,255,255,0.06)'; x.fillRect(cx + 16, 440, 254, 62);
+        x.fillStyle = 'rgba(255,255,255,0.75)'; x.font = '16px Inter, sans-serif';
+        x.fillText(label, cx + 16, 528);
+      });
+      const tex = new THREE.CanvasTexture(c);
+      tex.colorSpace = THREE.SRGBColorSpace;
+      return tex;
+    }
+
+    const screenTex = drawnScreenTexture();
+    M.panelLit.map = screenTex;
+    M.panelLit.emissiveMap = screenTex;
+    M.panelLit.emissive.setHex(0xffffff);
+    M.panelLit.emissiveIntensity = 0.85;
+    M.panelLit.needsUpdate = true;
+
+    if (SCREEN_IMAGE) {
+      new THREE.TextureLoader().load(SCREEN_IMAGE, (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        M.panelLit.map = tex; M.panelLit.emissiveMap = tex;
+        M.panelLit.needsUpdate = true;
+      });
+    }
+
+    const monitor = new THREE.Group(); monitor.name = 'monitor';
+    const MW = 0.62, MH = 0.36;
+    monitor.add(box('monitor_shell', MW, MH, 0.022, 0, 0.34, -0.012, M.bezel));
+    monitor.add(box('monitor_bezel_face', MW - 0.006, MH - 0.006, 0.004, 0, 0.34, 0.001, M.dark));
+    const screen = box('monitor_screen', MW - 0.020, MH - 0.024, 0.003, 0, 0.343, 0.004, M.panelLit);
+    monitor.add(screen);
+    monitor.add(box('monitor_chin_mark', 0.030, 0.004, 0.004, 0, 0.170, 0.004, M.led));
+    monitor.add(box('monitor_neck', 0.048, 0.150, 0.030, 0, 0.090, -0.020, M.steel));
+    monitor.add(box('monitor_base', 0.240, 0.014, 0.150, 0, 0.014, -0.020, M.steel));
+    const scrLight = new THREE.RectAreaLight ? null : null;
+    const glow = new THREE.PointLight(0x4c5397, 1.6, 1.4, 2);
+    glow.name = 'screen_glow'; glow.position.set(0, 0.34, 0.14);
+    monitor.add(glow);
+    monitor.position.set(0.16, 0, -0.10);
+    scene.add(monitor);
+
+    /* ---------- keyboard, a little desk furniture ---------- */
+    scene.add(box('keyboard', 0.300, 0.014, 0.104, 0.16, 0.007, 0.220, M.bezel));
+    scene.add(box('keyboard_deck', 0.284, 0.003, 0.090, 0.16, 0.015, 0.220, M.dark));
+    scene.add(box('keyboard_light', 0.284, 0.002, 0.003, 0.16, 0.016, 0.268, M.led));
+
+    stage.setObject(scene);
+
+    // Embedded in a page: never steal wheel scroll or one-finger touch.
+    // Mouse drag still orbits; the standalone page keeps zoom.
+    if (document.body.classList.contains('embed')) {
+      const c = stage._controls;
+      if (c) {
+        c.enableZoom = false;
+        c.enablePan = false;
+        c.touches.ONE = THREE.TOUCH.PAN;
+      }
+    }
+
+    // tighter framing than the auto-fit: the subject is wide and flat, so the
+    // default fit leaves the machine small in a card-sized viewport.
+    requestAnimationFrame(() => {
+      const cam = stage._camera, ctl = stage._controls;
+      if (!cam || !ctl) return;
+      const tgt = ctl.target.clone();
+      cam.position.sub(tgt).multiplyScalar(0.72).add(tgt);
+      ctl.update();
+    });
+
+    const rimL = new THREE.PointLight(0x968ae0, 2.0, 3.4, 2);
+    rimL.name = 'light_rim_left'; rimL.position.set(-0.90, 0.62, 0.60);
+    const rimR = new THREE.PointLight(0x4c5397, 1.4, 3.4, 2);
+    rimR.name = 'light_rim_right'; rimR.position.set(0.80, 0.44, -0.60);
+    scene.add(rimL, rimR);
+
+    let spinning = true, screenOn = true, ledOn = true, t = 0, deskView = true, rgbOn = true;
+    (function tick() {
+      requestAnimationFrame(tick);
+      t += 0.016;
+      if (spinning) {
+        rotor.rotation.y += 0.14;
+        gpuFans.forEach((r, i) => { r.rotation.y += 0.19 + i * 0.02; });
+      }
+      if (rgbOn) {
+        rgbParts.forEach((p, i) => {
+          p.material.emissiveIntensity = 1.05 + 0.55 * Math.sin(t * 1.5 - i * 0.4);
+        });
+        interiorGlow.intensity = 1.0 + 0.28 * Math.sin(t * 1.5);
+      }
+      if (screenOn) {
+        M.panelLit.emissiveIntensity = 0.80 + 0.05 * Math.sin(t * 0.9);
+        glow.intensity = 1.5 + 0.12 * Math.sin(t * 0.9);
+      }
+      if (ledOn) M.led.emissiveIntensity = 1.35 + 0.35 * Math.sin(t * 1.7);
+    })();
+
+    const compact = document.body.classList.contains('embed');
+    document.getElementById('spin').onclick = (e) => {
+      spinning = !spinning;
+      e.target.textContent = compact ? 'Fan' : (spinning ? 'Pause fan' : 'Spin fan');
+    };
+    document.getElementById('screen').onclick = (e) => {
+      screenOn = !screenOn;
+      M.panelLit.emissiveIntensity = screenOn ? 0.85 : 0.02;
+      glow.intensity = screenOn ? 1.5 : 0;
+      e.target.textContent = compact ? 'Screen' : 'Screen: ' + (screenOn ? 'on' : 'off');
+    };
+    document.getElementById('power').onclick = (e) => {
+      ledOn = !ledOn;
+      M.led.emissiveIntensity = ledOn ? 1.5 : 0.05;
+      e.target.textContent = compact ? 'LED' : 'Power LED: ' + (ledOn ? 'on' : 'off');
+    };
+    document.getElementById('rgb').onclick = (e) => {
+      rgbOn = !rgbOn;
+      if (!rgbOn) {
+        rgbParts.forEach(p => { p.material.emissiveIntensity = 0.06; });
+        interiorGlow.intensity = 0.12;
+      }
+      e.target.textContent = compact ? 'RGB' : 'Interior RGB: ' + (rgbOn ? 'on' : 'off');
+    };
+
+    document.getElementById('view').onclick = (e) => {
+      deskView = !deskView;
+      if (stage._controls) stage._controls.autoRotate = deskView;
+      monitor.visible = deskView;
+      document.querySelectorAll('#view')[0].textContent = compact ? 'View' : 'View: ' + (deskView ? 'desk' : 'tower only');
+      scene.getObjectByName('keyboard').visible = deskView;
+      scene.getObjectByName('keyboard_deck').visible = deskView;
+      scene.getObjectByName('keyboard_light').visible = deskView;
+    };
+  </script>
+</body>
+</html>

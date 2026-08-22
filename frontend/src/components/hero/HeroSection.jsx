@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Cpu } from 'lucide-react';
 import { Button, Container } from '@/components/common';
 import { HeroBackground } from './HeroBackground';
-import { AnimatedCabinet } from './AnimatedCabinet';
+import { Cabinet3D } from './Cabinet3D';
 import { useMousePosition } from '@/hooks/useMousePosition';
 import { COMPANY } from '@/data/company';
 import { ROUTES } from '@/utils/constants';
@@ -28,7 +28,7 @@ export function HeroSection() {
       <HeroBackground tilt={tilt} />
 
       <Container>
-        <div className="grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+        <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.05fr] lg:gap-8">
           <motion.div variants={stagger(0.09, 0.1)} initial="hidden" animate="visible">
             <motion.div variants={staggerItem} className="flex items-center gap-2.5">
               <Cpu className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
@@ -84,9 +84,10 @@ export function HeroSection() {
             </motion.dl>
           </motion.div>
 
-          {/* The machine */}
+          {/* The machine — the real three.js model, with the CSS cabinet
+              standing in until it paints. */}
           <div className="relative flex justify-center lg:justify-end">
-            <AnimatedCabinet mode="gaming" tilt={tilt} scrollParallax={false} />
+            <Cabinet3D model="workstation" background="080808" fallbackMode="gaming" />
           </div>
         </div>
       </Container>

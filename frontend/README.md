@@ -61,6 +61,7 @@ src/
 │   │                        RecommendedAccessories, ShowroomGallery, WhyChooseUs, CTASection
 │   ├── gallery/             DomeGallery — draggable sphere of images
 │   ├── effects/             PixelSnow — ambient particle field
+│   └── hero/Cabinet3D.jsx   embeds the real three.js viewer from public/3d/
 │   └── contact/             ContactForm, ContactInfo, MapSection
 │
 ├── pages/                   Home, GamingPC, ProfessionalPC, Hardware, Accessories,
@@ -179,6 +180,37 @@ Two things to know if you re-tune PixelSnow:
 - the published defaults (`pixelResolution={200}`, `density={0.3}`) upscale to
   roughly 14 px squares at desktop width, which competes with the headline.
   The hero instance uses a finer buffer and lower density for that reason.
+
+### The 3D model in the hero
+
+`public/3d/workstation.html` is the three.js viewer, embedded in an iframe by
+`components/hero/Cabinet3D.jsx`. It is mounted rather than ported to
+react-three-fiber for two reasons: the scene is several hundred lines of
+imperative geometry that already works, and an iframe keeps three.js out of the
+app bundle entirely.
+
+`public/3d/cabinet.html` is the gaming cabinet from the same source — pass
+`model="cabinet"` to use it instead.
+
+Three things the wrapper handles:
+
+- **WebGL is probed before embedding.** The iframe's load event fires even when
+  the viewer inside failed to get a context, so waiting for `onLoad` would
+  leave an error message in the hero. No WebGL means the CSS `AnimatedCabinet`
+  renders instead.
+- **A 9-second timeout** falls back the same way, since three.js is fetched
+  from a CDN.
+- **Under reduced motion the embed is skipped entirely** — a WebGL render loop
+  is exactly what that setting asks you not to start.
+
+The monitor inside the model renders the site's own hero. It was rebranded from
+the original CASEMOD artwork and its price tags were removed — a rendered price
+on a 3D mesh is the one place a figure sneaks back into a showcase.
+
+The viewer's own chrome (control chips, "Download OBJ + MTL", "Download GLB")
+is hidden in embed mode. The toolbar lives in the stage's open shadow root with
+no exported part, so CSS cannot reach it — it is hidden from script by a
+MutationObserver in the page's embed branch.
 
 ### Adding showroom photographs
 
