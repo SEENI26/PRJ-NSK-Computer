@@ -1,0 +1,29 @@
+{
+  "brandNavy": "#211D71",
+  "assets": {
+    "logo": {
+      "width": 1548,
+      "height": 574
+    },
+    "logoLight": {
+      "width": 1548,
+      "height": 574
+    },
+    "primary": {
+      "width": 1200,
+      "height": 288
+    },
+    "primaryLight": {
+      "width": 1200,
+      "height": 288
+    },
+    "mark": {
+      "width": 900,
+      "height": 501
+    },
+    "markLight": {
+      "width": 900,
+      "height": 501
+    }
+  }
+}

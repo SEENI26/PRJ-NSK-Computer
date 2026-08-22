@@ -1,0 +1,32 @@
+/**
+ * Keyframes Framer Motion should not own: ambient loops that must keep running
+ * independently of scroll or mount state.
+ */
+@keyframes drift-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -18px, 0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.85; }
+}
+@keyframes sweep-sheen {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%)  skewX(-18deg); }
+}
+@keyframes fan-spin { to { transform: rotate(360deg); } }
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  40%  { opacity: 0.5; }
+  100% { transform: translateY(700%); opacity: 0; }
+}
+
+.anim-drift      { animation: drift-slow 9s ease-in-out infinite; }
+.anim-glow       { animation: pulse-glow 4.5s ease-in-out infinite; }
+.anim-fan        { animation: fan-spin 3.4s linear infinite; transform-origin: 50% 50%; }
+.anim-fan-slow   { animation: fan-spin 8s linear infinite;   transform-origin: 50% 50%; }
+.anim-scan       { animation: scan-line 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-drift, .anim-glow, .anim-fan, .anim-fan-slow, .anim-scan { animation: none !important; }
+}

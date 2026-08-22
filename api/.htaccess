@@ -1,0 +1,21 @@
+# Route every request through index.php, except real files (uploads, etc).
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^uploads/ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
+
+# Never serve config, logs, seed data or the schema over HTTP.
+<FilesMatch "^(config\.php|config\.local\.php|schema\.sql|seed\.php|seed-data\.json|export-data\.mjs)$">
+  Require all denied
+</FilesMatch>
+
+# storage/ holds error logs and rate-limit state — never web-readable.
+RedirectMatch 404 ^/.*/api/storage/
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>

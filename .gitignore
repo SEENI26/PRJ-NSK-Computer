@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Build output
+frontend/dist/
+next-app/.next/
+next-app/out/
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+*/.env
+*/.env.local
+api/config.local.php
+
+# Runtime state
+api/storage/
+api/uploads/
+frontend/_legacy/
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Archives
+*.tar.gz

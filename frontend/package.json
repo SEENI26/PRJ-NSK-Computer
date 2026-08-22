@@ -1,0 +1,42 @@
+{
+  "name": "nsk-computer-zone-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NSK Computer Zone \u2014 A click for many solution Premium enterprise frontend.",
+  "scripts": {
+    "dev": "vite --port 3100 --strictPort",
+    "build": "vite build",
+    "start": "vite preview --port 3100 --strictPort",
+    "lint": "eslint src",
+    "content:check": "node ../scripts/check-content.mjs",
+    "images:fetch": "node scripts/fetch-images.mjs",
+    "images:report": "node scripts/report-images.mjs",
+    "analyze": "vite build",
+    "brand:build": "node scripts/build-brand.mjs",
+    "brands:build": "node scripts/build-brand-logos.mjs"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.17",
+    "lucide-react": "^0.462.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-router-dom": "^7.18.2",
+    "tailwind-merge": "^2.5.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "postcss": "^8.4.49",
+    "sharp": "^0.33.5",
+    "tailwindcss": "^3.4.16",
+    "vite": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}

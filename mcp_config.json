@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "REFERENCE ONLY — Claude Code does not read this filename.",
+    "The live configuration is .mcp.json in this same directory.",
+    "",
+    "This is the upstream README's example, which assumes a local clone.",
+    "We do NOT clone the repo: .mcp.json uses `uvx blender-mcp`, which fetches",
+    "and runs the package on demand. Nothing to clone, nothing to keep updated.",
+    "",
+    "Setup (all on the machine, not in this project):",
+    "  brew install uv",
+    "  brew install --cask blender",
+    "",
+    "  curl -o ~/Downloads/addon.py \\",
+    "    https://raw.githubusercontent.com/ahujasid/blender-mcp/main/addon.py",
+    "",
+    "  Blender: Edit > Preferences > Add-ons > Install... > addon.py > enable",
+    "  3D viewport: press N > BlenderMCP tab > Connect",
+    "  Then restart Claude Code.",
+    "",
+    "The MCP server is only a relay — it talks to that addon over a socket.",
+    "With Blender closed, or the addon not connected, it starts and does nothing.",
+    "",
+    "Kept because you asked to keep it. Delete freely; it has no effect."
+  ],
+  "mcpServers": {
+    "blender": {
+      "command": "uvx",
+      "args": ["blender-mcp"]
+    }
+  }
+}

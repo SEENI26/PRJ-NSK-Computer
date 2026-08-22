@@ -1,0 +1,602 @@
+{
+  "/images/about/facility.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoUAAsAPxl0sVCspqSisAgBkCMJZQDLLBdeWQfb173u0oAAAPy0gHoZL6quDB+JzI+zzNdkSqcM+0VdH0tn6g92tOIvUYZ5uh00/4uhp59KAAAA",
+    "alt": "NSK Computer Zone office and service facility interior"
+  },
+  "/images/about/team-collab.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADQAwCdASoUAAsAPxl0sVCspqSisAgBkCMJZQC7ABa1CT//DlvqgAAA/ZydK9jJCJMZ9P2fhNi21RJ0yzOEF0qN/3IakzDi0WVEfORP3gb+147wZAOm/wf4hTywOx0zZPD5ivRXMwuoKGbLNOPwAA==",
+    "alt": "NSK Computer Zone team collaborating on a build specification"
+  },
+  "/images/about/workshop.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAgCdASoUAAsAPxl2slEspySisAgBkCMJQAARRvAA/u4RyrC2O826xE6lyo2InifNW2i5c4wAAA==",
+    "alt": "NSK Computer Zone assembly workshop and testing bench"
+  },
+  "/images/backgrounds/abstract-ai.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQBACdASoUAAgAPxl2slEspySisAgBkCMJYwCdEf/gNZB92trrBSbMIAD9jg7Mn8BmDCSOOsMkw9fbpQ3IQqAZAD8g81QnstOJ+H/M5KcKATB//8+4NyHJwVBHZF3WOwAAAA==",
+    "alt": "Abstract artificial intelligence neural rendering in blue and violet"
+  },
+  "/images/backgrounds/abstract-code.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAACwAwCdASoUAAgAPxl6s1Gsp6SisAgBkCMJQBOgBD8zPvN4pnMrAAD+Qd1+DBC8ybJQQAXi0jTnN/HuUN15xnhFOkohSJkQOufrhbK6AAA=",
+    "alt": "Colourful source code displayed on a dark developer screen"
+  },
+  "/images/backgrounds/abstract-grid.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAABQAwCdASoUAAgAPxl0sVCspqSisAgBkCMJYwAAGY9RbNhuIAD6XEdXdRKnTEV0pFCDXbBBxcRksGRQAAA=",
+    "alt": "Abstract three dimensional blue grid technology background"
+  },
+  "/images/backgrounds/abstract-network.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAABwAwCdASoUAAgAPxl2slCspySisAgBkCMJZQC7AB6Ni+XB/IAA/uxEF/g9I7JBJCqBp78IkoS9QXlgYgERYAAA",
+    "alt": "Global network connections visualised as glowing lines of light"
+  },
+  "/images/backgrounds/abstract-waves.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADQAwCdASoUAAgAPxl2slCspySisAgBkCMJaACdACHiBR9f1vlpz/gA/sB5cLj/wBxY9qUqmxn1J54zsFBZJeJpMbCjIXfdk7wfbEBALcfKcu+reLB7QczIWfgiDd1EIeHObdAAAAA=",
+    "alt": "Abstract blue light waves on a dark technology background"
+  },
+  "/images/backgrounds/workshop-cta.webp": {
+    "width": 1920,
+    "height": 800,
+    "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAADwAgCdASoUAAgAPxl0sVCspqSisAgBkCMJYgDCgDKUAAD+7lRcM2RWxATq+0s4km+aRhvhVAA=",
+    "alt": "Technician assembling a custom PC on a workshop bench"
+  },
+  "/images/blog/ai-workstation.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADwAwCdASoUAAsAPxl2slEspySisAgBkCMJQBOiP/wGtfGU5P/9PluYAP2ODsyfwGYMJI5lNnwUBKKaBMvpw6VnQEUKU55fR7mfwemB2SMqJAIBUg/3Iu7lgLbz3txXtd+DxHcqJ7gFkXNuWRcgAA==",
+    "alt": "AI workstation hardware article cover image"
+  },
+  "/images/blog/build-guide.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAgCdASoUAAsAPxl2slEspySisAgBkCMJQAARRvAA/u4RyrC2O826xE6lyo2InifNW2i5c4wAAA==",
+    "alt": "Step by step PC building guide cover image"
+  },
+  "/images/blog/cooling-guide.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABQBACdASoUAAsAPxl0sVCspqSisAgBkCMJQBaga/gJD3thew025SX8LDQAAP2zQ9x368QinLMgLKb0DIUcvjzVdBD65uv4xTL0K0gxjtcW5Sj/v9mPJgFIWsJjkrjQRFj3g/lPRXPJUk0sB/JaT/MwAAA=",
+    "alt": "PC cooling guide cover image with liquid cooler"
+  },
+  "/images/blog/ddr5-vs-ddr4.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADwAwCdASoUAAsAPxl2s1EspySisAgBkCMJYwAARdhPyRpBjU1UJ8AAAP5TKzBV16sPf18Gv1ezPq4w3P9YRYD3o8M8DYLhMCLVJMHOQsJAO+pKutk3GnpYw3TA3aAAAAA=",
+    "alt": "DDR5 versus DDR4 memory comparison cover image"
+  },
+  "/images/blog/esports.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACQAwCdASoUAAsAPxl4slEspySisAgBkCMJZQAAQQOBbx60HSAAAP7loGERLu0dQpdS/DXED6ZiGP3ZqdmCK1PzdvXroYh/33nTkIHCcoNe1HAA",
+    "alt": "Esports performance tuning article cover image"
+  },
+  "/images/blog/gpu-buying-guide.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQBACdASoUAAsAPxl0slCspqSisAgBkCMJYgCdMoACPaf5aNR4aiJAAAD+qGgcvfXnUhSY2hYO+BhnpoMsPpq7RhnWITLkagzXggs0drtSXxrhHqQhGgAA",
+    "alt": "Graphics card buying guide cover image"
+  },
+  "/images/blog/nvme-speed.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADwAwCdASoUAAsAPxl0sVCspqSisAgBkCMJbACdH8ABuZlcK4P9Hz4AAP4ZSt+ff38EL8cei3d/0JAxWeofB79jpREMZanTPl7/92oS7rF+5fRHZmbWu1SihPZU4ewWyFanq6xbi91IkWnDMI8ZmOhiQvEpnRaxgAA=",
+    "alt": "NVMe storage performance article cover image"
+  },
+  "/images/blog/office-it.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAAsAPxl0sVCspqSisAgBkCMJQAAJ3t3RXaQqEyMRrgAA/mV6WlfGUmBEx68xtHQRY9S4vgP/3Znupa1Nd4h7oM3fjtbogSAldtwBZkpI2iz/ZAtfL+WdjvHbllTIXpsX4ZI9V3q7let51RhcAA==",
+    "alt": "Office IT procurement article cover image"
+  },
+  "/images/blog/server-room.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAwAwCdASoUAAsAPxl2slEspySyMAgCQCMJZwAAUWqzC5gAAP6/X/Zf4F0V3w6bdyKAuTv/OH3Oq1hAAAA=",
+    "alt": "Small business server infrastructure article cover image"
+  },
+  "/images/categories/accessories.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACQAwCdASoUAA8APxl0sVCspqSisAgBkCMJZwAAW6bQhSwlp9gQAP5SyZIR3axaHtFo7i5KSFllIFe8wrF0swAA",
+    "alt": "Accessories category — gaming mouse, keyboard and desk peripherals"
+  },
+  "/images/categories/cabinets.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADQAwCdASoUAA8APxl2slEspySisAgBkCMJZwDMHB0+Vpq8/XkJMAAA/pCDwEfnf3EvXkMXRk/wrsky0GYSy75AHYEmTUa4ACTBneHQmik/o+B1L0ZjGMJHymPCXC9QKzqiYLNVoat4AA==",
+    "alt": "PC cabinet category — tempered glass mid tower chassis"
+  },
+  "/images/categories/cooling.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoUAA8APxl0sVCspqSisAgBkCMJQBOgBDFuz32UMSWmzgAAzhqKodrih8FnANjO3Bkfrh9t1KjnTElphfD3Wl3KpAZshtUQ/qA1el4gk3qWxbzvTTaeJa1iVSlfFgxgV1Q8cpm1CpplZzFf7h2rHaJQy6tAAAAA",
+    "alt": "Cooling category — liquid CPU cooler and case fans"
+  },
+  "/images/categories/gaming-pc.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAADQAwCdASoUAA8APxl0sVCspqSisAgBkCMJZQAARSuDP5n+WsXRygAA/tll7s7pK7Lm2jHSIG/Y6ZtaBONM403GPoIP+T0U4RXWt6rlss161RFyG2b0ddb0ugeD8dg4AAA=",
+    "alt": "Gaming PC category — illuminated gaming desktop and peripherals"
+  },
+  "/images/categories/graphics-cards.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAAAwBACdASoUAA8APxl0sVCspqSisAgBkCMJZwAAYcPnqeFoPs5l1VnDZgAA/uX4Px451vI/4461vOOrqfIv9z9DvhRiCZWXROtiTK41wcvkBYte5SD/ue8XpWG3QSOAV9DToobRxLU6jdOX+u8qXmVbTL9ADK0IGKYbCEMCfpAIdBegAAA=",
+    "alt": "Graphics card category — RGB lit GPU installed in a gaming PC"
+  },
+  "/images/categories/motherboards.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABwAwCdASoUAA8APxl0sVCspqSisAgBkCMJbACdACHfsrRREAAA/u56FCiv5K8QmiVTxaw2Foi1Wpv7Jz3mowKkkw3QW3N6vUCE1O5aRojbkKebel2DBYHZNH2IAA==",
+    "alt": "Motherboard category — detailed view of a gaming motherboard"
+  },
+  "/images/categories/networking.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAwCdASoUAA8APxl2s1CspySisAgBkCMJZwAAd/PFBEwA/fhyMOmIQxK9iuWZxtDlEb9ds0aPE1W/lJL5EHeOAAA=",
+    "alt": "Networking category — managed switch with patch cables"
+  },
+  "/images/categories/office-pc.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoUAA8APxl0slEspqSisAgBkCMJZwAAV8j2UaxF08SdM+T4AAD4Wi2lL+Nd8eWLRA+QUa+1DAMyWytZz5BvnL0N0kBwD598KbqmrU/paUek7leYKxFDb0ta/R3ciYQAAAA=",
+    "alt": "Office PC category — desktop computers in a modern open plan office"
+  },
+  "/images/categories/power-supplies.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoUAA8APxl0slEspqSisAgBkCMJaQAASfYov2NpDClFTQQA+nJtduVsMAerB4oqiwq+A4HNxXvTfasjwqzJGY+82Xl5WELqRZv/9UXWQpK34xV5v7zuzt7e7n+Zo7AOEvbsF7csgwlUbrtej1NT0McAAAA=",
+    "alt": "Power supply category — modular PSU with braided cables"
+  },
+  "/images/categories/processors.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAwCdASoUAA8APxl2slCspySisAgBkCMJZwC7ACHgDEkBJh9DFoAA/ujPjrtwXbzgKW32WrUx1DgjhPxEtnIpx8nWY0mnZRntDyddAAA=",
+    "alt": "Processor category — desktop CPU held above a motherboard socket"
+  },
+  "/images/categories/ram.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQBACdASoUAA8APxl2slEspySisAgBkCMJYwAAVOwlSqVpOU/5pQNqAAD+WIUBDShfH3h06STwD4EfpAi+t8rp6rKYdl6MmzjBJQU8ZRz3QtT2j6tZFAexQ4d38ww4sAA=",
+    "alt": "Memory category — DDR RAM modules with heat spreaders"
+  },
+  "/images/categories/storage.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAwBACdASoUAA8APxl0slEspqSisAgBkCMJbACdEf/gJf/uOvPlp/4LfZAA/tCSBEWlKETupOhSeAedDWNutEMYdKMDjvE5CDmcFx6w/jQSzk9H1FNPlSMSlHgpA1hPcymi578hnGRpHteFh/7EzmTXWP3U0jTKLDVrwvBNr0XNxCF3SdE3kwkQP83C1cpwOpROC5FMsAA=",
+    "alt": "Storage category — solid state drives and NVMe modules"
+  },
+  "/images/categories/workstation.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAA8APxl2slEspySisAgBkCMJZQC7ABrRv555SGocOgAAzjS6x6J/f9ly6XSTyC7fmpM49no4o7vtKCxUD5FRXfhMtHQ1el4bpq3cGO5te6ks2gMprhaTpgWbsrZxmi5VupKoUZRw8aVQ1gAAAA==",
+    "alt": "Workstation category — high performance multi display creator setup"
+  },
+  "/images/hero/hero-abstract-tech.webp": {
+    "width": 2400,
+    "height": 1350,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAAAwAwCdASoUAAsAPxl2slEspySisAgBkCMJaQAAetET1TkgAP7vf0347jgDJuzwIJ3i96EzbQAAAA==",
+    "alt": "Abstract blue technology light forms representing high performance computing"
+  },
+  "/images/hero/hero-circuit.webp": {
+    "width": 2400,
+    "height": 1350,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAwAwCdASoUAAsAPxl0slCspqSisAgBkCMJZQAAieMHLuvoAP7jUt9g+T0/Jge4W9yOIiPjj0MGhf8hBm/Os/apzanxkiu3u0uODfpANASBN0RoXHIrV+TErhl7JC3AAAA=",
+    "alt": "Macro photograph of a computer circuit board and processor traces"
+  },
+  "/images/hero/hero-gaming-rig.webp": {
+    "width": 2400,
+    "height": 1350,
+    "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABwAwCdASoUAAsAPxl2slEspySisAgBkCMJbACdABulRg+xtyAA/uNNKu/1O6WUUxfMsNiHf+N4zl7n9K9HD/B4XWbGCwv1ZZw4s5+PY/5yf15aoAA=",
+    "alt": "Custom built gaming PC with RGB lighting inside a tempered glass case"
+  },
+  "/images/hero/hero-workstation.webp": {
+    "width": 2400,
+    "height": 1350,
+    "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAQBACdASoUAAsAPxl2slCspySisAgBkCMJZQC7AB7AwMfGmW3OncFeAAD7/UVB8/RU0ifRoazpOH/1y+gBYjkpMBGWXZTsIzcxluHWRrRiMnliEcufoHEz4TIdRAycEG4NklDLGAuotorpDYIQsAAA",
+    "alt": "Professional multi-monitor workstation setup in a modern studio"
+  },
+  "/images/og/og-default.png": {
+    "width": 1200,
+    "height": 630,
+    "blurDataURL": null,
+    "alt": "NSK Computer Zone — A click for many solution"
+  },
+  "/images/portfolio/build-after.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAQBACdASoUAAsAPxl0slCspqSisAgBkCMJbACdMoAC/JLs+r/BUKj0gAD+y3Remssv1ZrSiYk59b9r5sPci5GISEnLZD3xYgmFjh6fKTdugn+ZdS6gkPrYdxbtEZt1aDGaK7+FPw2JHhfoslD8P1cOoLn77adw6DYAAA==",
+    "alt": "After — rebuilt and cable managed PC with RGB lighting"
+  },
+  "/images/portfolio/build-before.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACQBACdASoUAAsAPxl2slEspySisAgBkCMJbACdMoRwEGZgQ0LKYwEgi+L60gAA/rGNni7EL4SE1dIxrbnK+XAXM8jateBr7IzwH4BvqnqO4Uy6sN/zNPOdEJ6upz0ceb0TMvQYuLW0lyyyj+0ibx0RvbGIpM1JnbeoPzv8ez1j81Djip19dLEtgPQqBZmoXIAAAA==",
+    "alt": "Before — dusty legacy desktop awaiting a full rebuild"
+  },
+  "/images/portfolio/gaming-setup-01.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAACQAwCdASoUAAsAPxl4slEspySisAgBkCMJZQAAQQOBbx60HSAAAP7loGERLu0dQpdS/DXED6ZiGP3ZqdmCK1PzdvXroYh/33nTkIHCcoNe1HAA",
+    "alt": "Completed gaming setup with illuminated desk and dual monitors"
+  },
+  "/images/portfolio/gaming-setup-02.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAACwAwCdASoUAAsAPxl2slEspySisAgBkCMJbACdABokibyhFzHKYAD+7qE78z/NjR25tMNYJ0hVEO4sdJJ1z3AbVpPh7LcMZuRyGtrPnuVMJl6kzANU41bV76E1o5ODAEzDf27plM8Zr5g19E+e5Rc75AAAAA==",
+    "alt": "Streaming battlestation with ambient RGB lighting"
+  },
+  "/images/portfolio/gaming-setup-03.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACwAwCdASoUAAsAPxl2slEspySisAgBkCMJbAC06CHfhoa+m6DlAAD+7ndosIukMedpsFi0yxRjFF2ps7FFE1+jxg6Cy8Hk8hai+20zw+P7sCGybjUC7NtCAAA=",
+    "alt": "Custom water cooled gaming PC delivered to a client"
+  },
+  "/images/portfolio/office-install-01.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADwAwCdASoUAAsAPxl0sVCspqSisAgBkCMJZQDLLBdeWQfb173u0oAAAPy0gHoZL6quDB+JzI+zzNdkSqcM+0VdH0tn6g92tOIvUYZ5uh00/4uhp59KAAAA",
+    "alt": "Corporate office desktop rollout across an open plan floor"
+  },
+  "/images/portfolio/office-install-02.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAABQBACdASoUAAsAPxl2slEspySisAgBkCMJYwCnFCBYHZhBodkxeuTw2YAAAP3PPkjgCTbhHmWkPPJscp2zBHIHA4cA+/9ptTkL/p+v00/X11gSac1QYLUQ0JfZ6zdMxdBLIRdDOAA=",
+    "alt": "Modern office workstations after an IT infrastructure deployment"
+  },
+  "/images/portfolio/office-install-03.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAAsAPxl0sVCspqSisAgBkCMJQAAJ3t3RXaQqEyMRrgAA/mV6WlfGUmBEx68xtHQRY9S4vgP/3Znupa1Nd4h7oM3fjtbogSAldtwBZkpI2iz/ZAtfL+WdjvHbllTIXpsX4ZI9V3q7let51RhcAA==",
+    "alt": "Team working at newly installed office computer systems"
+  },
+  "/images/portfolio/server-room-01.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAwAwCdASoUAAsAPxl2slEspySyMAgCQCMJZwAAUWqzC5gAAP6/X/Zf4F0V3w6bdyKAuTv/OH3Oq1hAAAA=",
+    "alt": "Completed server room build with structured racks"
+  },
+  "/images/portfolio/server-room-02.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABQBACdASoUAAsAPxl2slEspySisAgBkCMJZQAIEC6O2L9ESdc9oz329U8AAOH5RZSKjRLQsfWu9GJocnzP0Ac3v0VxJuH9W/vLaYJP/qKYcU0h0VQ7FAo1LEAj0ghJhfl/S/TcJQOt6R0JBblo6eT9cMb20CnYg2GxAIBrDgZU+4AA",
+    "alt": "Data centre aisle with server cabinets and cable trays"
+  },
+  "/images/portfolio/studio-build-01.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAABwAwCdASoUAAsAPxl2slEspySisAgBkCMJZwAAXK/4NsC58AAA/vDTcuAP/KSbUNT5GRCdJQe/52VYvA4AAA==",
+    "alt": "Creative studio workspace with custom built computers"
+  },
+  "/images/portfolio/workstation-01.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAAAwBACdASoUAAsAPxl2slCspySisAgBkCMJZQC7AB7BKQzb8ccpEr4AAAAA+/1FQfP0VNIn0aGs6PHl5RXpesSrjJ/FK3aeklzOBuDRMod5ZN8Ry5+gb8AUrQn8M6URBZXHkRrkb5TBRNTUp3lUAAAA",
+    "alt": "Colour grading workstation built for a post production studio"
+  },
+  "/images/products/amd-ryzen.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAwCdASoUAA8APxl0slEspqSisAgBkCMJZwAAYfvsHOcmoKFTv0AA/rvq3epZ0V8Dy6me98tYj4ZnKBWu6Iq9IrrpBToml9A/jg+1pXhsGmMRe2ILnbYDCdKgrsgA",
+    "alt": "AMD Ryzen class processor die and circuit board detail"
+  },
+  "/images/products/gaming-headset.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAACwAwCdASoUAA8APxl4slEspySisAgBkCMJaQAAW+uXHaDWVaUqAAD+685mTheHKVYQwERhlDWimAAA",
+    "alt": "Over ear gaming headset with boom microphone"
+  },
+  "/images/products/gaming-keyboard.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAwCdASoUAA8APxl4slCspySisAgBkCMJaQAAXANDR2qDmAhnPoAA/sMGVGbYJLedIg3TZm14XfKFRKvKkLtiT+JGPOPQISV998SVKKQgAA==",
+    "alt": "Mechanical gaming keyboard with per key RGB backlighting"
+  },
+  "/images/products/gaming-monitor.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACQAwCdASoUAA8APxl4slEspySisAgBkCMJaQAAW+sgiJ1n9aUAAP7tN2/SppyWePmalQrv6KOwr2fBQnvc15awbAAAAA==",
+    "alt": "Curved high refresh rate gaming monitor on a desk"
+  },
+  "/images/products/gaming-mouse.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAACQAwCdASoUAA8APxl0sVCspqSisAgBkCMJZwAAW6bQhSwlp9gQAP5SyZIR3axaHtFo7i5KSFllIFe8wrF0swAA",
+    "alt": "Ergonomic gaming mouse with optical sensor on a desk mat"
+  },
+  "/images/products/gaming-pc-apex.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACwAwCdASoUAA8APxl2slEspySisAgBkCMJZgC06CHf5cgFzkScIAD+7ndordUDr08p4PllrTT+nqc5O60n3Pl7xVWgzKRTPonuHoFKWW4AsufgNHAAAA==",
+    "alt": "High end gaming rig on a dark desk with ambient lighting"
+  },
+  "/images/products/gaming-pc-rgb.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAAAwBACdASoUAA8APxl0slEspqSisAgBkCMJbACdMoR3ACn+iLOg9jJVfQAA/uMMYYvtNZQDWvPGFkJbfceliMvMkM+x4XnLFo90UMtSfs3Iu1flFsAAAA==",
+    "alt": "RGB gaming desktop with tempered glass side panel"
+  },
+  "/images/products/gaming-pc.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADwAwCdASoUAA8APxl0sVCspqSisAgBkCMJbACdHX+gW2dJ4QYxeKGcAP7L5YHt+qMcZk7X86aQoJgGu+q+JwNLUnG1F0EkLySkkdI9H1fB7r6jYRgnbI5FQrYzSVxVlB3+bs/C4CoaAcOy9qzFiYkMKYrdrY9BtrYHBPkAAAA=",
+    "alt": "Custom gaming PC with RGB illuminated internals"
+  },
+  "/images/products/headset-pro.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAwCdASoUAA8APxl2slCspySisAgBkCMJaQAAXJpKzTDOzjjGBAAA/up13uTvC5PuPjCJ1rX7AWv7+rNbGBButIF/xH/jFxju0iybZWnQ+s5pJQAAAA==",
+    "alt": "Studio grade over ear headphones on a dark background"
+  },
+  "/images/products/intel-core-ultra.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAwCdASoUAA8APxl2slCspySisAgBkCMJZwC7ACHgDEkBJh9DFoAA/ujPjrtwXbzgKW32WrUx1DgjhPxEtnIpx8nWY0mnZRntDyddAAA=",
+    "alt": "Intel Core class desktop processor held between fingertips"
+  },
+  "/images/products/keyboard-office.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADQAwCdASoUAA8APxl0slEspqSisAgBkCMJZQCw7CLPJdyG068uYtAA/mTQXIJ8ACnsh8WUpVaNFa8osRuC3Xt3xTaNQ1nBA+IASG6SWkl+ye3Bm8s/KaCYCoxEy/IPcSeKUhq2o5ME/2s2DMBeNd4TyfMVrtG8b/2xyvuIQ7kPuusEe2nAAA==",
+    "alt": "Low profile office keyboard on a minimal white desk"
+  },
+  "/images/products/laptop-workstation.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAACwBACdASoUAA8APxl0sVCspqSisAgBkCMJQBOja/7LBuf43gBcR19Sz0W2GN1QAP6F2YjWyoDbEN4wWNTJYfxhDF9QHGIp1ldywmCV+Qmv17cDc01ChB1Db7rDY/qsGnrTBEI0VP4qDacjOYIkoXqP25BSBx3sD7k5ZR/1m5TBrgQ+9SDvWlxiOr7LaECrebYQvyxYPgA=",
+    "alt": "Mobile workstation laptop open on a desk beside components"
+  },
+  "/images/products/liquid-cooler.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoUAA8APxl0sVCspqSisAgBkCMJQBOgBDFuz32UMSWmzgAAzhqKodrih8FnANjO3Bkfrh9t1KjnTElphfD3Wl3KpAZshtUQ/qA1el4gk3qWxbzvTTaeJa1iVSlfFgxgV1Q8cpm1CpplZzFf7h2rHaJQy6tAAAAA",
+    "alt": "All in one liquid CPU cooler with illuminated pump head"
+  },
+  "/images/products/motherboard.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAABwAwCdASoUAA8APxl0sVCspqSisAgBkCMJbACdACHfsrRREAAA/u56FCiv5K8QmiVTxaw2Foi1Wpv7Jz3mowKkkw3QW3N6vUCE1O5aRojbkKebel2DBYHZNH2IAA==",
+    "alt": "Gaming motherboard with heatsinks, M.2 slots and RGB accents"
+  },
+  "/images/products/network-switch.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAAAQAwCdASoUAA8APxl2s1CspySisAgBkCMJZwAAd/PFBEwA/fhyMOmIQxK9iuWZxtDlEb9ds0aPE1W/lJL5EHeOAAA=",
+    "alt": "Rack mounted gigabit network switch with connected patch cables"
+  },
+  "/images/products/nvidia-rtx.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACwAwCdASoUAA8APxl0slEspqSisAgBkCMJZACdABjxiZDe2JXYAAD+nvXBo3p/iOAe9uZ6sdTuNNCz6xSVDMGznxdWVIAABdVPKSQA",
+    "alt": "NVIDIA RTX class graphics card with triple fan cooler"
+  },
+  "/images/products/office-pc.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABwBACdASoUAA8APxl0sVCspqSisAgBkCMJbACdOUAA46vMaCAFS4+lGg6nMAD+2TCqAaJnOkfSmkOokjX7QAGbyn/mCeu0MEqASu5k0+jc5zUjOXznmAOFl51LDA8EpqDMuOKW/QKuxNYhgVWwlLHM/Q75nHpWAAA=",
+    "alt": "Compact office desktop PC on a clean minimal workspace"
+  },
+  "/images/products/pc-case.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAADQAwCdASoUAA8APxl2slEspySisAgBkCMJZwDMHB0+Vpq8/XkJMAAA/pCDwEfnf3EvXkMXRk/wrsky0GYSy75AHYEmTUa4ACTBneHQmik/o+B1L0ZjGMJHymPCXC9QKzqiYLNVoat4AA==",
+    "alt": "Premium mid tower PC case with mesh front panel"
+  },
+  "/images/products/power-supply.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAADQAwCdASoUAA8APxl0slEspqSisAgBkCMJaQAASfYov2NpDClFTQQA+nJtduVsMAerB4oqiwq+A4HNxXvTfasjwqzJGY+82Xl5WELqRZv/9UXWQpK34xV5v7zuzt7e7n+Zo7AOEvbsF7csgwlUbrtej1NT0McAAAA=",
+    "alt": "Fully modular ATX power supply unit with cables"
+  },
+  "/images/products/ram-ddr5.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmwAAABXRUJQVlA4IGAAAAAQBACdASoUAA8APxl2slEspySisAgBkCMJYwAAVOwlSqVpOU/5pQNqAAD+WIUBDShfH3h06STwD4EfpAi+t8rp6rKYdl6MmzjBJQU8ZRz3QtT2j6tZFAexQ4d38ww4sAA=",
+    "alt": "DDR5 memory modules with aluminium heat spreaders"
+  },
+  "/images/products/server-rack.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAACwAwCdASoUAA8APxl2slEspySisAgBkCMJZwDImBonmOTuzBawAAD+y9ZBiHuQxOig7qrofDsV+AINdUPMzSW3dEjt4xCAQAA=",
+    "alt": "Server rack in a data centre with status indicator lights"
+  },
+  "/images/products/ssd-nvme.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRpwAAABXRUJQVlA4IJAAAACQBACdASoUAA8APxl0sVCspqSisAgBkCMJbACdL12MA5/8BZe1X7NGDbP2c4AA/n1W/nMmCl83baVb0mzqa3ryowkLofrJln8yfBlMEZe318Za/7EaYiDjqj7dZG04ARp0S0HNpz/Ro3p94y6CHujzML0b2MruoJ8IzbqcSjSbtTUF0jxTLXBW6xHR6XdFAAA=",
+    "alt": "NVMe M.2 solid state drive close up"
+  },
+  "/images/products/ssd-sata.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRqIAAABXRUJQVlA4IJYAAAAwBACdASoUAA8APxl0slEspqSisAgBkCMJbACdEf/gJf/uOvPlp/4LfZAA/tCSBEWlKETupOhSeAedDWNutEMYdKMDjvE5CDmcFx6w/jQSzk9H1FNPlSMSlHgpA1hPcymi578hnGRpHteFh/7EzmTXWP3U0jTKLDVrwvBNr0XNxCF3SdE3kwkQP83C1cpwOpROC5FMsAA=",
+    "alt": "2.5 inch SATA solid state drive on a dark surface"
+  },
+  "/images/products/ups-power.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAADQAwCdASoUAA8APxl0slCspqSisAgBkCMJaAAu/8B5n7q+obNnOkAA/lWx8icgby2kbjTHAnx/Ji57aH/4oMHif+pvBagQ5KtrkAhqJ6dk+RZzY9L2VheKxt0W7yKxNAAAAA==",
+    "alt": "Uninterruptible power supply unit for IT infrastructure"
+  },
+  "/images/products/workstation.webp": {
+    "width": 1200,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAADQAwCdASoUAA8APxl2slEspySisAgBkCMJZQC7ABrRv555SGocOgAAzjS6x6J/f9ly6XSTyC7fmpM49no4o7vtKCxUD5FRXfhMtHQ1el4bpq3cGO5te6ks2gMprhaTpgWbsrZxmi5VupKoUZRw8aVQ1gAAAA==",
+    "alt": "Creator workstation PC with dual displays and colour calibrated monitor"
+  },
+  "/images/services/annual-maintenance.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRoAAAABXRUJQVlA4IHQAAAAQBACdASoUAAsAPxl2slEspySisAgBkCMJQBdmUDX/wGylmsywD9R4wAD+069iybzuMAHSJyQf49isQ8HWz5lJV7t0XKpGw7yZAXeLLDVsAGaP76BFoDsv80+2JxxZpMCRnWFLqAT0l3o8XEQvV7bVN9R0AA==",
+    "alt": "IT technician performing scheduled preventive maintenance"
+  },
+  "/images/services/custom-pc-assembly.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAgCdASoUAAsAPxl2slEspySisAgBkCMJQAARRvAA/u4RyrC2O826xE6lyo2InifNW2i5c4wAAA==",
+    "alt": "Technician assembling a custom PC with anti static tools"
+  },
+  "/images/services/data-recovery.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAADQAwCdASoUAAsAPxl2slCspySisAgBkCMJZACdACHXToZI1DpAKAAA/IqB5I6AbRQMyUEXyUU0pXRVEavrWCRs9Ts9sDs8c2F06h9aLrc0HE8724tBgAAA",
+    "alt": "Data recovery process on storage drives in a clean workspace"
+  },
+  "/images/services/hardware-upgrade.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnQAAABXRUJQVlA4IGgAAAAQBACdASoUAAsAPxl2slCspySisAgBkCMJYgCsACFU1IAZm1iVlx/dYAD+7oO9LNca+o0urm3+RbFG9ivaQALQQCM228gq+up0nNoK1xF1XlU/P2y077IPXx7yS2/vvEyL9OjcBPCAAA==",
+    "alt": "Installing a memory upgrade into a desktop motherboard"
+  },
+  "/images/services/laptop-repair.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAAAQBACdASoUAAsAPxl2slEspySisAgBkCMJYwDCgBo1V7HjH5YlgAjmAAD+11D0S5sOQ1+CvPnHz+sT5LI046b0p78gQ2TNy6qb1ZXHloDsgvlFDMELmu7jXqlpWRP2gR8dyhAExzdi9AMNoxPVDzYAAAA=",
+    "alt": "Laptop opened on a repair bench during component level service"
+  },
+  "/images/services/networking.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBACdASoUAAsAPxl0sVCspqSisAgBkCMJYgC7ABxMMcT/1cPXiKXgAAD+2VjjI28ArNM1wi3uR6J0p3DxFzlCX24kUfHG/bJuVNShxcnh2JycnAIXYBPn9jYSSwt7dVt6NdWAAAA=",
+    "alt": "Structured network cabling and patch panel installation"
+  },
+  "/images/services/pc-repair.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACQBACdASoUAAsAPxl2slEspySisAgBkCMJbACdMoRwEGZgQ0LKYwEgi+L60gAA/rGNni7EL4SE1dIxrbnK+XAXM8jateBr7IzwH4BvqnqO4Uy6sN/zNPOdEJ6upz0ceb0TMvQYuLW0lyyyj+0ibx0RvbGIpM1JnbeoPzv8ez1j81Djip19dLEtgPQqBZmoXIAAAA==",
+    "alt": "Engineer diagnosing and repairing desktop PC hardware"
+  },
+  "/images/services/server-installation.webp": {
+    "width": 1600,
+    "height": 900,
+    "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAABQBACdASoUAAsAPxl2slEspySisAgBkCMJZQAIEC6O2L9ESdc9oz329U8AAOH5RZSKjRLQsfWu9GJocnzP0Ac3v0VxJuH9W/vLaYJP/qKYcU0h0VQ7FAo1LEAj0ghJhfl/S/TcJQOt6R0JBblo6eT9cMb20CnYg2GxAIBrDgZU+4AA",
+    "alt": "Server room installation with racks and cable management"
+  },
+  "/images/team/team-01.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAADQAwCdASoPABQAPxl0slEspqSisAgBkCMJZQCo9CLrNIWAhOH5hhAA/mYg9/kEEPe96jocnvB7/r+cqF/EmA8zbmkeU7GUm48KN+0mbrbTiraiQ+K9uLD4DrIiX4zu2RziigVnFnzcpgOvT+AAAA==",
+    "alt": "Portrait of the founder and managing director"
+  },
+  "/images/team/team-02.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAACwAwCdASoPABQAPxl2slCspySisAgBkCMJYwAAUquOBxVN3uLgaAD+02D/OGpxe4wnULGxMYpvWjP21PqRtHHfnpNYkHJQ6U1AUwaYiJ88M5bsjt7AMAAA",
+    "alt": "Portrait of the head of enterprise solutions"
+  },
+  "/images/team/team-03.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAACwAwCdASoPABQAPxl0slEspqSisAgBkCMJQBOmUAAe8ZsaKl4M4AD+LoRh5DsXTjUFQEcjxyYzPGPgbrUHgAAcY8jTmdIELCjuAtKwuE/SwJ2b8CgAAA==",
+    "alt": "Portrait of the lead systems engineer"
+  },
+  "/images/team/team-04.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRnAAAABXRUJQVlA4IGQAAACQAwCdASoPABQAPxl2slEspySisAgBkCMJQA//oA6vuv07LPAAAMborRWUO3IMJU8B+fJeVQHTmFJr862U7t4iyHHWLnRZtqSYyW5VNej/b+IvyMVCu4Ks1mMLU9IByBbgsUAA",
+    "alt": "Portrait of the client success manager"
+  },
+  "/images/team/team-05.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAwBACdASoPABQAPxl0sVCspqSisAgBkCMJYgCw7B7HoM2MgVEJGafVQ3AA/OJ4Sh8S++Ju4r0hIMhx8WjOwlgZL4TLSLofMjiysFly0r3JTDomnGLZd3g0VIbQrrYfcyZyPqtkLUG+DcPLB7Dnyv1lBaccThrCiY0uEiWQq4AAAA==",
+    "alt": "Portrait of the senior build technician"
+  },
+  "/images/team/team-06.webp": {
+    "width": 900,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBACdASoPABQAPxl0slEspqSisAgBkCMJZQDImB9eXD0bvBMd+wuHMAD2jiLU1ZurlDUwuHWsMQhmG3+TjNrlpJbmF+d4HnSu4DzbacBb/hXPpDLIjKLHe/vZAAJ5InYDTo+dJSpdXetqZsexekeKP18EQAAA",
+    "alt": "Portrait of the network infrastructure specialist"
+  },
+  "/images/testimonials/client-01.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRpAAAABXRUJQVlA4IIQAAACQBACdASoUABQAPxl6s1Ksp6SiqA1RkCMJZQDA3AyalehGIphQPivXbfgGeTAA/pbLULHP6ZjenTjFjmnAVEBwshwSKnzqC88NO6KV6Ru2EFM4PBA1tuMH8wqkdVxziYV6VuF+x6uuYY0W0VBKlv6wpsjp5ENzBQbozcALMGWCFASAAAA=",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/testimonials/client-02.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRn4AAABXRUJQVlA4IHIAAABwBACdASoUABQAPxl0tFOspiSwsBgIAhAjCWUAyrQQOyf2wlX/N2oRC+WuAAD+3qRzyYr2uajsBJVa6HQ/wSuxXmwk+tecLS+WhTjhDhYmolJV9jvbkq7YbnT+qpI0/8rB+Z1fGF4yWqkKims6kagAAAA=",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/testimonials/client-03.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRnoAAABXRUJQVlA4IG4AAAAQBACdASoUABQAPxmEuVYsqCWjqAgBkCMJQBdgAOH92XeOb8Qx0U3sAAD55gQREj3miUZO/6weF5Lzugeo7sAO3cClHW8vjcEBcRhEtPzjOr3e6/ad15vQm6SiTvnQhsqxgKKJu3JspsPWwRCAAA==",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/testimonials/client-04.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRo4AAABXRUJQVlA4IIIAAADQBACdASoUABQAPxmEuVasqCWjqAgBkCMJQBadAS7f+ICP2zAePepEVO2JDwEKgADZ3RIhZuMNnptnnZ2tcHO9BN95UB4Ot7VedI5KLalXm0twOW6tyz1ml6SIqzE6+0PYX7tyavVOsjPDWsn4b11YQcTM/ni+Ygv9hFp4ajVMpGAA",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/testimonials/client-05.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAADQBACdASoUABQAPxmEuVYsqCWjqAgBkCMJQBXhgZM/bBK2T9eQTLQjr+6eeT0nAAD84nhKLgqkRQEY7icNkQbZMXX06Fa+gJgBt3E6Nm0gIWMgLymKsZNu4W3MCvwUaLh/rS8DWx1SLO3EhUbiZgS1lpUtl1CDNbsvfefGeflpnlCguKNbEeyKSRpYe/FrkjA6C196oMUNngHg918pZ90t04ugAA==",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/testimonials/client-06.webp": {
+    "width": 400,
+    "height": 400,
+    "blurDataURL": "data:image/webp;base64,UklGRqoAAABXRUJQVlA4IJ4AAACQBACdASoUABQAPxmEuVYsqCWjqAgBkCMJYwDHMArBQ5KdgxjbATR0USB2o3AA/hnVD89donb7emzKzajLcgCSxtcH6V3KzqobgHCcpOvj4Z7UY5qZ3nBArnvYpYwEku5C7+C2U4KIaytittwG2IUkcjxXY6KTngGD6OHqp0/HmAu6jt+6i3rzDOPM+nuAl2fodVxz4KG87LypYAAAAA==",
+    "alt": "Client testimonial portrait"
+  },
+  "/images/processors/intel-core-i9.webp": {
+    "width": 1007,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4IMQAAADQBACdASoUABgAPu1wr1IppiQiqAgBMB2JZgCdMyGlxgq5JkM+C6l8CesIGibEAAD9uzQ4jYHwKkR+VZIOkCKlMycnmI7fmY8VEn56EGeXq+4rKDx/e/EAf+6qS9+oQeej5t0A+Mc8AOUy9CRycOjhpa195hkcIKjBSay6QA9559gVpT18yMH9GSAITn6UM7eIAeDCN0sgvhBGLSvB5GnPLXiX+ggpby1eCAgJgBwkIhGbBQIvPixjrC3nzKA+gAfwSAAA",
+    "alt": "Intel Core i9 12th Gen unlocked retail box"
+  },
+  "/images/processors/intel-core-i7.webp": {
+    "width": 1200,
+    "height": 1128,
+    "blurDataURL": "data:image/webp;base64,UklGRqAAAABXRUJQVlA4IJQAAABQBQCdASoUABMAPu1mq06ppaOiKA1RMB2JZACdMtU/+BSh50vcqiU8OsZL2zrGeC2RkAAA/sG5fY3VBseraJLArFSKyzjYOEZyKjs3wWY0kZ3ju1AJBKT2kkbMr+KIE1vZQaKhVzaJ6f3UW+YoO82a6pgeqy6wA0BG11GeqGu0ZxihC0eYu6BpDKGTIF96mGx8AAAA",
+    "alt": "Intel Core i7 processor badge"
+  },
+  "/images/processors/intel-core-i5.webp": {
+    "width": 1073,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRswAAABXRUJQVlA4IMAAAACQBQCdASoUABYAPu1usFIppiSiqAgBMB2JagCdMw4z3oHhmAHgZm9eZWhi+UF3GFhZVNJCAADgNk5PO42VT9qInysOzoIkgVQ2MlmBH342nLGFPdXjX5pDnbN/KrR8epJYfoZma2O0qN37it1CD0LnVfZ6JZkRjVIjNOL1sX7TbwJ+JxwXcqNPy2O+oWNJzqwmv4eU5bKjzmCyVHZtmKO/b+mMJt6ReXyBU28Z9S/XC7IYVjz1CGYx4RaZStAAAAA=",
+    "alt": "Intel Core i5 retail box"
+  },
+  "/images/processors/amd-ryzen-9-9950x3d.webp": {
+    "width": 1097,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRsIAAABXRUJQVlA4ILYAAAAQBQCdASoUABYAPu1sq1EppaOiqAqpMB2JaQAAJcVoFk9X5BdgLtOJOWovqQQiLi7QAP5tEZG2rxl0mnjP44lSA3+b4TSnpU9/AK+sNR0LvrHIQw7Fv00llkUCj2s4ZuZk844eKgM0VL6xWkKUMF/DN293XNtxBDKpKkh4S9tSE6T39o7JQLfdkRzYtb1VJ6cjue/Vn/IZXh5qvyEkTlBzDcUrhffm/zFUS/2j0Ahy3IXAkAAAAA==",
+    "alt": "AMD Ryzen 9 9950X3D retail box with 3D V-Cache branding"
+  },
+  "/images/processors/amd-ryzen-9-9900x.webp": {
+    "width": 1097,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRroAAABXRUJQVlA4IK4AAAAwBQCdASoUABYAPu1qr1CppaQiqAqpMB2JZQC7AywgslZZFtmNrjCEk1pwk6AU0iZwAAD+4fM3fgjLT3kcdH8/LW5G4Hr+vFHv2wtLfNbDGxPxPxDP8SBC5JRuohwRGAtGYGN7DqMxeUEm9zQVda09z/gPW0BhnqckcVhcYS06s9ZfgkAGXFdVh7MJ4Hy5sr6HbSmr5f7ZC7WP6tAT5AA4ba4W70gHyNPqxXA6AAA=",
+    "alt": "AMD Ryzen 9 9900X 9000 Series retail box"
+  },
+  "/images/processors/amd-ryzen-7-9700x.webp": {
+    "width": 1097,
+    "height": 1200,
+    "blurDataURL": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAADwBACdASoUABYAPu1or1AppaQiqAqpMB2JZQDGfywAxcoE77LKCddapWvR2pmDPPQA/uHzN34Iy095GOdU1bygqaRd/q2sMhdmBz0jWwzOUfGsujmsKZt3Znb3pxfX1I7gEDe1v02BHdz0mKNQ2gX9AQrB1LFfoBFDOleHBSw9hreT1rmmLOHcD/78ubK+uPCW8aVHAhL2iYo2Kb1lXCB8E+OG78CxAAA=",
+    "alt": "AMD Ryzen 7 9700X 9000 Series retail box"
+  },
+  "/images/diagrams/build-exploded.webp": {
+    "width": 2000,
+    "height": 1150,
+    "blurDataURL": "data:image/webp;base64,UklGRmQAAABXRUJQVlA4IFgAAAAQBACdASoUAAwAPu1iqU2ppaQiMAgBMB2JZwDCgCHw32Al1GM+2sUwAAD+8qoIp0uq/UYVzW1B5usaBg2muj1grQS/m54qQ12CXfa4AENP/xRNEMgThMAA",
+    "alt": "Exploded diagram of a desktop PC showing cabinet, motherboard, memory, cooling, graphics card, storage and power supply laid out in assembly order"
+  }
+}

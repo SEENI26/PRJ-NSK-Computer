@@ -1,0 +1,26 @@
+/**
+ * Type scale. Headings are large and tight; body stays comfortable. Weight
+ * never exceeds 600 — hierarchy comes from size and space, not boldness.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+  .font-display { font-family: 'Space Grotesk', system-ui, sans-serif; }
+  .font-body    { font-family: 'Inter', system-ui, sans-serif; }
+
+  h1, h2, h3, h4 { font-family: 'Space Grotesk', system-ui, sans-serif; }
+
+  /* Display sizes clamp between mobile and desktop rather than stepping at
+     breakpoints, so nothing jumps mid-resize. */
+  .t-hero    { font-size: clamp(2.75rem, 7.2vw, 6.5rem);  line-height: 0.94; letter-spacing: -0.04em;  font-weight: 700; }
+  .t-display { font-size: clamp(2rem,   4.2vw, 3.5rem);   line-height: 1.02; letter-spacing: -0.035em; font-weight: 600; }
+  .t-title   { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; }
+  .t-sub     { font-size: clamp(1rem,   1.3vw, 1.1875rem); line-height: 1.62; letter-spacing: -0.01em; font-weight: 400; }
+
+  .t-eyebrow {
+    font-size: 0.6875rem; line-height: 1; letter-spacing: 0.22em;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .t-mono {
+    font-family: 'Space Grotesk', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums; letter-spacing: 0.02em;
+  }
