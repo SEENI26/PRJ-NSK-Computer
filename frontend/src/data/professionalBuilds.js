@@ -70,7 +70,7 @@ export const professionalBuilds = [
     description:
       'Built for video, photo and design work: a strong GPU for timeline playback and export, plenty of memory for large projects, and fast scratch storage so the drive is never the bottleneck.',
     bestFor: ['Video editing', 'Photo and design', 'Colour work'],
-    image: 'products/gaming-pc-apex.webp',
+    image: 'categories/workstation.webp',
     specifications: {
       cpu:         '12–16 core Ryzen 9 / Core i9',
       gpu:         'RTX 4070–4080 class, 12–16 GB',

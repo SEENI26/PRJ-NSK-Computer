@@ -113,32 +113,75 @@ export function AnimatedCabinet({
             {/* Motherboard plane */}
             <div className="absolute inset-x-3 top-[22%] bottom-[26%] rounded-md
                             border border-white/[0.06] bg-gradient-to-b from-[#0f1319] to-[#0b0e13]">
-              {/* CPU block */}
-              <div className="absolute left-[8%] top-[8%] h-[22%] w-[30%] rounded
-                              border border-white/10 bg-[#171b22]">
-                <div className="absolute inset-[22%] rounded-sm border border-white/[0.09] bg-[#0d1015]" />
+              {/* PCB trace texture — what makes it read as a board, not a panel */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 rounded-md opacity-[0.5]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(rgb(255 255 255/0.045) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255/0.045) 1px, transparent 1px)',
+                  backgroundSize: '13px 13px',
+                }}
+              />
+
+              {/* CPU cooler block with a finned top */}
+              <div className="absolute left-[7%] top-[7%] h-[24%] w-[31%] rounded
+                              border border-white/12 bg-gradient-to-br from-[#1b2028] to-[#12161c]">
+                <div className="absolute inset-x-[12%] top-[14%] flex h-[42%] justify-between">
+                  {[0, 1, 2, 3, 4].map((i) => (
+                    <div key={i} className="w-[1.5px] rounded-full bg-white/[0.13]" />
+                  ))}
+                </div>
+                <div
+                  className="absolute inset-x-[26%] bottom-[12%] h-[26%] rounded-[2px]"
+                  style={{ background: config.glowColor, opacity: config.glowOpacity + 0.2 }}
+                />
               </div>
 
-              {/* Memory sticks */}
-              <div className="absolute right-[8%] top-[7%] flex h-[26%] w-[26%] gap-[3px]">
+              {/* Memory — four sticks with lit tops */}
+              <div className="absolute right-[7%] top-[6%] flex h-[28%] w-[27%] gap-[3px]">
                 {[0, 1, 2, 3].map((i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-[2px] border border-white/10 bg-[#161a20]"
-                    style={{
-                      boxShadow: `0 0 7px -1px ${config.glowColor}`,
-                      opacity: 0.55 + i * 0.12,
-                    }}
-                  />
+                    className="relative flex-1 rounded-[2px] border border-white/12 bg-[#171b22]"
+                    style={{ opacity: 0.6 + i * 0.1 }}
+                  >
+                    <div
+                      className="absolute inset-x-[1px] top-[2px] h-[3px] rounded-full"
+                      style={{ background: config.glowColor, opacity: config.glowOpacity + 0.3 }}
+                    />
+                  </div>
                 ))}
               </div>
 
-              {/* Graphics card, spanning the board */}
-              <div className="absolute inset-x-[6%] bottom-[12%] h-[30%] rounded
-                              border border-white/[0.09] bg-gradient-to-b from-[#1b1f27] to-[#0f1217]">
+              {/* Chipset heatsink + M.2 shield — the mid-board detail */}
+              <div className="absolute left-[7%] top-[38%] h-[9%] w-[46%] rounded-[3px]
+                              border border-white/[0.09] bg-[#141920]">
+                <div className="absolute inset-y-[26%] left-[6%] right-[40%] rounded-[1px] bg-white/[0.07]" />
+              </div>
+              <div className="absolute right-[7%] top-[38%] h-[9%] w-[22%] rounded-[3px]
+                              border border-white/[0.09] bg-[#12171d]" />
+
+              {/* Rear I/O stack */}
+              <div className="absolute left-[7%] top-[52%] flex h-[7%] w-[30%] gap-[2px]">
+                {[0, 1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="flex-1 rounded-[1px] bg-white/[0.09]" />
+                ))}
+              </div>
+
+              {/* Graphics card with a backplate and lit shroud */}
+              <div className="absolute inset-x-[6%] bottom-[10%] h-[31%] rounded
+                              border border-white/12 bg-gradient-to-b from-[#1d222b] to-[#0f1217]
+                              shadow-[0_-6px_18px_-8px_rgba(0,0,0,0.9)]">
                 <div className="absolute inset-y-0 left-2 flex items-center gap-[6px]">
                   {[0, 1].map((i) => (
                     <Fan key={i} size="26px" color={config.glowColor} spinClass={fanClass} delay={i * 0.25} />
+                  ))}
+                </div>
+                {/* Heatsink fins visible along the right of the shroud */}
+                <div className="absolute inset-y-[22%] right-[8%] flex w-[26%] justify-between">
+                  {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="w-[1px] rounded-full bg-white/[0.11]" />
                   ))}
                 </div>
                 {/* Lit edge along the top of the card */}
@@ -147,6 +190,8 @@ export function AnimatedCabinet({
                   className="absolute inset-x-2 top-1 h-[2px] rounded-full"
                   style={{ background: config.glowColor, opacity: config.glowOpacity + 0.25 }}
                 />
+                {/* Support bracket under the far end — the detail a builder notices */}
+                <div className="absolute -bottom-[7px] right-[14%] h-[7px] w-[9%] rounded-b-[2px] bg-white/[0.08]" />
               </div>
             </div>
 

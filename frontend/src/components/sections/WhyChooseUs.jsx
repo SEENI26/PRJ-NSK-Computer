@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import * as Icons from 'lucide-react';
+import { getIcon } from '@/utils/icons';
 import { Container, SectionTitle } from '@/components/common';
 import { COMPANY } from '@/data/company';
 import { stagger, staggerItem, revealViewport } from '@/animations';
@@ -22,7 +22,7 @@ export function WhyChooseUs() {
           className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
           {COMPANY.differentiators.map((item) => {
-            const Icon = Icons[item.icon] ?? Icons.Check;
+            const Icon = getIcon(item.icon);
             return (
               <motion.li key={item.id} variants={staggerItem} className="surface-card p-7">
                 <span

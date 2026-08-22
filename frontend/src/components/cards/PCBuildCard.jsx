@@ -28,7 +28,8 @@ export function PCBuildCard({ build, tone = 'gaming', defaultOpen = false }) {
             alt={`${build.name} — ${build.tagline}`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            className="h-full w-full object-cover saturate-[0.72] transition-all duration-700 ease-out
+                       group-hover:scale-[1.04] group-hover:saturate-100"
           />
         ) : (
           <div className="grid h-full place-items-center text-xs text-ink-faint">No image</div>

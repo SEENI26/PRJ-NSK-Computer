@@ -1,0 +1,24 @@
+# Client-side routes must fall through to index.html, or a refresh on
+# /gaming-pcs 404s. Real files and directories are served as-is.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Hashed assets are immutable; the HTML entry point must never be cached.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  <FilesMatch "\.(js|css|webp|png|jpg|svg|woff2)$">
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+  </FilesMatch>
+</IfModule>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import * as Icons from 'lucide-react';
+import { getIcon } from '@/utils/icons';
 import { cn, img } from '@/utils/helpers';
 import { staggerItem } from '@/animations';
 
@@ -9,7 +9,7 @@ import { staggerItem } from '@/animations';
  * can explain and a spec sheet cannot.
  */
 export function HardwareCard({ category, expanded = false, onSelect }) {
-  const Icon = Icons[category.icon] ?? Icons.Cpu;
+  const Icon = getIcon(category.icon);
   const image = img(category.image);
   const interactive = Boolean(onSelect);
 
@@ -27,7 +27,7 @@ export function HardwareCard({ category, expanded = false, onSelect }) {
       )}
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-base-800">
-        {image && (
+        {image ? (
           <img
             src={image}
             alt=""
@@ -36,6 +36,17 @@ export function HardwareCard({ category, expanded = false, onSelect }) {
             className="h-full w-full object-cover opacity-70 transition-all duration-700
                        group-hover:scale-[1.04] group-hover:opacity-90"
           />
+        ) : (
+          /* No honest photograph exists for this department in the asset
+             library; a designed mark beats a misleading stock image. */
+          <div aria-hidden="true" className="absolute inset-0 grid place-items-center">
+            <div className="absolute inset-0 grid-backdrop opacity-60" />
+            <div
+              className="absolute inset-0"
+              style={{ background: 'radial-gradient(55% 55% at 50% 45%, rgb(var(--accent) / 0.14), transparent 70%)' }}
+            />
+            <Icon className="relative h-10 w-10 text-accent/60" strokeWidth={1.15} />
+          </div>
         )}
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-base-700 via-base-700/40 to-transparent" />
         <span

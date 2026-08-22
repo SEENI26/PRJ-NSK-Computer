@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import * as Icons from 'lucide-react';
+import { getIcon } from '@/utils/icons';
 import { Container, Badge, SectionTitle } from '@/components/common';
 import { ContactForm, ContactInfo, MapSection } from '@/components/contact';
 import { COMPANY } from '@/data/company';
@@ -50,7 +50,7 @@ export default function AboutContact() {
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
           >
             {COMPANY.differentiators.map((item) => {
-              const Icon = Icons[item.icon] ?? Icons.Check;
+              const Icon = getIcon(item.icon);
               return (
                 <motion.li key={item.id} variants={staggerItem} className="surface-card p-7">
                   <Icon className="h-5 w-5 text-accent" aria-hidden="true" />

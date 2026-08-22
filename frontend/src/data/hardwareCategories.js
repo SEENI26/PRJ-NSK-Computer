@@ -1,6 +1,12 @@
 /**
  * Hardware explorer — §10.
  *
+ * NOTE ON IMAGES: the shipped asset library is mislabelled — the file called
+ * `power-supplies.webp` is a photograph of a CPU, `cabinets.webp` is a hard
+ * drive, and `products/motherboard.webp` is a set of case fans. Every path
+ * below was chosen by looking at what the picture actually SHOWS. Do not
+ * "correct" them back to matching filenames without checking the image first.
+ *
  * A browsing structure, not a product list: each category names the families
  * we carry and what actually decides the choice. `items` are sub-families, so
  * the page can render a category and drill into it without a second fetch.
@@ -10,7 +16,7 @@ export const hardwareCategories = [
     id: 'processors',
     name: 'Processors',
     blurb: 'Intel and AMD, current generation and service spares.',
-    image: 'categories/processors.webp',
+    image: 'categories/power-supplies.webp',
     icon: 'Cpu',
     decidingFactor: 'Core count for parallel work, clock speed for single-threaded. The socket then fixes your board choice.',
     items: [
@@ -22,7 +28,7 @@ export const hardwareCategories = [
     id: 'graphics-cards',
     name: 'Graphics Cards',
     blurb: 'NVIDIA and AMD, from display output to 4K gaming.',
-    image: 'categories/graphics-cards.webp',
+    image: 'products/nvidia-rtx.webp',
     icon: 'MonitorPlay',
     decidingFactor: 'VRAM sets the ceiling for resolution and model size. Card length has to clear the cabinet.',
     items: [
@@ -34,7 +40,7 @@ export const hardwareCategories = [
     id: 'motherboards',
     name: 'Motherboards',
     blurb: 'Intel and AMD platforms, micro-ATX through ATX.',
-    image: 'categories/motherboards.webp',
+    image: 'products/amd-ryzen.webp',
     icon: 'CircuitBoard',
     decidingFactor: 'The socket must match the CPU and the memory type must match the kit. Everything else is features.',
     items: [
@@ -58,7 +64,7 @@ export const hardwareCategories = [
     id: 'storage',
     name: 'Storage',
     blurb: 'NVMe, SATA, mechanical and external.',
-    image: 'categories/storage.webp',
+    image: 'categories/cabinets.webp',
     icon: 'HardDrive',
     decidingFactor: 'NVMe for the system drive, always. Capacity per rupee still favours mechanical for archives.',
     items: [
@@ -72,7 +78,7 @@ export const hardwareCategories = [
     id: 'power',
     name: 'Power',
     blurb: 'Power supplies and UPS protection.',
-    image: 'categories/power-supplies.webp',
+    image: null,
     icon: 'Zap',
     decidingFactor: 'Size on real draw plus headroom — not on the biggest number that fits the budget.',
     items: [
@@ -84,7 +90,7 @@ export const hardwareCategories = [
     id: 'cooling',
     name: 'Cooling',
     blurb: 'Air, liquid and case airflow.',
-    image: 'categories/cooling.webp',
+    image: 'categories/storage.webp',
     icon: 'Fan',
     decidingFactor: 'Rated dissipation against the CPU it is cooling. Airflow through the case matters as much as the cooler.',
     items: [
@@ -97,7 +103,7 @@ export const hardwareCategories = [
     id: 'cabinets',
     name: 'Cabinets',
     blurb: 'Gaming, professional, compact and premium.',
-    image: 'categories/cabinets.webp',
+    image: 'products/laptop-workstation.webp',
     icon: 'Box',
     decidingFactor: 'Board form factor, GPU clearance and radiator support. Everything else is looks.',
     items: [
@@ -111,7 +117,7 @@ export const hardwareCategories = [
     id: 'monitors',
     name: 'Monitors',
     blurb: 'Gaming, professional and ultrawide panels.',
-    image: 'categories/office-pc.webp',
+    image: 'products/gaming-monitor.webp',
     icon: 'Monitor',
     decidingFactor: 'Match refresh rate to what the GPU actually renders; match colour accuracy to the work.',
     items: [

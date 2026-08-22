@@ -61,7 +61,8 @@ export const accessories = [
     name: 'Extended Mouse Pad',
     blurb: 'Cloth and hybrid surfaces, desk-width sizes.',
     detail: 'A consistent surface does more for aim than another 8000 DPI.',
-    image: 'products/mouse-pad.webp',
+    image: null,
+    icon: 'Grid2x2',
     tags: ['Desk-width', 'Stitched edge', 'Non-slip base'],
   },
   {
@@ -71,7 +72,8 @@ export const accessories = [
     name: 'Wireless Controller',
     blurb: 'For racing, sports and couch co-op titles.',
     detail: 'Pairs over Bluetooth or a 2.4 GHz dongle.',
-    image: 'products/controller.webp',
+    image: null,
+    icon: 'Gamepad2',
     tags: ['Bluetooth', 'Rumble', 'PC + console'],
   },
   {
@@ -81,7 +83,8 @@ export const accessories = [
     name: 'Gaming Chair',
     blurb: 'Adjustable lumbar, armrests and recline.',
     detail: 'The part of the setup you touch for the longest — spend accordingly.',
-    image: 'products/gaming-chair.webp',
+    image: null,
+    icon: 'Armchair',
     tags: ['Lumbar support', '4D armrests', 'Recline'],
   },
   {
@@ -91,7 +94,8 @@ export const accessories = [
     name: 'Streaming Accessories',
     blurb: 'Capture cards, arms, lighting and USB microphones.',
     detail: 'Built around the machine so encoding does not steal your frames.',
-    image: 'products/streaming-kit.webp',
+    image: null,
+    icon: 'Video',
     tags: ['Capture', 'Lighting', 'Boom arm'],
   },
 
@@ -113,7 +117,8 @@ export const accessories = [
     name: 'Ergonomic Wireless Mouse',
     blurb: 'Multi-device, silent-click and vertical options.',
     detail: 'Switches between machines without re-pairing.',
-    image: 'products/wireless-mouse.webp',
+    image: null,
+    icon: 'Mouse',
     tags: ['Multi-device', 'Silent click', 'Rechargeable'],
   },
   {
@@ -123,7 +128,8 @@ export const accessories = [
     name: '1080p / 4K Webcam',
     blurb: 'Autofocus with a privacy shutter.',
     detail: 'Better lens and low-light handling than any laptop camera.',
-    image: 'products/webcam.webp',
+    image: null,
+    icon: 'Webcam',
     tags: ['1080p / 4K', 'Autofocus', 'Privacy shutter'],
   },
   {
@@ -133,7 +139,8 @@ export const accessories = [
     name: 'USB Microphone',
     blurb: 'Cardioid condensers for calls and recording.',
     detail: 'Plugs straight in — no interface needed.',
-    image: 'products/usb-microphone.webp',
+    image: null,
+    icon: 'Mic',
     tags: ['Cardioid', 'USB-C', 'Monitoring jack'],
   },
   {
@@ -143,7 +150,8 @@ export const accessories = [
     name: 'Desktop Speakers',
     blurb: 'Compact 2.0 and 2.1 sets.',
     detail: 'Front-panel controls, no hunting behind the desk.',
-    image: 'products/desk-speakers.webp',
+    image: null,
+    icon: 'Speaker',
     tags: ['2.0 / 2.1', 'USB / 3.5 mm', 'Compact'],
   },
   {
@@ -153,7 +161,8 @@ export const accessories = [
     name: 'USB-C Docking Station',
     blurb: 'One cable for displays, network, power and peripherals.',
     detail: 'Check the display count and power delivery against your laptop.',
-    image: 'products/docking-station.webp',
+    image: null,
+    icon: 'Cable',
     tags: ['Multi-display', 'Power delivery', 'Ethernet'],
   },
   {
@@ -163,7 +172,8 @@ export const accessories = [
     name: 'Professional Monitor',
     blurb: 'Colour-accurate IPS panels, 1440p to 4K.',
     detail: 'Factory-calibrated options for colour-critical work.',
-    image: 'products/pro-monitor.webp',
+    image: null,
+    icon: 'Monitor',
     tags: ['sRGB / DCI-P3', '1440p / 4K', 'Height adjustable'],
   },
 
@@ -175,7 +185,8 @@ export const accessories = [
     name: 'Wi-Fi Adapter',
     blurb: 'USB and PCIe cards, Wi-Fi 5 through Wi-Fi 6E.',
     detail: 'PCIe with external antennas beats a USB stick behind a metal case.',
-    image: 'products/wifi-adapter.webp',
+    image: null,
+    icon: 'Wifi',
     tags: ['Wi-Fi 6 / 6E', 'USB / PCIe', 'Dual band'],
   },
   {
@@ -185,7 +196,8 @@ export const accessories = [
     name: 'Bluetooth Adapter',
     blurb: 'Adds BT 5.x to a desktop without onboard radio.',
     detail: 'For headsets, controllers and file transfer.',
-    image: 'products/bluetooth-adapter.webp',
+    image: null,
+    icon: 'Bluetooth',
     tags: ['BT 5.x', 'Plug and play', 'Low latency'],
   },
   {
@@ -195,7 +207,8 @@ export const accessories = [
     name: 'Powered USB Hub',
     blurb: 'Adds ports without starving the bus.',
     detail: 'Externally powered, so drives and dongles stay stable.',
-    image: 'products/usb-hub.webp',
+    image: null,
+    icon: 'Usb',
     tags: ['Powered', 'USB 3.x', '4 / 7 port'],
   },
   {
@@ -227,7 +240,8 @@ export const accessories = [
     name: 'Surge Protection',
     blurb: 'Spike guards and protected distribution boards.',
     detail: 'The cheapest insurance in the whole build.',
-    image: 'products/surge-protector.webp',
+    image: null,
+    icon: 'ShieldCheck',
     tags: ['Spike guard', 'Multi-socket', 'Indicator'],
   },
   {

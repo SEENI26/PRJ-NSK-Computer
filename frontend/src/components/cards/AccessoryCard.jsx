@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { cn, img } from '@/utils/helpers';
+import { getIcon } from '@/utils/icons';
 import { staggerItem } from '@/animations';
 
 /** Accessory tile. Compact variant is used inside a build's setup strip. */
@@ -26,7 +27,10 @@ export function AccessoryCard({ accessory, compact = false }) {
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
           />
         ) : (
-          <div className="grid h-full place-items-center text-[10px] text-ink-faint">No image</div>
+          /* No photograph for this line yet. A designed mark reads as
+             intentional; a broken tile or a loosely related stock photo does
+             not. */
+          <PlaceholderMark icon={accessory.icon} compact={compact} />
         )}
       </div>
 
@@ -53,5 +57,26 @@ export function AccessoryCard({ accessory, compact = false }) {
         )}
       </div>
     </motion.article>
+  );
+}
+
+function PlaceholderMark({ icon, compact }) {
+  const Icon = getIcon(icon);
+  return (
+    <div
+      aria-hidden="true"
+      className="relative grid h-full w-full place-items-center overflow-hidden"
+      style={{ background: 'linear-gradient(145deg, #14171d 0%, #0b0d11 100%)' }}
+    >
+      <div className="absolute inset-0 grid-backdrop opacity-50" />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(60% 60% at 50% 40%, rgb(var(--accent) / 0.13), transparent 70%)' }}
+      />
+      <Icon
+        className={cn('relative text-accent/70', compact ? 'h-6 w-6' : 'h-9 w-9')}
+        strokeWidth={1.25}
+      />
+    </div>
   );
 }

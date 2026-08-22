@@ -23,7 +23,7 @@ export function HeroSection() {
   return (
     <section
       ref={frameRef}
-      className="relative flex min-h-[92vh] items-center overflow-hidden pb-20 pt-28 lg:pt-32"
+      className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden pb-24 pt-32 lg:min-h-[720px] lg:pb-28 lg:pt-36"
     >
       <HeroBackground tilt={tilt} />
 
@@ -42,7 +42,7 @@ export function HeroSection() {
                   <motion.span
                     variants={maskUp}
                     transition={{ delay: 0.16 + i * 0.11, duration: 0.85, ease: EASE }}
-                    className="t-hero block"
+                    className="t-hero block whitespace-nowrap"
                   >
                     {i === 1 ? <span className="text-gradient">{line}</span> : line}
                   </motion.span>

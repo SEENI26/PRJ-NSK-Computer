@@ -1,6 +1,7 @@
 import { HeroSection } from '@/components/hero';
 import {
-  GamingVsProfessional, HardwareCategories, FeaturedBuilds, WhyChooseUs, CTASection,
+  GamingVsProfessional, HardwareCategories, FeaturedBuilds, ShowroomGallery,
+  WhyChooseUs, CTASection,
 } from '@/components/sections';
 import { usePageMeta } from '@/hooks/usePageTransition';
 
@@ -20,6 +21,7 @@ export default function Home() {
       <FeaturedBuilds />
       <HardwareCategories limit={6} />
       <WhyChooseUs />
+      <ShowroomGallery />
       <CTASection />
     </>
   );

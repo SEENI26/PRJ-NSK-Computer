@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import * as Icons from 'lucide-react';
+import { getIcon } from '@/utils/icons';
 import { Container, SectionTitle, Badge } from '@/components/common';
 import { HardwareCard } from '@/components/cards';
 import { CTASection } from '@/components/sections';
@@ -119,7 +119,7 @@ export default function Hardware() {
 }
 
 function CategoryIcon({ name }) {
-  const Icon = Icons[name] ?? Icons.Cpu;
+  const Icon = getIcon(name);
   return (
     <span aria-hidden="true" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.03]">
       <Icon className="h-[18px] w-[18px] text-accent" />

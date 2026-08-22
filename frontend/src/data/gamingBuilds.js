@@ -104,7 +104,7 @@ export const gamingBuilds = [
     description:
       'An enthusiast machine: top-tier graphics, high core count for simultaneous encoding, and a chassis specified for silence under sustained load rather than peak numbers alone.',
     bestFor: ['4K ultra', 'Streaming and gaming', 'Enthusiast builds'],
-    image: 'products/gaming-pc-rgb.webp',
+    image: 'products/nvidia-rtx.webp',
     accent: 'from-cyan-300/45',
     specifications: {
       cpu:         '16-core Ryzen 9 / Core i9',
