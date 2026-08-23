@@ -123,6 +123,24 @@ async function main() {
   dims.markLight = await emit(markWhite, 'logo-mark-light', 900);
   log('horse mark — navy + white');
 
+  // ── Display sizes actually used by <Logo /> ──────────────────────────────
+  // The masters above stay full-resolution for print and future crops, but the
+  // header slot is ~140 CSS px wide and the footer ~230. Shipping the 1200px
+  // artwork there costs ~44kB per page load for pixels no one can see, so each
+  // slot gets a 1x/2x pair and the component serves them through `srcset`.
+  const DISPLAY = [
+    { buf: primaryWhite, name: 'logo-primary-light', key: 'navPrimary', widths: [160, 320] },
+    { buf: lockupWhite,  name: 'logo-light',         key: 'footerLockup', widths: [260, 520] },
+  ];
+  dims.display = {};
+  for (const { buf, name, key, widths } of DISPLAY) {
+    dims.display[key] = {};
+    for (const w of widths) {
+      dims.display[key][`w${w}`] = { src: `/images/brand/${name}-${w}.webp`, ...(await emit(buf, `${name}-${w}`, w)) };
+    }
+  }
+  log('display sizes — nav 160/320, footer 260/520');
+
   // ── Icons: white horse on the brand background, rounded ──────────────────
   const iconBase = async (size) => {
     const pad = Math.round(size * 0.14);

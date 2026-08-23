@@ -1,166 +1,99 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import brandMeta from '@/data/generated/brand-meta.json';
-import { cn } from '@/lib/utils';
-import { site } from '@/lib/site';
+import { COMPANY } from '@/data/company';
+import { ROUTES } from '@/utils/constants';
+import { cn } from '@/utils/helpers';
 
 /**
- * NSK brand marks.
+ * The NSK brand marks.
  *
- * Every asset is derived from the supplied artwork at `brand/logo-master.png`
- * by `scripts/build-brand.mjs` — this component only places it, never redraws it.
+ * Every asset here is derived from the supplied artwork at `brand/logo-master.png`
+ * by `scripts/build-brand.mjs` — this component only places the logo, it never
+ * redraws it. To change the logo, replace that one file and re-run
+ * `npm run brand:build`.
  *
- * The site is a single light theme, so only the brand-navy colourway is used.
- * The white variants are still generated (they are needed for dark photographic
- * backgrounds and print), and `variant="light"` selects them where a mark sits
- * on imagery rather than on the page ground.
+ * The site is a single dark theme, so only the white colourway ships. The navy
+ * variants are still generated (print, light backgrounds, the OG card) but are
+ * deliberately not referenced here: navy on #080808 is unreadable.
+ *
+ * Intrinsic width/height come from the generated manifest so the header never
+ * reflows once the image decodes.
  */
 
-const ASSETS = {
-  /** NSK + horse, no type lines. Legible down to ~36px tall — used in the header. */
-  primary: {
-    navy: { src: '/images/brand/logo-primary.webp', ...brandMeta.assets.primary },
-    light: { src: '/images/brand/logo-primary-light.webp', ...brandMeta.assets.primaryLight },
-  },
-  /** Complete lockup including company name and tagline. Needs ~80px of height. */
-  lockup: {
-    navy: { src: '/images/brand/logo.webp', ...brandMeta.assets.logo },
-    light: { src: '/images/brand/logo-light.webp', ...brandMeta.assets.logoLight },
-  },
-  /** Horse alone. */
-  mark: {
-    navy: { src: '/images/brand/logo-mark.webp', ...brandMeta.assets.mark },
-    light: { src: '/images/brand/logo-mark-light.webp', ...brandMeta.assets.markLight },
-  },
-} ;
+const { display } = brandMeta.assets;
 
-
-function BrandImage({
-  asset,
-  variant = 'navy',
-  alt,
-  className,
-  sizes,
-  priority = false,
+/** Two-density srcset from the generated display pair. */
+function srcSet(pair) {
+  return Object.values(pair)
+    .map((a) => `${a.src} ${a.width}w`)
+    .join(', ');
 }
-) {
-  const { src, width, height } = ASSETS[asset][variant];
+
+/** Rendered width of each slot, in CSS px — drives `sizes` and the box. */
+const NAV_WIDTH = 126;
+const FOOTER_WIDTH = 232;
+
+/**
+ * Header lockup — NSK + horse, no type lines.
+ *
+ * The full lockup is not used here: at a 72px header its two type lines would
+ * render around 6px tall and turn to mud. The footer, which has vertical room,
+ * gets the complete lockup instead.
+ */
+export function Logo({ className, to = ROUTES.home, onClick }) {
+  const base = display.navPrimary.w160;
+
   return (
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      priority={priority}
-      sizes={sizes}
-      className={className}
-    />
-  );
-}
-
-/** The galloping horse on its own — admin rail, compact contexts. */
-export function LogoMark({
-  className,
-  variant = 'navy',
-  priority = false,
-}
-) {
-  return (
-    <BrandImage
-      asset="mark"
-      variant={variant}
-      alt=""
-      className={cn('h-8 w-auto', className)}
-      sizes="120px"
-      priority={priority}
-    />
+    <Link
+      to={to}
+      onClick={onClick}
+      aria-label={`${COMPANY.name} — home`}
+      className={cn(
+        'inline-flex shrink-0 items-center rounded-sm transition-opacity duration-300 hover:opacity-80',
+        className,
+      )}
+    >
+      <img
+        src={base.src}
+        srcSet={srcSet(display.navPrimary)}
+        sizes={`${NAV_WIDTH}px`}
+        width={base.width}
+        height={base.height}
+        alt=""
+        /* The link already carries the accessible name; alt="" keeps a screen
+           reader from announcing the company twice. */
+        decoding="async"
+        fetchPriority="high"
+        className="h-auto w-[126px]"
+      />
+    </Link>
   );
 }
 
 /** Full lockup — NSK, horse, company name and tagline. Footer and wide contexts. */
-export function LogoLockup({
-  className,
-  variant = 'navy',
-  priority = false,
-}
-) {
-  return (
-    <BrandImage
-      asset="lockup"
-      variant={variant}
-      alt={site.legalName}
-      className={cn('h-auto w-auto', className)}
-      sizes="(max-width: 640px) 260px, 340px"
-      priority={priority}
-    />
-  );
-}
-
-/**
- * Header logo — links home.
- *
- * Uses the *primary* crop (NSK + horse) rather than the full lockup: at a 44px
- * header height the two type lines beneath would render around 5px tall and be
- * illegible. The footer, which has vertical room, gets the complete lockup.
- */
-export function Logo({
-  className,
-  compact = false,
-  variant,
-}
-) {
-  const size = compact ? 'h-9 w-auto' : 'h-11 w-auto sm:h-12';
-  const asset = compact ? 'mark' : 'primary';
-
-  /*
-   * With no explicit variant, render BOTH colourways and let CSS pick.
-   *
-   * The navy mark disappears against a dark section and the white one against
-   * the page, but which applies depends on an ancestor (`.theme-dark` /
-   * `.on-media`) that this component cannot see. Threading a prop down through
-   * every caller would mean the header, footer and mobile drawer each tracking
-   * the theme themselves. The swap rules live in globals.css.
-   */
-  const auto = variant === undefined;
+export function LogoLockup({ className, to = ROUTES.home }) {
+  const base = display.footerLockup.w260;
 
   return (
     <Link
-      href="/"
-      aria-label={`${site.legalName} — home`}
+      to={to}
+      aria-label={`${COMPANY.name} — home`}
       className={cn(
-        'group inline-flex shrink-0 items-center transition-opacity duration-300 hover:opacity-85',
-        className
+        'inline-flex shrink-0 items-center rounded-sm transition-opacity duration-300 hover:opacity-80',
+        className,
       )}
     >
-      {auto ? (
-        <>
-          <BrandImage
-            asset={asset}
-            variant="navy"
-            alt={site.name}
-            className={cn(size, 'logo-navy')}
-            sizes={compact ? '120px' : '260px'}
-            priority
-          />
-          <BrandImage
-            asset={asset}
-            variant="light"
-            alt=""
-            className={cn(size, 'logo-light')}
-            sizes={compact ? '120px' : '260px'}
-            priority
-          />
-        </>
-      ) : (
-        <BrandImage
-          asset={asset}
-          variant={variant}
-          alt={site.name}
-          className={size}
-          sizes={compact ? '120px' : '260px'}
-          priority
-        />
-      )}
+      <img
+        src={base.src}
+        srcSet={srcSet(display.footerLockup)}
+        sizes={`${FOOTER_WIDTH}px`}
+        width={base.width}
+        height={base.height}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="h-auto w-[232px]"
+      />
     </Link>
   );
 }

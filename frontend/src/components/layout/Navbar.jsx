@@ -4,6 +4,7 @@ import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { Button, Container } from '@/components/common';
 import { MobileMenu } from './MobileMenu';
+import { Logo } from './Logo';
 import { cn } from '@/utils/helpers';
 import { NAV_LINKS, ROUTES } from '@/utils/constants';
 
@@ -51,10 +52,7 @@ export function Navbar() {
         )}
       >
         <Container className="flex h-[72px] items-center justify-between gap-6">
-          <Link to={ROUTES.home} className="flex items-center gap-2.5" aria-label={`${'NSK'} home`}>
-            <span aria-hidden="true" className="h-5 w-[9px] rounded-sm bg-accent shadow-glow" />
-            <span className="font-display text-[15px] font-semibold tracking-[0.2em]">NSK</span>
-          </Link>
+          <Logo />
 
           <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
             {NAV_LINKS.map((link) => (

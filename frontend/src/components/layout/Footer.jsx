@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Container, Divider } from '@/components/common';
+import { LogoLockup } from './Logo';
 import { COMPANY } from '@/data/company';
 import { NAV_LINKS, ROUTES } from '@/utils/constants';
 import { hardwareCategories } from '@/data/hardwareCategories';
@@ -13,12 +14,7 @@ export function Footer() {
       <Container className="py-20">
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
-            <Link to={ROUTES.home} className="flex items-center gap-2.5">
-              <span aria-hidden="true" className="h-5 w-[9px] rounded-sm bg-accent" />
-              <span className="font-display text-[15px] font-semibold tracking-[0.2em]">
-                NSK COMPUTER ZONE
-              </span>
-            </Link>
+            <LogoLockup />
             <p className="mt-5 max-w-[38ch] text-sm leading-relaxed text-ink-muted">
               Hardware, systems and custom builds since {COMPANY.foundingYear}. Tell us what the
               machine is for and we will specify it properly.

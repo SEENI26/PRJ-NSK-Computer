@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Phone, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/common';
+import { Logo } from './Logo';
 import { NAV_LINKS, ROUTES } from '@/utils/constants';
 import { COMPANY } from '@/data/company';
 import { EASE } from '@/animations';
@@ -57,7 +58,7 @@ export function MobileMenu({ open, onClose }) {
                        border-l border-white/[0.08] bg-base-800 outline-none lg:hidden"
           >
             <div className="flex h-[72px] items-center justify-between px-6">
-              <span className="font-display text-sm tracking-[0.2em]">MENU</span>
+              <Logo onClick={onClose} />
               <button
                 type="button"
                 onClick={onClose}

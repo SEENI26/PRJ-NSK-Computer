@@ -24,6 +24,32 @@
     "markLight": {
       "width": 900,
       "height": 501
+    },
+    "display": {
+      "navPrimary": {
+        "w160": {
+          "src": "/images/brand/logo-primary-light-160.webp",
+          "width": 160,
+          "height": 38
+        },
+        "w320": {
+          "src": "/images/brand/logo-primary-light-320.webp",
+          "width": 320,
+          "height": 77
+        }
+      },
+      "footerLockup": {
+        "w260": {
+          "src": "/images/brand/logo-light-260.webp",
+          "width": 260,
+          "height": 96
+        },
+        "w520": {
+          "src": "/images/brand/logo-light-520.webp",
+          "width": 520,
+          "height": 193
+        }
+      }
     }
   }
 }
