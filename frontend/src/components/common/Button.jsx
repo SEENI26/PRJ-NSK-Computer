@@ -5,16 +5,22 @@ import { cn } from '@/utils/helpers';
  * The only button in the system. Renders as <button>, <a> or <Link> depending
  * on what it is given, so a call site never has to restyle a link to match.
  */
+/**
+ * Each variant carries a plain `btn-*` hook alongside its utilities. The
+ * utilities are written for the dark site; the hook is what a scoped colourway
+ * (see `.theme-pro` in globals.css) re-points, so a light page does not need a
+ * parallel set of variants or a prop threaded through every call site.
+ */
 const VARIANTS = {
   primary:
-    'bg-accent text-black font-medium hover:bg-white ' +
+    'btn-primary bg-accent text-black font-medium hover:bg-white ' +
     'shadow-[0_0_28px_-8px_rgb(var(--accent)/0.65)] hover:shadow-[0_0_36px_-6px_rgb(var(--accent)/0.8)]',
   secondary:
-    'border border-white/15 bg-white/[0.04] text-ink hover:bg-white/[0.09] hover:border-white/30',
+    'btn-secondary border border-white/15 bg-white/[0.04] text-ink hover:bg-white/[0.09] hover:border-white/30',
   ghost:
-    'text-ink-muted hover:text-accent',
+    'btn-ghost text-ink-muted hover:text-accent',
   outline:
-    'border border-accent/45 text-accent hover:bg-accent/10 hover:border-accent',
+    'btn-outline border border-accent/45 text-accent hover:bg-accent/10 hover:border-accent',
 };
 
 const SIZES = {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { Button, Container } from '@/components/common';
@@ -17,6 +17,15 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { scrollY } = useScroll();
+  const { pathname } = useLocation();
+
+  /*
+   * The bar is white type on nothing until you scroll, which works over a dark
+   * hero and disappears over a light one. The professional page is light from
+   * its first pixel, so there the bar keeps its solid treatment from the top.
+   */
+  const overLightPage = pathname === ROUTES.professional;
+  const solid = scrolled || overLightPage;
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     setScrolled((was) => (was === y > 24 ? was : y > 24));
@@ -46,9 +55,12 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-all duration-300',
-          scrolled
-            ? 'border-b border-white/[0.07] bg-base-900/80 backdrop-blur-xl supports-[backdrop-filter]:bg-base-900/65'
-            : 'bg-transparent',
+          // Over paper the bar is fully opaque: a translucent black on white
+          // washes out to grey and the whole header reads as disabled.
+          overLightPage && 'border-b border-black/10 bg-[#0B0B0C]',
+          !overLightPage && scrolled &&
+            'border-b border-white/[0.07] bg-base-900/80 backdrop-blur-xl supports-[backdrop-filter]:bg-base-900/65',
+          !solid && 'bg-transparent',
         )}
       >
         <Container className="flex h-[72px] items-center justify-between gap-6">
