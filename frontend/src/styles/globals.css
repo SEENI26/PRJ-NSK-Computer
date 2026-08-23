@@ -17,11 +17,18 @@
     --bg-700:     23  23  23;   /* #171717 card / panel       */
     --bg-600:     32  32  32;   /* hover state                */
 
-    /* Text */
+    /*
+     * Text. The two quietest steps were originally set by eye and measured
+     * 4.97:1 and 2.80:1 on the page ground — the faint one a clear AA failure,
+     * and it is the step every 11px uppercase label uses. Lifted so all four
+     * clear 4.5:1 while staying four distinct steps:
+     *   ink 20.0  ·  muted 8.8  ·  subtle 6.2  ·  faint 4.7
+     * Check with .claude/skills/nsk-showroom-ui/scripts/contrast.py
+     */
     --ink:        255 255 255;
     --ink-muted:  168 172 178;
-    --ink-subtle: 122 127 134;
-    --ink-faint:  84  88  95;
+    --ink-subtle: 138 143 152;
+    --ink-faint:  118 123 133;
 
     /* Accent — electric cyan, with a blue partner for gradients only */
     --accent:     34  211 238;
@@ -241,3 +248,78 @@
 
 /* Specs are read as a table, so figures line up column-wise. */
 .theme-pro .tabular { font-variant-numeric: tabular-nums; }
+
+/**
+ * The gaming colourway — the dark site, pushed.
+ *
+ * The professional page borrows the datasheet; this one borrows the *overlay* —
+ * the FPS counter a competitive player keeps in the corner of the screen.
+ * That is where the monospace figures, the threshold colours and the frame-time
+ * bars below come from. Two audiences, two artifacts, one showroom.
+ *
+ * Cyan stays the primary because it is the site's accent and the brand's. What
+ * is added is a magenta partner used *only* for addressable-RGB moments, never
+ * as a flat gradient on a button — a violet-to-rose CTA is the stock gamer
+ * template, and the point here is the hardware's own light, not a wash.
+ */
+.theme-gaming {
+  --bg:        6  6  8;      /* a touch deeper than the site ground */
+  --rgb-1:     34  211 238;  /* cyan    */
+  --rgb-2:     167 92  255;  /* violet  */
+  --rgb-3:     255 60  148;  /* magenta */
+
+  /* Overlay thresholds — read the way a frame counter reads. */
+  --fps-good:  74  222 128;
+  --fps-mid:   250 204 21;
+  --fps-low:   248 113 113;
+
+  background-color: rgb(var(--bg));
+}
+
+/**
+ * The addressable-RGB sweep. One element per screen, at most — this is the
+ * page's loudest gesture and it stops being a gesture if it is everywhere.
+ */
+.theme-gaming .rgb-sweep {
+  background-image: linear-gradient(
+    100deg,
+    rgb(var(--rgb-1)) 0%,
+    rgb(var(--rgb-2)) 42%,
+    rgb(var(--rgb-3)) 72%,
+    rgb(var(--rgb-1)) 100%
+  );
+  background-size: 260% 100%;
+  /* This repaints rather than compositing, which is the usual reason not to
+     animate background-position. It is one 1px hairline on the page, so the
+     painted area is trivial — and a transform-based equivalent would need an
+     extra wrapper and clip for no visible gain. */
+  animation: rgb-drift 14s linear infinite;
+}
+@keyframes rgb-drift {
+  to { background-position: 260% 0; }
+}
+
+/* A hairline of the same sweep, for card edges that should read as lit. */
+.theme-gaming .rgb-edge::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  opacity: 0.75;
+  background-image: linear-gradient(
+    90deg, transparent, rgb(var(--rgb-1)), rgb(var(--rgb-2)), rgb(var(--rgb-3)), transparent
+  );
+}
+
+/* Overlay figures: tabular so a column of frame rates lines up. */
+.theme-gaming .overlay-num {
+  font-family: 'Space Grotesk', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* The turntable and the RGB drift are decoration, not information. */
+@media (prefers-reduced-motion: reduce) {
+  .theme-gaming .rgb-sweep { animation: none; }
+}

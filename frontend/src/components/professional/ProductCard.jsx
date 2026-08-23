@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
-import { DeviceRender } from './DeviceRender';
-import { BrandMark, hasBrandMark } from './BrandMark';
+import { DeviceRender, BrandMark, hasBrandMark } from '@/components/common';
 import { proBrands, proRoles } from '@/data/professionalProducts';
 import { staggerItem } from '@/animations';
 import { cn } from '@/utils/helpers';
