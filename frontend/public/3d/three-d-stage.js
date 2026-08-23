@@ -221,7 +221,9 @@
       });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      // PCFSoftShadowMap is deprecated as of three r184 and silently falls back
+      // to this anyway — naming it directly keeps the console clean.
+      renderer.shadowMap.type = THREE.PCFShadowMap;
       this._renderer = renderer;
       this.shadowRoot.insertBefore(renderer.domElement, this._err);
 

@@ -41,7 +41,15 @@
 
   * { border-color: rgb(var(--line)); }
 
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  /* `position: relative` is not cosmetic here — it makes the document the
+     containing block scroll-linked animations measure their targets against
+     (framer-motion's useScroll), so parallax offsets stay exact. */
+  html {
+    position: relative;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
 
   body {
     background-color: rgb(var(--bg));

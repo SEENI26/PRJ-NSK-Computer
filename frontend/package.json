@@ -2,6 +2,7 @@
   "name": "nsk-computer-zone-web",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "NSK Computer Zone \u2014 A click for many solution Premium enterprise frontend.",
   "scripts": {
     "dev": "vite --port 3100 --strictPort",
