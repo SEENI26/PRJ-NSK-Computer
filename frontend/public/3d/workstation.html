@@ -71,14 +71,19 @@
     if (new URLSearchParams(location.search).has('embed')) {
       document.body.classList.add('embed');
 
-      /* The export toolbar is built inside the stage's open shadow root during
-         init, so it may not exist yet — watch for it rather than assume. */
+      /* The export toolbar and the orbit hint are built inside the stage's open
+         shadow root during init, so they may not exist yet — watch for them
+         rather than assume. Both are standalone-viewer chrome: in a hero the
+         model should read as artwork, not as an embedded tool. */
       (() => {
         const stageEl = document.querySelector('three-d-stage');
         const hide = () => {
-          const bar = stageEl && stageEl.shadowRoot && stageEl.shadowRoot.querySelector('.toolbar');
+          const root = stageEl && stageEl.shadowRoot;
+          const bar = root && root.querySelector('.toolbar');
           if (!bar) return false;
           bar.style.display = 'none';
+          const note = root.querySelector('.note');
+          if (note) note.style.display = 'none';
           return true;
         };
         if (hide()) return;
@@ -99,15 +104,24 @@
       document.getElementById('power').textContent = 'LED';
       document.getElementById('view').textContent = 'View';
       document.getElementById('rgb').textContent = 'RGB';
-      // Hex triple only — this value comes from the query string and is
-      // written straight into a style property and an attribute.
+      // Hex triple or the literal "transparent" — this value comes from the
+      // query string and is written straight into a style property and an
+      // attribute, so it stays a strict allowlist.
       const bg = new URLSearchParams(location.search).get('bg');
-      if (bg && /^#?[0-9a-f]{3,8}$/i.test(bg)) {
-        const c = '#' + bg.replace('#', '');
+      const clear = bg === 'transparent';
+      if (clear || (bg && /^#?[0-9a-f]{3,8}$/i.test(bg))) {
+        const c = clear ? 'transparent' : '#' + bg.replace('#', '');
+        // The design-system stylesheet paints `body` with --color-bg, so the
+        // root elements have to be cleared too or the frame keeps its slab.
+        document.documentElement.style.background = c;
         document.body.style.background = c;
         const st = document.querySelector('three-d-stage');
         st.setAttribute('background', c);
         st.style.background = c;
+        // The stage reads `background` into --stage-bg once, at upgrade time,
+        // which has already happened by now — so set the property directly too
+        // rather than relying on the inline background alone to override it.
+        st.style.setProperty('--stage-bg', c);
       }
     }
     // The store's reduced-motion rule only stops CSS animation; the turntable

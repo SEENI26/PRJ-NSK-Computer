@@ -47,8 +47,13 @@ function hasWebGL() {
 
 export function Cabinet3D({
   model = 'workstation',
-  /** Matches the page ground so the viewer blends instead of sitting on a slab. */
-  background = '080808',
+  /**
+   * Transparent by default so the model sits directly on the hero — the grid
+   * and particle field run behind it. A solid colour here (even the page
+   * ground) reads as a rectangular slab, because the hero backdrop is not
+   * flat. Accepts a bare hex triple for contexts that do want a plate.
+   */
+  background = 'transparent',
   fallbackMode = 'gaming',
   className,
 }) {

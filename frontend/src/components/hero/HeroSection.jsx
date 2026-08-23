@@ -87,7 +87,7 @@ export function HeroSection() {
           {/* The machine — the real three.js model, with the CSS cabinet
               standing in until it paints. */}
           <div className="relative flex justify-center lg:justify-end">
-            <Cabinet3D model="workstation" background="080808" fallbackMode="gaming" />
+            <Cabinet3D model="workstation" fallbackMode="gaming" />
           </div>
         </div>
       </Container>
