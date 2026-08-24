@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
-import { DeviceRender } from '@/components/common';
+import { ProductSlider } from './ProductSlider';
+import { BrandBar } from './BrandBar';
 import { staggerItem, EASE } from '@/animations';
 import { cn } from '@/utils/helpers';
 
@@ -68,27 +69,34 @@ export function RigCard({ build, selected, onSelect }) {
       )}
     >
       {/*
-       * The build, drawn. `level` widens the chassis, adds the radiator at
-       * tier 3 and lights more of it as the tier climbs, so the four pictures
-       * differ by the same thing the four tiers differ by. A single stock
-       * photo repeated four times would be decoration; this is the spec.
+       * Slide one is the build drawn — `level` widens the chassis, adds the
+       * radiator at tier 3 and lights more of it as the tier climbs, so the
+       * four pictures differ by the same thing the four tiers differ by.
+       * Shop photographs listed in the build's `gallery` follow it and the
+       * carousel starts advancing on its own once there is more than one.
        */}
-      <div
-        className="relative aspect-[3/2] w-full shrink-0"
-        style={{
-          background: `radial-gradient(70% 60% at 50% 108%, ${TIER_LIGHT[build.tier]}2E 0%, transparent 70%)`,
-        }}
-      >
-        <div className="absolute inset-0 p-2 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-          <DeviceRender shape="cabinet" level={build.tier} tint={TIER_LIGHT[build.tier]} />
-        </div>
-      </div>
+      <ProductSlider
+        build={build}
+        tint={TIER_LIGHT[build.tier]}
+        className="aspect-[3/2] w-full shrink-0"
+      />
 
       <div className="flex flex-1 flex-col border-t border-white/[0.07] p-6">
+        <BrandBar
+          brand={build.brand}
+          gpuVendor={build.gpuVendor}
+          tint={TIER_LIGHT[build.tier]}
+          className="mb-4 border-b border-white/[0.07] pb-4"
+        />
+
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="t-eyebrow text-accent">Tier {build.tier}</p>
-            <h3 className="mt-2.5 text-[19px] font-semibold tracking-[-0.02em]">{build.name}</h3>
+            <p className="t-eyebrow text-accent">
+              Tier {build.tier} · {build.name}
+            </p>
+            <h3 className="mt-2.5 text-[19px] font-semibold tracking-[-0.02em]">
+              {build.product ?? build.name}
+            </h3>
             <p className="mt-1 text-[13px] text-ink-muted">{build.tagline}</p>
           </div>
           {build.popular && (
