@@ -1303,22 +1303,23 @@ export const products = [
 
   /* ── Gaming desktops ────────────────────────────────────────────────────────
    *
-   * ⚠ NEEDS CONFIRMATION BEFORE PUBLISHING ⚠
-   *
-   * This is an NSK-assembled build, NOT a resold prebuilt. It was specified from
-   * a Desertcart listing the owner supplied, but that page could not be read
-   * (HTTP 403) and the URL was truncated at the GPU, so the exact configuration
-   * is unknown — search surfaced both RTX 5080 and RTX 5090 variants under the
-   * same "Titan" name.
+   * An NSK-assembled build, not a resold prebuilt.
    *
    * VERIFIED (Intel's own product page title + multiple independent listings):
    *   - Core Ultra 9 285K · 24 cores / 24 threads (8 P + 16 E) · 36 MB cache
    *     · up to 5.70 GHz
    *
-   * NOT VERIFIED — every value below marked ⚠ is a placeholder taken from a
-   * third-party reseller listing, not from a manufacturer source. Intel.com and
-   * TechPowerUp both blocked automated reads. Confirm against the parts you
-   * actually source, then delete this block and the ⚠ markers.
+   * The rest of the machine used to carry seven ⚠ CONFIRM placeholders — a
+   * specific GPU, memory, board, PSU and cooler taken from a third-party
+   * reseller listing that could not be read (HTTP 403) and was truncated at the
+   * GPU. Those were never confirmed against a part the shop actually sources.
+   *
+   * They are gone rather than confirmed, because for a build-to-order machine
+   * they were the wrong shape of claim in the first place: the components are
+   * chosen with the customer and named on the quotation, so the honest entry
+   * states what is decided at the counter instead of asserting a configuration
+   * nobody had verified. If a fixed SKU is ever offered, add it here with
+   * sourced values.
    */
   {
     id: 33,
@@ -1337,7 +1338,7 @@ export const products = [
     images: ['products/motherboard.webp'],
     highlights: [
       'Intel Core Ultra 9 285K — 24 cores / 24 threads, up to 5.70 GHz',
-      'Built to your specification, not a fixed SKU',
+      'Built to your specification, not a fixed SKU — every part named on the quotation',
       'Load-tested on the bench before handover',
       'Every component named on the quotation',
     ],
@@ -1352,15 +1353,15 @@ export const products = [
         ],
       },
       {
-        title: 'Configured to order',
+        title: 'Chosen with you at the counter',
         specs: [
-          { label: 'Graphics', value: '⚠ CONFIRM — RTX 5080 16 GB or RTX 5090 32 GB' },
-          { label: 'Memory', value: '⚠ CONFIRM — 32 GB DDR5' },
-          { label: 'Storage', value: '⚠ CONFIRM — 2 TB NVMe SSD' },
-          { label: 'Motherboard', value: '⚠ CONFIRM — Z890 chipset board' },
-          { label: 'Power supply', value: '⚠ CONFIRM — 1000 W 80+ Gold' },
-          { label: 'Cooling', value: '⚠ CONFIRM — 360 mm AIO liquid cooler' },
-          { label: 'Cabinet', value: '⚠ CONFIRM — tempered glass, airflow layout' },
+          { label: 'Graphics', value: 'Current NVIDIA GeForce RTX or AMD Radeon RX, sized to your resolution and refresh rate' },
+          { label: 'Memory', value: 'DDR5, capacity and speed set by the board and the workload' },
+          { label: 'Storage', value: 'NVMe system drive, with SATA or mechanical added for bulk' },
+          { label: 'Motherboard', value: 'Matched to the socket, with the connectivity you actually use' },
+          { label: 'Power supply', value: 'Sized on the real draw of the parts chosen, plus headroom' },
+          { label: 'Cooling', value: 'Air or all-in-one liquid, rated against the CPU it is cooling' },
+          { label: 'Cabinet', value: 'Chosen for clearance and airflow first, looks second' },
         ],
       },
       {

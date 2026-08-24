@@ -21,6 +21,7 @@ export function ShowroomGallery() {
     <section ref={ref} className="relative overflow-hidden py-24 lg:py-32" aria-labelledby="showroom-heading">
       <Container>
         <SectionTitle
+          titleId="showroom-heading"
           eyebrow="Inside the showroom"
           title="Come and see the machines"
           lead={`Twenty years of builds, spares and service on Heber Road. Drag the wall to look around — then come in and we will show you the real thing.`}

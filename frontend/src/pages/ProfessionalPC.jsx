@@ -203,6 +203,7 @@ export default function ProfessionalPC() {
       <section id="catalogue" className="scroll-mt-24 py-14" aria-labelledby="catalogue-heading">
         <Container>
           <SectionTitle
+            titleId="catalogue-heading"
             eyebrow="The range"
             title="Machines we supply and support"
             lead="Business desktops and laptops from the manufacturers whose service networks actually reach Tiruchirappalli. Every one is configured, imaged and tested at the counter before it leaves."
@@ -306,6 +307,7 @@ export default function ProfessionalPC() {
       <section className="py-20" aria-labelledby="builds-heading">
         <Container>
           <SectionTitle
+            titleId="builds-heading"
             eyebrow="Or built here"
             title="Five workstations we build ourselves"
             lead="When the brand configurator will not go where the work needs to, we specify it part by part. Same warranty handling, and you keep the choice of every component."

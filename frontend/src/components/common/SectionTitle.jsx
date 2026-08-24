@@ -5,10 +5,15 @@ import { fadeUp, stagger, staggerItem, revealViewport } from '@/animations';
 /**
  * Section header: eyebrow, heading, optional lead and a right-hand slot for a
  * link or control. Used by every section so vertical rhythm stays consistent.
+ *
+ * `titleId` exists because a section that sets `aria-labelledby` needs the id
+ * to land on the real heading. Without it those references dangled and the
+ * sections were announced with no accessible name at all.
  */
 export function SectionTitle({
   eyebrow,
   title,
+  titleId,
   lead,
   align = 'left',
   action,
@@ -32,7 +37,7 @@ export function SectionTitle({
             {eyebrow}
           </motion.p>
         )}
-        <motion.h2 variants={staggerItem} className={cn('t-display', eyebrow && 'mt-4')}>
+        <motion.h2 id={titleId} variants={staggerItem} className={cn('t-display', eyebrow && 'mt-4')}>
           {title}
         </motion.h2>
         {lead && (

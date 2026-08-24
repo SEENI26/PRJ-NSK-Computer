@@ -19,6 +19,7 @@ export function FeaturedBuilds() {
     <section className="py-24 lg:py-32" aria-labelledby="builds-heading">
       <Container>
         <SectionTitle
+          titleId="builds-heading"
           eyebrow="Complete machines"
           title="Builds people actually order"
           lead="Each one is a starting point, not a fixed SKU — components are confirmed against stock and your budget when you enquire."

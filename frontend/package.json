@@ -6,7 +6,7 @@
   "description": "NSK Computer Zone \u2014 A click for many solution Premium enterprise frontend.",
   "scripts": {
     "dev": "vite --port 3100 --strictPort",
-    "build": "vite build",
+    "build": "node scripts/build-seo.mjs && vite build",
     "start": "vite preview --port 3100 --strictPort",
     "lint": "eslint src",
     "content:check": "node ../scripts/check-content.mjs",
@@ -14,7 +14,8 @@
     "images:report": "node scripts/report-images.mjs",
     "analyze": "vite build",
     "brand:build": "node scripts/build-brand.mjs",
-    "brands:build": "node scripts/build-brand-logos.mjs"
+    "brands:build": "node scripts/build-brand-logos.mjs",
+    "seo:build": "node scripts/build-seo.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

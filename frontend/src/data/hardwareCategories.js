@@ -44,8 +44,9 @@ export const hardwareCategories = [
     icon: 'CircuitBoard',
     decidingFactor: 'The socket must match the CPU and the memory type must match the kit. Everything else is features.',
     items: [
-      { name: 'Intel platform', detail: 'H, B and Z series for current LGA sockets.' },
-      { name: 'AMD platform',   detail: 'A, B and X series for AM4 and AM5.' },
+      { name: 'Intel platform',  detail: 'H, B and Z series for current LGA sockets.' },
+      { name: 'AMD platform',    detail: 'A, B and X series for AM4 and AM5.' },
+      { name: 'Expansion cards', detail: 'PCI and PCIe cards adding USB, SATA, serial or network ports to a board that has run out.' },
     ],
   },
   {
@@ -103,7 +104,11 @@ export const hardwareCategories = [
     id: 'cabinets',
     name: 'Cabinets',
     blurb: 'Gaming, professional, compact and premium.',
-    image: 'products/laptop-workstation.webp',
+    // No honest photograph exists. The only cabinet-shaped images in the
+    // library are a visibly-branded Alienware prebuilt and a bare hard drive;
+    // showing either claims something untrue about what we stock, so the card
+    // falls back to its designed mark.
+    image: null,
     icon: 'Box',
     decidingFactor: 'Board form factor, GPU clearance and radiator support. Everything else is looks.',
     items: [
@@ -117,7 +122,9 @@ export const hardwareCategories = [
     id: 'monitors',
     name: 'Monitors',
     blurb: 'Gaming, professional and ultrawide panels.',
-    image: 'products/gaming-monitor.webp',
+    // `products/gaming-monitor.webp` is an Apple iMac — an all-in-one computer,
+    // not a monitor, and branded. Designed mark instead.
+    image: null,
     icon: 'Monitor',
     decidingFactor: 'Match refresh rate to what the GPU actually renders; match colour accuracy to the work.',
     items: [
@@ -126,6 +133,62 @@ export const hardwareCategories = [
       { name: 'Ultrawide',    detail: '21:9 and 32:9 for timelines, trading and multitasking.' },
     ],
   },
+  {
+    id: 'networking',
+    name: 'Networking',
+    blurb: 'Switches, Wi-Fi and structured cabling.',
+    image: 'categories/networking.webp',
+    icon: 'Wifi',
+    decidingFactor: 'Port count and speed decide the switch. For a single machine it is only ever whether the board already has Wi-Fi — if it does, you need cable, not an adapter.',
+    items: [
+      { name: 'Switches',          detail: 'Unmanaged 5, 8, 16 and 24-port desktop and rack switches.' },
+      { name: 'Wi-Fi adapters',    detail: 'USB and PCIe receivers for desktops with no wireless on board.' },
+      { name: 'Cable',             detail: 'Cat6 by the metre or on the box, crimped and tested to length.' },
+      { name: 'Cables & adapters', detail: 'HDMI, DisplayPort, USB-C, converters and the odd part nobody else stocks.' },
+    ],
+  },
 ];
 
 export const findCategory = (id) => hardwareCategories.find((c) => c.id === id);
+
+/**
+ * Departments that are not PC components.
+ *
+ * These are real counters in the shop — CCTV, print, laptop service — and the
+ * catalogue carries products for every one of them, but none is a part you
+ * would put in a build. Listing them as explorer categories would promise a
+ * component range that does not exist, so they get their own strip instead.
+ *
+ * `covers` holds the catalogue category keys each one accounts for, so the
+ * page can count real products rather than assert a number.
+ */
+export const counterDepartments = [
+  {
+    id: 'cctv',
+    name: 'CCTV & surveillance',
+    detail: 'Cameras, recorders and the cabling, supplied and installed.',
+    icon: 'Video',
+    covers: ['cctv'],
+  },
+  {
+    id: 'print',
+    name: 'Printers & scanners',
+    detail: 'Inkjet, laser and flatbed, with consumables and servicing.',
+    icon: 'Printer',
+    covers: ['printers-scanners'],
+  },
+  {
+    id: 'laptop-service',
+    name: 'Laptop spares',
+    detail: 'Screens, panels, keyboards and hinges — fitted at the counter.',
+    icon: 'Laptop',
+    covers: ['laptop-spares'],
+  },
+  {
+    id: 'desk',
+    name: 'Peripherals & furniture',
+    detail: 'Keyboards, mice, desks and chairs. The full range sits on the accessories page.',
+    icon: 'Mouse',
+    covers: ['peripherals', 'gaming-gear', 'setup-furniture'],
+  },
+];

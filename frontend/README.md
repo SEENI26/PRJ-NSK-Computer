@@ -36,10 +36,20 @@ npm run dev               # http://localhost:3100
 ### Production build
 
 ```bash
-npm run build             # → dist/
+npm run build             # regenerates robots.txt + sitemap.xml, then → dist/
 npm start                 # preview the built output on :3100
 npm run lint
+npm run content:check     # honesty guard — run before publishing
+npm run seo:build         # robots.txt + sitemap.xml only
 ```
+
+`content:check` is the one worth knowing about. It fails the build-up to
+publishing when the catalogue carries anything that must not reach a customer:
+unconfirmed specifications, a price of `0`, invented review counts, broken
+`relatedSlugs`, a department with no products behind it, imagery that
+contradicts the label next to it, and icons that would silently render the
+neutral fallback tick. Every check in there exists because that exact mistake
+shipped once.
 
 ---
 
@@ -55,10 +65,12 @@ src/
 ├── components/
 │   ├── layout/              Navbar, Footer, MobileMenu, PageTransition
 │   ├── common/              Button, Container, Badge, SectionTitle, Divider, ScrollReveal
-│   ├── cards/               PCBuildCard, HardwareCard, AccessoryCard  ← shared by all pages
+│   ├── cards/               PCBuildCard, HardwareCard, AccessoryCard,
+│   │                        HardwareProductCard  ← shared by all pages
 │   ├── hero/                HeroSection, HeroBackground, AnimatedCabinet
 │   ├── sections/            GamingVsProfessional, FeaturedBuilds, HardwareCategories,
-│   │                        RecommendedAccessories, ShowroomGallery, WhyChooseUs, CTASection
+│   │                        RecommendedAccessories, AccessoriesPreview,
+│   │                        ShowroomGallery, WhyChooseUs, CTASection
 │   ├── gallery/             DomeGallery — draggable sphere of images
 │   ├── effects/             PixelSnow — ambient particle field
 │   └── hero/Cabinet3D.jsx   embeds the real three.js viewer from public/3d/
@@ -72,7 +84,7 @@ src/
 │   ├── company.js           name, address, phone, hours, differentiators
 │   ├── gamingBuilds.js      4 tiers
 │   ├── professionalBuilds.js 5 workstations
-│   ├── hardwareCategories.js 9 explorer departments
+│   ├── hardwareCategories.js 10 explorer departments + the counter departments
 │   ├── hardwareProducts.js  adapter over products.js (the real 33-item catalogue)
 │   ├── accessories.js       22 items in 4 groups
 │   └── products.js          the transcribed real catalogue — source of truth
@@ -82,7 +94,17 @@ src/
 ├── services/                enquiries.js — the only network call in the app
 ├── utils/                   helpers, constants, icons, seo
 └── styles/                  globals (tokens), typography, animations
+
+scripts/
+└── build-seo.mjs            generates robots.txt + sitemap.xml from the route
+                             table, so the sitemap cannot drift from routes.jsx
 ```
+
+`RecommendedAccessories` and `AccessoriesPreview` look similar and are not
+interchangeable: the first resolves one build's `recommendedAccessories` ids
+and says "matched to this build"; the second is the home-page section, which
+has no build in context and instead takes one line from each of the four
+accessory groups.
 
 ### How the data joins up
 
@@ -91,6 +113,12 @@ PC build ──recommendedAccessories:[id]──▶ accessories
         └─specifications──▶ component classes
 hardware category ◀──category── hardwareProducts ◀── products.js
 ```
+
+`hardwareProducts.js` is the seam. It maps every catalogue category onto an
+explorer department or explicitly onto `null` (the counters that are not PC
+components — CCTV, print, laptop spares, peripherals). `content:check` asserts
+that map is total, so a new catalogue category cannot be added and silently
+render nowhere — which is exactly what had happened to all 33 products before.
 
 A build names accessories by id, so "Complete the setup" on the Gaming and
 Professional pages is a lookup rather than a second hand-maintained list.
@@ -105,6 +133,7 @@ Copy `.env.example` to `.env`. Everything is optional — the site runs without 
 | --- | --- |
 | `VITE_GOOGLE_MAPS_KEY` | Contact page shows a styled address panel and a directions link instead of an embedded map |
 | `VITE_API_BASE_URL` | The enquiry form reports that submission is unconfigured rather than pretending to send. In development the Vite proxy handles `/api`, so blank is correct locally |
+| `VITE_SITE_URL` | Canonical links, `og:image` and the generated sitemap fall back to the browser's own origin. Set it in production, or share previews and the sitemap point at whatever host served the page |
 | `VITE_WHATSAPP_NUMBER`, `VITE_CONTACT_EMAIL`, `VITE_COMPANY_PHONE` | Unused by the app today; `src/data/company.js` is the live source. Present for future integrations |
 
 Never commit `.env`.
@@ -145,13 +174,26 @@ Two requirements:
 
 ## Notes for the next developer
 
-- **The image library is mislabelled.** `categories/power-supplies.webp` is a
-  photograph of a CPU; `products/pc-case.webp` is a hard drive. Image paths in
-  `hardwareCategories.js` were chosen by looking at what each picture *shows*.
-  Check the image before "fixing" a path to match its filename.
+- **The image library is mislabelled, and worse than it first looks.**
+  `categories/power-supplies.webp` is a photograph of a CPU;
+  `products/pc-case.webp` is a hard drive; `products/gaming-headset.webp` is a
+  mouse; `products/keyboard-office.webp` is an Arduino breadboard kit; and
+  `products/ups-power.webp` is a screenshot of a Google Search Console
+  dashboard. Image paths were chosen by looking at what each picture *shows*.
+  Check the image before "fixing" a path to match its filename — and run
+  `npm run content:check`, which now holds the full inventory.
+- **Some files show a competitor's branded machine.** `gaming-monitor.webp` and
+  `gaming-pc.webp` are Apple iMacs, `laptop-workstation.webp` is a branded
+  Alienware. Those are blocked from department and accessory tiles outright: a
+  branded machine illustrating a generic category claims a range NSK does not
+  stock.
 - **Some items have no photograph.** They carry `image: null` and an `icon`,
   and render a designed placeholder. That is deliberate — better than a
-  misleading stock photo.
+  misleading stock photo. Every such item needs an `icon`, or it renders the
+  neutral fallback tick; `content:check` enforces that.
+- **The hardware explorer shows no product photography at all**, for the reason
+  above. Department tiles keep their (verified) photos; the product cards
+  underneath use the department's drawn mark.
 - **Prices are absent everywhere by design.** `priceLabel()` renders
   "Price on request" for `null`. Do not invent figures.
 - **Icons are registered explicitly** in `utils/icons.js`. A namespace import

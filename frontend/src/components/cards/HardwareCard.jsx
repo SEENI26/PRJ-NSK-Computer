@@ -8,7 +8,7 @@ import { staggerItem } from '@/animations';
  * the thing that actually decides the choice — which is the part a showroom
  * can explain and a spec sheet cannot.
  */
-export function HardwareCard({ category, expanded = false, onSelect }) {
+export function HardwareCard({ category, count, expanded = false, onSelect, controls }) {
   const Icon = getIcon(category.icon);
   const image = img(category.image);
   const interactive = Boolean(onSelect);
@@ -19,10 +19,19 @@ export function HardwareCard({ category, expanded = false, onSelect }) {
     <Tag
       variants={staggerItem}
       {...(interactive
-        ? { type: 'button', onClick: () => onSelect(category.id), 'aria-pressed': expanded }
+        ? {
+            type: 'button',
+            onClick: () => onSelect(category.id),
+            // A disclosure, not a toggle button: the tile controls a separate
+            // panel, so `aria-expanded` + `aria-controls` is the accurate
+            // mapping. `aria-pressed` announced it as an on/off switch and
+            // said nothing about the region it opens.
+            'aria-expanded': expanded,
+            ...(controls ? { 'aria-controls': controls } : {}),
+          }
         : {})}
       className={cn(
-        'surface-card group flex flex-col overflow-hidden text-left',
+        'surface-card group flex h-full flex-col overflow-hidden text-left',
         expanded && 'border-accent/40',
       )}
     >
@@ -59,7 +68,15 @@ export function HardwareCard({ category, expanded = false, onSelect }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-semibold">{category.name}</h3>
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="font-display text-lg font-semibold">{category.name}</h3>
+          {/* Counted from the catalogue, never asserted — see hardwareProducts.js */}
+          {count > 0 && (
+            <span className="shrink-0 text-[11px] uppercase tracking-[0.14em] text-ink-faint">
+              {count} {count === 1 ? 'line' : 'lines'}
+            </span>
+          )}
+        </div>
         <p className="mt-2 text-[13px] leading-relaxed text-ink-muted">{category.blurb}</p>
 
         <ul className="mt-4 flex flex-wrap gap-1.5">

@@ -108,6 +108,7 @@ export default function GamingPC() {
         <section className="py-12" aria-labelledby="rigs-heading">
           <Container>
             <SectionTitle
+              titleId="rigs-heading"
               eyebrow="Four tiers"
               title="Pick the level of play"
               lead="Each tier names the class of component, not a fixed part number — stock moves weekly, and we would rather describe the tier honestly than promise a card we cannot source. Bars are relative capability, not measured frame rates."
@@ -173,6 +174,7 @@ export default function GamingPC() {
         <section className="py-12" aria-labelledby="gear-acc-heading">
           <Container>
             <SectionTitle
+              titleId="gear-acc-heading"
               eyebrow={`${gamingGear.length} categories`}
               title="The setup around the machine"
               lead="Peripherals decide how a build actually feels to play on. Switches and sensors are personal — everything here can be tried at the counter before you commit to it."
@@ -204,7 +206,7 @@ function GearGrid({ eyebrow, title, lead, items, kind, empty, onClear }) {
   return (
     <section className="py-12" aria-labelledby={`${kind}-heading`}>
       <Container>
-        <SectionTitle eyebrow={eyebrow} title={title} lead={lead} />
+        <SectionTitle titleId={`${kind}-heading`} eyebrow={eyebrow} title={title} lead={lead} />
 
         {items.length > 0 ? (
           <motion.div

@@ -1,0 +1,5 @@
+# NSK Computer Zone — showcase site, everything is public.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.nskcomputerzone.com/sitemap.xml

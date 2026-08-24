@@ -67,6 +67,7 @@ export default function AboutContact() {
       <section className="py-16" aria-labelledby="contact-heading">
         <Container>
           <SectionTitle
+            titleId="contact-heading"
             eyebrow="Get in touch"
             title="Send an enquiry, or come in"
             lead="Tell us what the machine is for. We reply within one working day — usually the same day during shop hours."

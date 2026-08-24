@@ -43,7 +43,7 @@ export const COMPANY = {
   /** Numbers shown in the hero stat band. Kept honest — no invented metrics. */
   stats: [
     { value: '20+',  label: 'Years in hardware' },
-    { value: '20',   label: 'Product departments' },
+    { value: '10',   label: 'Hardware departments' },
     { value: '48h',  label: 'Build and test' },
     { value: 'Free', label: 'Fitting at counter' },
   ],

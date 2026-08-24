@@ -3,6 +3,18 @@ import { COMPANY } from '@/data/company';
 const SITE_NAME = COMPANY.name;
 
 /**
+ * Share preview. Every page used to omit og:image entirely, so every link
+ * shared to WhatsApp — which is how this business is actually contacted —
+ * rendered as a bare grey card. One default beats six missing ones; a page can
+ * still override it by setting `image` in its PAGE_META entry.
+ */
+const DEFAULT_OG_IMAGE = '/images/og/og-default.png';
+
+/** Absolute origin. Crawlers reject a relative og:image. */
+const SITE_URL = (import.meta.env.VITE_SITE_URL ?? '').replace(/\/+$/, '');
+const origin = () => SITE_URL || window.location.origin;
+
+/**
  * Per-page metadata — §19. Applied imperatively by usePageMeta because a Vite
  * SPA has no server render to emit tags into.
  */
@@ -60,18 +72,21 @@ export function applyMeta({ title, description, path, image }) {
   const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   document.title = fullTitle;
 
+  const preview = new URL(image ?? DEFAULT_OG_IMAGE, origin()).toString();
+
   upsertMeta('name', 'description', description);
   upsertMeta('property', 'og:title', fullTitle);
   upsertMeta('property', 'og:description', description);
   upsertMeta('property', 'og:type', 'website');
   upsertMeta('property', 'og:site_name', SITE_NAME);
+  upsertMeta('property', 'og:locale', 'en_IN');
+  if (path) upsertMeta('property', 'og:url', new URL(path, origin()).toString());
+  upsertMeta('property', 'og:image', preview);
+  upsertMeta('property', 'og:image:alt', `${SITE_NAME} — ${title}`);
   upsertMeta('name', 'twitter:card', 'summary_large_image');
   upsertMeta('name', 'twitter:title', fullTitle);
   upsertMeta('name', 'twitter:description', description);
-  if (image) {
-    upsertMeta('property', 'og:image', image);
-    upsertMeta('name', 'twitter:image', image);
-  }
+  upsertMeta('name', 'twitter:image', preview);
 
   // Canonical, so query-string variants do not read as duplicate pages.
   if (path) {
@@ -81,7 +96,7 @@ export function applyMeta({ title, description, path, image }) {
       link.setAttribute('rel', 'canonical');
       document.head.appendChild(link);
     }
-    link.setAttribute('href', new URL(path, window.location.origin).toString());
+    link.setAttribute('href', new URL(path, origin()).toString());
   }
 }
 
@@ -93,7 +108,7 @@ export function applyBusinessSchema() {
     name: COMPANY.name,
     telephone: COMPANY.phone,
     email: COMPANY.email,
-    url: window.location.origin,
+    url: origin(),
     address: {
       '@type': 'PostalAddress',
       streetAddress: COMPANY.address.street,

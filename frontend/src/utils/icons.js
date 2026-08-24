@@ -10,15 +10,17 @@
  * deliberate cost of not shipping the whole library.
  */
 import {
-  Armchair, Bluetooth, Box, Cable, Check, CircuitBoard, Cpu, Fan, Gamepad2,
-  Grid2x2, HardDrive, MemoryStick, Mic, Monitor, MonitorPlay, Mouse, Package,
-  ShieldCheck, Speaker, Target, Usb, Video, Webcam, Wifi, Wrench, Zap,
+  Armchair, BatteryCharging, Bluetooth, Box, Cable, Check, CircuitBoard, Cpu,
+  Fan, Gamepad2, Grid2x2, HardDrive, Headphones, Keyboard, Laptop, MemoryStick,
+  Mic, Monitor, MonitorPlay, Mouse, Package, Printer, ShieldCheck, Speaker,
+  Target, Usb, Video, Webcam, Wifi, Wrench, Zap,
 } from 'lucide-react';
 
 const REGISTRY = {
-  Armchair, Bluetooth, Box, Cable, Check, CircuitBoard, Cpu, Fan, Gamepad2,
-  Grid2x2, HardDrive, MemoryStick, Mic, Monitor, MonitorPlay, Mouse, Package,
-  ShieldCheck, Speaker, Target, Usb, Video, Webcam, Wifi, Wrench, Zap,
+  Armchair, BatteryCharging, Bluetooth, Box, Cable, Check, CircuitBoard, Cpu,
+  Fan, Gamepad2, Grid2x2, HardDrive, Headphones, Keyboard, Laptop, MemoryStick,
+  Mic, Monitor, MonitorPlay, Mouse, Package, Printer, ShieldCheck, Speaker,
+  Target, Usb, Video, Webcam, Wifi, Wrench, Zap,
 };
 
 /** Resolve a registry name, falling back to a neutral mark. */

@@ -16,16 +16,20 @@ export const accessories = [
   /* ── Gaming ──────────────────────────────────────────────────────────── */
   {
     id: 'gaming-monitor',
+    icon: 'Monitor',
     group: 'gaming',
     type: 'Monitor',
     name: 'High-Refresh Gaming Monitor',
     blurb: '144 Hz and above, 1080p to 1440p, low-latency panels.',
     detail: 'Refresh rate matched to the card driving it — there is no point in 240 Hz on a build that renders 90.',
-    image: 'products/gaming-monitor.webp',
+    // File is an Apple iMac — an all-in-one computer, branded, and not a
+    // monitor. Designed mark instead.
+    image: null,
     tags: ['144Hz+', '1080p / 1440p', 'FreeSync / G-Sync'],
   },
   {
     id: 'mechanical-keyboard',
+    icon: 'Keyboard',
     group: 'gaming',
     type: 'Keyboard',
     name: 'Mechanical Gaming Keyboard',
@@ -36,6 +40,7 @@ export const accessories = [
   },
   {
     id: 'gaming-mouse',
+    icon: 'Mouse',
     group: 'gaming',
     type: 'Mouse',
     name: 'Gaming Mouse',
@@ -46,12 +51,14 @@ export const accessories = [
   },
   {
     id: 'gaming-headset',
+    icon: 'Headphones',
     group: 'gaming',
     type: 'Headset',
     name: 'Gaming Headset',
     blurb: 'Closed-back with boom mic, wired and 2.4 GHz wireless.',
     detail: 'Clamp force and pad material decide whether it survives hour three.',
-    image: 'products/gaming-headset.webp',
+    // File shows a mouse, not a headset.
+    image: null,
     tags: ['Boom mic', 'Surround', 'Wireless options'],
   },
   {
@@ -102,12 +109,14 @@ export const accessories = [
   /* ── Professional ────────────────────────────────────────────────────── */
   {
     id: 'office-keyboard',
+    icon: 'Keyboard',
     group: 'professional',
     type: 'Keyboard',
     name: 'Silent Office Keyboard',
     blurb: 'Low-profile and membrane boards for shared rooms.',
     detail: 'Quiet enough for a call, full-size for a numpad.',
-    image: 'products/keyboard-office.webp',
+    // File shows an Arduino breadboard kit, not a keyboard.
+    image: null,
     tags: ['Silent', 'Full-size', 'Wired / wireless'],
   },
   {
@@ -213,6 +222,7 @@ export const accessories = [
   },
   {
     id: 'lan-accessories',
+    icon: 'Cable',
     group: 'connectivity',
     type: 'Networking',
     name: 'LAN Accessories',
@@ -225,12 +235,14 @@ export const accessories = [
   /* ── Power ───────────────────────────────────────────────────────────── */
   {
     id: 'ups',
+    icon: 'BatteryCharging',
     group: 'power',
     type: 'UPS',
     name: 'UPS',
     blurb: 'Line-interactive units sized to the machine.',
     detail: 'Sized on real draw, not the sticker on the PSU.',
-    image: 'products/ups-power.webp',
+    // File is a screenshot of a Google Search Console dashboard.
+    image: null,
     tags: ['600 VA – 2 kVA', 'AVR', 'Battery replacement'],
   },
   {
@@ -246,12 +258,14 @@ export const accessories = [
   },
   {
     id: 'power-accessories',
+    icon: 'Zap',
     group: 'power',
     type: 'Cables',
     name: 'Power Accessories',
     blurb: 'Kettle leads, extensions and PSU cable sets.',
     detail: 'Including sleeved extensions for glass-panel builds.',
-    image: 'products/power-supply.webp',
+    // File shows a CPU seated in a socket, not a power supply.
+    image: null,
     tags: ['IEC leads', 'Extensions', 'Sleeved sets'],
   },
 ];

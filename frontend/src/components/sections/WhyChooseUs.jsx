@@ -9,6 +9,7 @@ export function WhyChooseUs() {
     <section className="py-24 lg:py-32" aria-labelledby="why-heading">
       <Container>
         <SectionTitle
+          titleId="why-heading"
           eyebrow={`Since ${COMPANY.foundingYear}`}
           title="Why people come back"
           lead="Twenty years at the counter. The value is in being told what you actually need, and in the part working when you get it home."
