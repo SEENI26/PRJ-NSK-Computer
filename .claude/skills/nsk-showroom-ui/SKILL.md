@@ -1,6 +1,6 @@
 ---
 name: nsk-showroom-ui
-description: The NSK Computer Zone showroom design system — its two colourways (dark gaming, light professional), the drawn-not-photographed device idiom, the honesty rules about brands and pricing, and the verification loop that catches theme bugs. Use this whenever you touch anything visual or content-bearing in the NSK frontend — building or restyling a page or section, adding products or accessories, choosing colours or type, adding a new colourway, working on the hero or cabinet visuals, or reviewing UI for contrast and responsiveness. Also use it before adding any product imagery or writing catalogue copy, because the rules about what may be claimed are easy to violate by accident.
+description: The NSK Computer Zone showroom design system — its scoped colourways (dark, gaming, light professional), the borrowed-artifact idea behind each page, the drawn-not-photographed rule, the honesty rules about brands, prices and turnaround, the fact that the stock photography is mislabelled, and the verification loop that catches theme bugs. Use this whenever you touch anything visual or content-bearing in the NSK frontend — building or restyling a page or section, adding products or accessories, choosing colours or type, adding a new colourway, working on the hero or cabinet visuals, or reviewing UI for contrast and responsiveness. Also use it before adding any product imagery or writing catalogue copy, because the rules about what may be claimed are easy to violate by accident.
 ---
 
 # NSK showroom UI
@@ -8,18 +8,18 @@ description: The NSK Computer Zone showroom design system — its two colourways
 This is a **showcase site, not a shop** — for a real computer dealer in
 Tiruchirappalli. Seven pages (Home, Gaming, Professional, Hardware,
 Accessories, Services, About/Contact) and a hard architectural rule: **no
-cart, no checkout, no prices.**
+cart, no checkout, no prices.** The spec is settled in conversation at the
+counter, and the page's job is to get someone to that conversation with the
+right machine — or the right repair — in mind.
 
 CLAUDE.md still says six. Services was added deliberately once it became clear
 the brand's own social card advertises "Desktop & Laptop Spares · Networking ·
 CCTV" while the site covered none of it — repair and AMC are the half of this
 trade that brings people back. Adding an eighth page needs the same bar: real
-business the site is currently silent about, not a category that sounds tidy. The spec is settled in conversation at the counter, and
-the page's job is to get someone to that conversation with the right machine in
-mind.
+business the site is currently silent about, not a category that sounds tidy.
 
 Stack: Vite + React 19, Tailwind, framer-motion, react-router. Live entry is
-`src/app/App.jsx`. (`src/App.jsx` is dead Next-era code — ignore it.)
+`src/app/App.jsx`.
 
 ## The one idea to hold onto
 
