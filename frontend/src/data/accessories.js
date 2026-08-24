@@ -16,6 +16,7 @@ export const accessories = [
   /* ── Gaming ──────────────────────────────────────────────────────────── */
   {
     id: 'gaming-monitor',
+    zone: 'display',
     icon: 'Monitor',
     group: 'gaming',
     type: 'Monitor',
@@ -29,6 +30,7 @@ export const accessories = [
   },
   {
     id: 'mechanical-keyboard',
+    zone: 'input',
     icon: 'Keyboard',
     group: 'gaming',
     type: 'Keyboard',
@@ -40,6 +42,7 @@ export const accessories = [
   },
   {
     id: 'gaming-mouse',
+    zone: 'input',
     icon: 'Mouse',
     group: 'gaming',
     type: 'Mouse',
@@ -51,6 +54,7 @@ export const accessories = [
   },
   {
     id: 'gaming-headset',
+    zone: 'audio',
     icon: 'Headphones',
     group: 'gaming',
     type: 'Headset',
@@ -63,6 +67,7 @@ export const accessories = [
   },
   {
     id: 'mouse-pad',
+    zone: 'input',
     group: 'gaming',
     type: 'Mouse Pad',
     name: 'Extended Mouse Pad',
@@ -74,6 +79,7 @@ export const accessories = [
   },
   {
     id: 'controller',
+    zone: 'input',
     group: 'gaming',
     type: 'Controller',
     name: 'Wireless Controller',
@@ -85,6 +91,7 @@ export const accessories = [
   },
   {
     id: 'gaming-chair',
+    zone: 'seat',
     group: 'gaming',
     type: 'Chair',
     name: 'Gaming Chair',
@@ -96,6 +103,7 @@ export const accessories = [
   },
   {
     id: 'streaming-kit',
+    zone: 'camera',
     group: 'gaming',
     type: 'Streaming',
     name: 'Streaming Accessories',
@@ -109,6 +117,7 @@ export const accessories = [
   /* ── Professional ────────────────────────────────────────────────────── */
   {
     id: 'office-keyboard',
+    zone: 'input',
     icon: 'Keyboard',
     group: 'professional',
     type: 'Keyboard',
@@ -121,6 +130,7 @@ export const accessories = [
   },
   {
     id: 'wireless-mouse',
+    zone: 'input',
     group: 'professional',
     type: 'Mouse',
     name: 'Ergonomic Wireless Mouse',
@@ -132,6 +142,7 @@ export const accessories = [
   },
   {
     id: 'webcam',
+    zone: 'camera',
     group: 'professional',
     type: 'Webcam',
     name: '1080p / 4K Webcam',
@@ -143,6 +154,7 @@ export const accessories = [
   },
   {
     id: 'usb-microphone',
+    zone: 'audio',
     group: 'professional',
     type: 'Microphone',
     name: 'USB Microphone',
@@ -154,6 +166,7 @@ export const accessories = [
   },
   {
     id: 'desk-speakers',
+    zone: 'audio',
     group: 'professional',
     type: 'Speakers',
     name: 'Desktop Speakers',
@@ -165,6 +178,7 @@ export const accessories = [
   },
   {
     id: 'docking-station',
+    zone: 'connect',
     group: 'professional',
     type: 'Docking Station',
     name: 'USB-C Docking Station',
@@ -176,6 +190,7 @@ export const accessories = [
   },
   {
     id: 'pro-monitor',
+    zone: 'display',
     group: 'professional',
     type: 'Monitor',
     name: 'Professional Monitor',
@@ -189,6 +204,7 @@ export const accessories = [
   /* ── Connectivity ────────────────────────────────────────────────────── */
   {
     id: 'wifi-adapter',
+    zone: 'connect',
     group: 'connectivity',
     type: 'Wi-Fi',
     name: 'Wi-Fi Adapter',
@@ -200,6 +216,7 @@ export const accessories = [
   },
   {
     id: 'bluetooth-adapter',
+    zone: 'connect',
     group: 'connectivity',
     type: 'Bluetooth',
     name: 'Bluetooth Adapter',
@@ -211,6 +228,7 @@ export const accessories = [
   },
   {
     id: 'usb-hub',
+    zone: 'connect',
     group: 'connectivity',
     type: 'USB Hub',
     name: 'Powered USB Hub',
@@ -222,6 +240,7 @@ export const accessories = [
   },
   {
     id: 'lan-accessories',
+    zone: 'connect',
     icon: 'Cable',
     group: 'connectivity',
     type: 'Networking',
@@ -235,6 +254,7 @@ export const accessories = [
   /* ── Power ───────────────────────────────────────────────────────────── */
   {
     id: 'ups',
+    zone: 'power',
     icon: 'BatteryCharging',
     group: 'power',
     type: 'UPS',
@@ -247,6 +267,7 @@ export const accessories = [
   },
   {
     id: 'surge-protection',
+    zone: 'power',
     group: 'power',
     type: 'Surge',
     name: 'Surge Protection',
@@ -258,6 +279,7 @@ export const accessories = [
   },
   {
     id: 'power-accessories',
+    zone: 'power',
     icon: 'Zap',
     group: 'power',
     type: 'Cables',
@@ -273,3 +295,28 @@ export const accessories = [
 /** All accessories in one group, in declaration order. */
 export const accessoriesByGroup = (groupId) =>
   accessories.filter((item) => item.group === groupId);
+
+/**
+ * Where a thing actually sits.
+ *
+ * The four groups above answer "who is this for". These answer "what is still
+ * missing from the desk", which is the question people actually arrive with —
+ * nobody forgets the monitor, everybody forgets the UPS. <DeskPlan> draws
+ * these as positions you can click.
+ */
+export const ACCESSORY_ZONES = [
+  { id: 'display', label: 'Display',     blurb: 'The panel is the part you look at for eight hours. Match its refresh to the card driving it.' },
+  { id: 'input',   label: 'Keyboard & mouse', blurb: 'Switch feel and sensor weight are personal. This is the group worth trying before you commit.' },
+  { id: 'audio',   label: 'Audio',       blurb: 'Headset for the session, speakers for the room, a microphone if anyone has to hear you.' },
+  { id: 'camera',  label: 'Camera & capture', blurb: 'Calls, classes and streams — the difference between a laptop lid camera and a real one is not subtle.' },
+  { id: 'connect', label: 'Connectivity', blurb: 'Docks, hubs and adapters. The parts nobody budgets for and everybody needs by week two.' },
+  { id: 'power',   label: 'Power',       blurb: 'The most skipped group on this page, and the one that decides whether the machine survives the monsoon.' },
+  { id: 'seat',    label: 'Seating',     blurb: 'You are in it longer than you are on the machine.' },
+];
+
+/** Accessories in a zone, optionally narrowed to one audience group. */
+export function byZone(items, zone, group = 'all') {
+  return items.filter(
+    (a) => (zone === 'all' || a.zone === zone) && (group === 'all' || a.group === group),
+  );
+}
