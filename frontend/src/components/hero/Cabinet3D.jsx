@@ -106,7 +106,15 @@ export function Cabinet3D({
         initial={{ opacity: 0 }}
         animate={{ opacity: loaded ? 1 : 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="relative aspect-[5/4] w-full max-w-[620px] mx-auto"
+        /*
+          Two shapes, not one scaled down. On the desktop split the model owns
+          its own column and 5:4 suits it. Stacked, it sits between the copy
+          and the buttons, and at 5:4 across a 768px tablet it grew tall enough
+          to push the call to action off the first screen entirely — so the
+          stacked frame is wider than it is tall, and capped.
+        */
+        className="relative mx-auto aspect-[3/2] w-full max-w-[440px]
+                   sm:max-w-[520px] lg:aspect-[5/4] lg:max-w-[620px]"
       >
         <iframe
           src={`/3d/${file}?embed&bg=${background}`}

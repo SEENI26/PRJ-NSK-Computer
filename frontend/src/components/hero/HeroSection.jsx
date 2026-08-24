@@ -28,8 +28,26 @@ export function HeroSection() {
       <HeroBackground tilt={tilt} />
 
       <Container>
-        <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.05fr] lg:gap-8">
-          <motion.div variants={stagger(0.09, 0.1)} initial="hidden" animate="visible">
+        {/*
+          Three blocks, not two columns of one.
+          
+          On desktop this is the familiar split: copy left, machine right. On a
+          phone the single column used to run headline → copy → buttons → four
+          stats → machine, which put the machine about 900px down — the one
+          thing the hero exists to show, below everything else. Splitting the
+          copy into head and tail lets the machine sit between them, so it is
+          on the first screen without pushing the H1 off it.
+        */}
+        <div
+          className="flex flex-col gap-10 lg:grid lg:grid-cols-[1fr_1.05fr]
+                     lg:items-center lg:gap-x-8 lg:gap-y-0"
+        >
+          <motion.div
+            variants={stagger(0.09, 0.1)}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-start-1 lg:row-start-1"
+          >
             <motion.div variants={staggerItem} className="flex items-center gap-2.5">
               <Cpu className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
               <span className="t-eyebrow text-accent">Hardware · Systems · Builds</span>
@@ -54,8 +72,25 @@ export function HeroSection() {
               Premium computer hardware, gaming PCs, professional workstations and accessories —
               all under one roof.
             </motion.p>
+          </motion.div>
 
-            <motion.div variants={staggerItem} className="mt-10 flex flex-wrap gap-3">
+          {/* The machine — the real three.js model, with the CSS cabinet
+              standing in until it paints. Second on a phone, right-hand column
+              spanning both copy rows on desktop. */}
+          <div
+            className="relative flex justify-center lg:col-start-2 lg:row-start-1
+                       lg:row-span-2 lg:justify-end"
+          >
+            <Cabinet3D model="workstation" fallbackMode="gaming" />
+          </div>
+
+          <motion.div
+            variants={stagger(0.09, 0.55)}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-start-1 lg:row-start-2 lg:mt-10"
+          >
+            <motion.div variants={staggerItem} className="flex flex-wrap gap-3">
               <Button to={ROUTES.gaming} size="lg" className="group">
                 Explore Gaming PCs
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
@@ -83,12 +118,6 @@ export function HeroSection() {
               ))}
             </motion.dl>
           </motion.div>
-
-          {/* The machine — the real three.js model, with the CSS cabinet
-              standing in until it paints. */}
-          <div className="relative flex justify-center lg:justify-end">
-            <Cabinet3D model="workstation" fallbackMode="gaming" />
-          </div>
         </div>
       </Container>
     </section>
