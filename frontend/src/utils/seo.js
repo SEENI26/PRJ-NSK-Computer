@@ -49,6 +49,12 @@ export const PAGE_META = {
       'Keyboards, mice, headsets, monitors, docking stations, connectivity and power protection for gaming and professional setups.',
     path: '/accessories',
   },
+  services: {
+    title: 'Computer Repair, Upgrades, Networking & CCTV',
+    description:
+      'Desktop and laptop repair, data recovery, hardware upgrades, custom builds, networking, CCTV and annual maintenance in Tiruchirappalli. Diagnosis before any quote.',
+    path: '/services',
+  },
   about: {
     title: 'Computer Hardware Company | About Us',
     description: `${SITE_NAME} — hardware, systems and custom builds since ${COMPANY.foundingYear}. Visit the showroom or send an enquiry.`,

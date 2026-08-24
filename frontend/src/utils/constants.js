@@ -6,6 +6,7 @@ export const ROUTES = {
   professional: '/professional-pcs',
   hardware:     '/hardware',
   accessories:  '/accessories',
+  services:     '/services',
   about:        '/about',
 };
 
@@ -15,6 +16,7 @@ export const NAV_LINKS = [
   { label: 'Professional PCs',  to: ROUTES.professional },
   { label: 'Hardware',          to: ROUTES.hardware },
   { label: 'Accessories',       to: ROUTES.accessories },
+  { label: 'Services',          to: ROUTES.services },
   { label: 'About',             to: ROUTES.about },
 ];
 

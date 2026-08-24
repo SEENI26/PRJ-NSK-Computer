@@ -16,6 +16,7 @@ const GamingPC       = lazy(() => import('@/pages/GamingPC'));
 const ProfessionalPC = lazy(() => import('@/pages/ProfessionalPC'));
 const Hardware       = lazy(() => import('@/pages/Hardware'));
 const Accessories    = lazy(() => import('@/pages/Accessories'));
+const Services       = lazy(() => import('@/pages/Services'));
 const AboutContact   = lazy(() => import('@/pages/AboutContact'));
 const NotFound       = lazy(() => import('@/pages/NotFound'));
 
@@ -25,6 +26,7 @@ const PAGES = [
   { path: ROUTES.professional, Component: ProfessionalPC },
   { path: ROUTES.hardware,     Component: Hardware },
   { path: ROUTES.accessories,  Component: Accessories },
+  { path: ROUTES.services,     Component: Services },
   { path: ROUTES.about,        Component: AboutContact },
 ];
 

@@ -6,9 +6,15 @@ description: The NSK Computer Zone showroom design system — its two colourways
 # NSK showroom UI
 
 This is a **showcase site, not a shop** — for a real computer dealer in
-Tiruchirappalli. It has six pages (Home, Gaming, Professional, Hardware,
-Accessories, About/Contact) and a hard architectural rule: **no cart, no
-checkout, no prices.** The spec is settled in conversation at the counter, and
+Tiruchirappalli. Seven pages (Home, Gaming, Professional, Hardware,
+Accessories, Services, About/Contact) and a hard architectural rule: **no
+cart, no checkout, no prices.**
+
+CLAUDE.md still says six. Services was added deliberately once it became clear
+the brand's own social card advertises "Desktop & Laptop Spares · Networking ·
+CCTV" while the site covered none of it — repair and AMC are the half of this
+trade that brings people back. Adding an eighth page needs the same bar: real
+business the site is currently silent about, not a category that sounds tidy. The spec is settled in conversation at the counter, and
 the page's job is to get someone to that conversation with the right machine in
 mind.
 
@@ -23,6 +29,8 @@ Each audience gets the artifact it already trusts.
 |---|---|---|---|
 | Professional | buyers comparing machines | the **datasheet** | white paper, hairline rules, tabular figures, comparison tables |
 | Gaming | players comparing performance | the **FPS overlay** | near-black, threshold colours, capability bars, monospace figures |
+| Accessories | people working out what is missing | the **desk plan** | top-down drawing, positions as filters, gaps made visible |
+| Services | someone whose machine has stopped | the **job card** | perforated docket, symptoms first in the customer's words |
 
 When you add a section, ask which artifact it belongs to and shape it that way.
 This is what stops the two halves of the site collapsing into the same dark
@@ -96,6 +104,20 @@ do while trying to be helpful.
   remain with their owners). The PNGs in `public/brands/` are **generated
   placeholders**, per `public/images/CREDITS.md` — do not present them as
   official logos.
+- **No turnaround or availability promises.** "24-hour repair" and "in stock
+  now" are cheques the counter has to honour. Promise the *process* instead —
+  diagnosis before quote, approval before work — which is true every time.
+
+## The stock photography is not what its filename says
+
+`public/images/` is Unsplash placeholders, and several are actively wrong:
+`pc-repair.webp` is two PS4 controllers, `data-recovery.webp` is a Search
+Console dashboard, `gaming-pc-rgb.webp` is a bedroom with a neon sign, and
+`laptop-workstation.webp` / `workstation.webp` have their subjects swapped.
+
+**Open any image before you place it.** Where there is nothing honest to show,
+draw it or go typographic — that is why Services has no photography and why the
+desk plan and the device renders exist at all.
 
 ## Data lives outside components
 

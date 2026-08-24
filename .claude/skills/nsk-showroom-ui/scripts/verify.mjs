@@ -28,10 +28,12 @@ const ROUTES = [
   ['/professional-pcs', 'professional'],
   ['/hardware', 'hardware'],
   ['/accessories', 'accessories'],
+  ['/services', 'services'],
   ['/about', 'about'],
 ];
 
-// The brief names these six. The short sweep keeps one desktop and one phone.
+// The brief names six; Services was added as a seventh. The short sweep
+// keeps one desktop and one phone.
 const WIDTHS = FULL ? [1920, 1440, 1366, 768, 430, 390] : [1440, 390];
 
 /** Pre-existing at the time of writing: the lazy-route fallback is shorter
