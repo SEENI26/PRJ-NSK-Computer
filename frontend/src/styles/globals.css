@@ -323,3 +323,46 @@
 @media (prefers-reduced-motion: reduce) {
   .theme-gaming .rgb-sweep { animation: none; }
 }
+
+/**
+ * Partner logo treatment — white, with a glow.
+ *
+ * Two marks sit side by side on a tier card: the system maker, which comes
+ * from the inline Simple Icons set, and the GPU vendor, which ships as its own
+ * file with its colour baked in. Left alone they read as two unrelated badges —
+ * a tinted glyph next to NVIDIA green.
+ *
+ * Flattening both to white is the standard partner-wall treatment and it makes
+ * them one row instead of two logos. `brightness(0) invert(1)` collapses any
+ * baked palette to white first; the drop-shadows then glow the alpha shape, so
+ * the light follows the letterforms rather than boxing them.
+ *
+ * Trademarks remain with their owners; these identify hardware we supply.
+ */
+.logo-glow,
+.logo-glow-img {
+  filter:
+    drop-shadow(0 0 5px rgb(255 255 255 / 0.45))
+    drop-shadow(0 0 14px rgb(255 255 255 / 0.22));
+  transition: filter var(--dur-base) var(--ease-out);
+}
+
+/* Files with their own colours have to be flattened before they can glow. */
+.logo-glow-img {
+  filter:
+    brightness(0) invert(1)
+    drop-shadow(0 0 5px rgb(255 255 255 / 0.45))
+    drop-shadow(0 0 14px rgb(255 255 255 / 0.22));
+}
+
+.group:hover .logo-glow {
+  filter:
+    drop-shadow(0 0 6px rgb(255 255 255 / 0.7))
+    drop-shadow(0 0 20px rgb(255 255 255 / 0.35));
+}
+.group:hover .logo-glow-img {
+  filter:
+    brightness(0) invert(1)
+    drop-shadow(0 0 6px rgb(255 255 255 / 0.7))
+    drop-shadow(0 0 20px rgb(255 255 255 / 0.35));
+}

@@ -85,7 +85,6 @@ export function RigCard({ build, selected, onSelect }) {
         <BrandBar
           brand={build.brand}
           gpuVendor={build.gpuVendor}
-          tint={TIER_LIGHT[build.tier]}
           className="mb-4 border-b border-white/[0.07] pb-4"
         />
 
