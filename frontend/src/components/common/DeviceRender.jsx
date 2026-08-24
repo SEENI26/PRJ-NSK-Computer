@@ -133,43 +133,96 @@ function Laptop({ tint, thick = false }) {
  * The professional tower is drawn closed, because that is how it is sold: a
  * sealed, quiet box. A gaming cabinet is bought for what is visible inside it,
  * so this one is drawn open, with the parts a buyer is actually paying to see.
+ *
+ * `level` 1–4 escalates the build the way the four tiers actually escalate:
+ * the chassis widens, a second intake appears, a radiator arrives at tier 3
+ * and grows at tier 4, the card gets thicker, and the lighting steps up. That
+ * makes the drawing carry the difference between tiers instead of repeating
+ * the same picture four times — the reason to show a picture here at all.
+ *
+ * Called without a level (the Cabinets tab) it draws a generic mid tower.
  */
-function Cabinet({ tint }) {
+function Cabinet({ tint, level = 2 }) {
+  const wide = level >= 4;
+  const slim = level <= 1;
+
+  const w = slim ? 96 : wide ? 138 : 120;
+  const x = 160 - w / 2;
+  const top = slim ? 40 : 22;
+  const bottom = 192;
+  const inner = { x: x + 10, w: w - 20 };
+
+  const radiator = level >= 3;             // AIO from the high tier up
+  const radFans = level >= 4 ? 3 : 2;      // 360 mm vs 240 mm
+  const intakes = slim ? 2 : 3;
+  const gpuH = slim ? 13 : wide ? 22 : 18;
+  const gpuY = radiator ? 104 : 92;
+  const litFans = level;                   // how much of it glows
+
+  const intakeYs = Array.from({ length: intakes }, (_, i) =>
+    (slim ? 92 : 84) + i * (slim ? 34 : 32));
+
   return (
     <>
-      <rect x="98" y="20" width="124" height="172" rx="8" {...line} fill="rgb(var(--bg-800))" />
+      <rect x={x} y={top} width={w} height={bottom - top} rx="8" {...line} fill="rgb(var(--bg-800))" />
       {/* Tempered side panel */}
-      <rect x="108" y="30" width="104" height="152" rx="4" {...line} opacity="0.5"
-            fill={tint} fillOpacity="0.07" />
-      {/* Top-mounted radiator */}
-      <rect x="116" y="38" width="88" height="26" rx="3" {...line} opacity="0.6" />
-      {[132, 160, 188].map((cx) => (
-        <g key={cx}>
-          <circle cx={cx} cy="51" r="9.5" {...line} opacity="0.55" />
-          <circle cx={cx} cy="51" r="2.4" fill={tint} stroke="none" />
-        </g>
-      ))}
+      <rect x={x + 10} y={top + 10} width={w - 20} height={bottom - top - 20} rx="4"
+            {...line} opacity="0.5" fill={tint} fillOpacity={0.05 + level * 0.015} />
+
+      {radiator && (
+        <>
+          <rect x={inner.x + 4} y={top + 16} width={inner.w - 8} height="26" rx="3" {...line} opacity="0.6" />
+          {Array.from({ length: radFans }, (_, i) => {
+            const step = (inner.w - 8) / radFans;
+            const cx = inner.x + 4 + step * (i + 0.5);
+            return (
+              <g key={cx}>
+                <circle cx={cx} cy={top + 29} r="9" {...line} opacity="0.55" />
+                <circle cx={cx} cy={top + 29} r="2.4" fill={tint} stroke="none" />
+              </g>
+            );
+          })}
+        </>
+      )}
+
       {/* Graphics card, held horizontally the way it actually sits */}
-      <rect x="118" y="96" width="84" height="18" rx="2.5" {...line} opacity="0.75" />
-      <line x1="124" y1="114" x2="124" y2="122" {...line} opacity="0.4" />
-      <rect x="118" y="96" width="84" height="3" rx="1.5" fill={tint} stroke="none" opacity="0.9" />
-      {/* Vertical memory sticks */}
-      {[128, 134, 140, 146].map((x) => (
-        <rect key={x} x={x} y="74" width="3.4" height="16" rx="1" {...line} strokeWidth="1" opacity="0.5" />
+      <rect x={inner.x + 2} y={gpuY} width={inner.w - 4} height={gpuH} rx="2.5" {...line} opacity="0.75" />
+      <rect x={inner.x + 2} y={gpuY} width={inner.w - 4} height="3" rx="1.5"
+            fill={tint} stroke="none" opacity="0.9" />
+      <line x1={inner.x + 8} y1={gpuY + gpuH} x2={inner.x + 8} y2={gpuY + gpuH + 8} {...line} opacity="0.4" />
+
+      {/* Memory — two sticks at the low tiers, four once it is dual-rank */}
+      {Array.from({ length: level >= 3 ? 4 : 2 }, (_, i) => (
+        <rect key={i} x={inner.x + 8 + i * 6} y={gpuY - 24} width="3.4" height="16" rx="1"
+              {...line} strokeWidth="1" opacity="0.5" />
       ))}
+
       {/* Front intake, lit through the mesh */}
-      {[84, 116, 148].map((cy) => (
+      {intakeYs.map((cy, i) => (
         <g key={cy}>
-          <circle cx="196" cy={cy} r="7.5" {...line} strokeWidth="1" opacity="0.4" />
-          <circle cx="196" cy={cy} r="2" fill={tint} stroke="none" opacity="0.8" />
+          <circle cx={x + w - 26} cy={cy} r="7.5" {...line} strokeWidth="1" opacity="0.4" />
+          <circle cx={x + w - 26} cy={cy} r="2" fill={tint} stroke="none"
+                  opacity={i < litFans ? 0.85 : 0.25} />
         </g>
       ))}
+
       {/* PSU shroud */}
-      <rect x="116" y="152" width="88" height="22" rx="3" {...line} opacity="0.55" />
-      <line x1="124" y1="163" x2="168" y2="163" {...line} strokeWidth="1" opacity="0.35" />
-      {/* The RGB strip — the one saturated element in the drawing */}
-      <rect x="112" y="34" width="2.5" height="144" rx="1.25" fill={tint} stroke="none" opacity="0.85" />
-      <line x1="98" y1="192" x2="222" y2="192" {...line} opacity="0.9" />
+      <rect x={inner.x + 4} y={bottom - 40} width={inner.w - 8} height="22" rx="3" {...line} opacity="0.55" />
+      <line x1={inner.x + 12} y1={bottom - 29} x2={inner.x + inner.w / 2} y2={bottom - 29}
+            {...line} strokeWidth="1" opacity="0.35" />
+
+      {/* The RGB strip. Tier 1 ships without one; the top tier is lit on both
+          edges, which is genuinely how these are specified. */}
+      {level >= 2 && (
+        <rect x={x + 14} y={top + 14} width="2.5" height={bottom - top - 28} rx="1.25"
+              fill={tint} stroke="none" opacity="0.85" />
+      )}
+      {level >= 4 && (
+        <rect x={x + w - 16.5} y={top + 14} width="2.5" height={bottom - top - 28} rx="1.25"
+              fill={tint} stroke="none" opacity="0.55" />
+      )}
+
+      <line x1={x} y1={bottom} x2={x + w} y2={bottom} {...line} opacity="0.9" />
     </>
   );
 }
@@ -187,7 +240,7 @@ const SHAPES = {
   'gaming-laptop': (p) => <Laptop {...p} thick />,
 };
 
-export function DeviceRender({ shape = 'tower', tint = '#211D71', className }) {
+export function DeviceRender({ shape = 'tower', tint = '#211D71', level, className }) {
   const Shape = SHAPES[shape] ?? Tower;
 
   return (
@@ -201,7 +254,7 @@ export function DeviceRender({ shape = 'tower', tint = '#211D71', className }) {
     >
       {/* Contact shadow — what stops the drawing floating off the paper */}
       <ellipse cx="160" cy="203" rx="86" ry="6" fill="currentColor" opacity="0.09" />
-      <Shape tint={tint} />
+      <Shape tint={tint} level={level} />
     </svg>
   );
 }
