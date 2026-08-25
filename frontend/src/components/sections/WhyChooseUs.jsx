@@ -6,8 +6,9 @@ import { stagger, staggerItem, revealViewport } from '@/animations';
 
 export function WhyChooseUs() {
   return (
-    <section className="py-24 lg:py-32" aria-labelledby="why-heading">
-      <Container>
+    <section className="relative overflow-hidden py-24 lg:py-32" aria-labelledby="why-heading">
+      <div aria-hidden="true" className="trace-backdrop" />
+      <Container className="relative">
         <SectionTitle
           titleId="why-heading"
           eyebrow={`Since ${COMPANY.foundingYear}`}

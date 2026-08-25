@@ -24,6 +24,7 @@ export function CTASection() {
             style={{ background: 'radial-gradient(60% 60% at 50% 0%, rgb(var(--accent) / 0.16), transparent 70%)' }}
           />
           <div aria-hidden="true" className="absolute inset-0 grid-backdrop opacity-40 mask-fade-b" />
+          <div aria-hidden="true" className="trace-backdrop" />
 
           <div className="relative">
             <p className="t-eyebrow text-accent">Tell us what it is for</p>

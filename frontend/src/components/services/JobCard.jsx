@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { AlertTriangle, Check } from 'lucide-react';
+import { ServiceGlyph, hasGlyph } from './ServiceGlyph';
 import { staggerItem } from '@/animations';
 
 /**
@@ -29,7 +30,20 @@ export function JobCard({ service }) {
       {/* Docket head — perforated edge, the way a ticket tears off. */}
       <div className="relative border-b border-dashed border-white/15 p-6 pb-5">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-[18px] font-semibold tracking-[-0.02em]">{service.name}</h3>
+          <div className="flex items-start gap-3.5">
+            {hasGlyph(service.id) && (
+              <span
+                className="mt-0.5 grid h-11 w-11 shrink-0 place-items-center rounded-xl
+                           border border-accent/25 bg-accent/[0.07] p-2
+                           transition-colors duration-300 group-hover:border-accent/45"
+              >
+                <ServiceGlyph id={service.id} />
+              </span>
+            )}
+            <h3 className="text-[18px] font-semibold leading-tight tracking-[-0.02em]">
+              {service.name}
+            </h3>
+          </div>
           {service.caution && (
             <span
               className="inline-flex shrink-0 items-center gap-1 rounded-full border border-amber-400/35

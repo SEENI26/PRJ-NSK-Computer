@@ -1,3 +1,4 @@
+export { OneRoof } from './OneRoof';
 export { GamingVsProfessional } from './GamingVsProfessional';
 export { HardwareCategories } from './HardwareCategories';
 export { FeaturedBuilds } from './FeaturedBuilds';

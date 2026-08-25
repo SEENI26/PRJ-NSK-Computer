@@ -30,3 +30,32 @@
 @media (prefers-reduced-motion: reduce) {
   .anim-drift, .anim-glow, .anim-fan, .anim-fan-slow, .anim-scan { animation: none !important; }
 }
+
+/**
+ * Circuit-trace texture for sections that are otherwise text on a flat ground.
+ *
+ * The design audit's complaint about "empty, flat sections with no visual
+ * depth" is fair, and the usual answer — a stock photo at low opacity — is not
+ * available here: every image in this repo is mislabelled. So the texture is
+ * drawn, from the subject's own world, and kept faint enough to read as
+ * surface rather than as content.
+ *
+ * Masked from the top so it never competes with a heading, and dropped
+ * entirely for anyone who has asked for less motion-and-noise.
+ */
+.trace-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22160%22%20height%3D%22160%22%20viewBox%3D%220%200%20160%20160%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%221%22%20stroke-linecap%3D%22square%22%3E%3Cpath%20d%3D%22M0%2034%20H62%20L78%2018%20H160%22%2F%3E%3Cpath%20d%3D%22M0%20108%20H36%20L52%20124%20H160%22%2F%3E%3Cpath%20d%3D%22M120%200%20V44%20L136%2060%20V160%22%2F%3E%3Cpath%20d%3D%22M24%20160%20V96%20L8%2080%20V0%22%2F%3E%3Cpath%20d%3D%22M62%2076%20H96%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23fff%22%3E%3Ccircle%20cx%3D%2262%22%20cy%3D%2234%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2278%22%20cy%3D%2218%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2236%22%20cy%3D%22108%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%22124%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%2244%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2296%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2296%22%20cy%3D%2276%22%20r%3D%222.5%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  background-size: 160px 160px;
+  opacity: 0.035;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 50%, #000 20%, transparent 78%);
+          mask-image: radial-gradient(70% 60% at 50% 50%, #000 20%, transparent 78%);
+}
+
+/* On paper the same trace needs to be ink, not light. */
+.theme-pro .trace-backdrop {
+  filter: invert(1);
+  opacity: 0.05;
+}

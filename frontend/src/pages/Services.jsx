@@ -151,18 +151,42 @@ export default function Services() {
             number anything.
           */}
           <motion.ol
-            variants={stagger(0.07)}
+            variants={stagger(0.09)}
             initial="hidden"
             whileInView="visible"
             viewport={revealViewport}
-            className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08]
-                       bg-white/[0.06] md:grid-cols-2 xl:grid-cols-4"
+            className="mt-14 grid gap-y-10 md:grid-cols-2 md:gap-x-8 xl:grid-cols-4 xl:gap-x-6"
           >
-            {SERVICE_PROCESS.map((s) => (
-              <motion.li key={s.step} variants={staggerItem} className="bg-base-900 p-6">
-                <span className="overlay-num text-[13px] font-semibold text-accent">{s.step}</span>
-                <h3 className="mt-3 text-[15.5px] font-semibold tracking-[-0.01em]">{s.title}</h3>
-                <p className="mt-2 text-[13px] leading-relaxed text-ink-muted">{s.body}</p>
+            {SERVICE_PROCESS.map((s, i) => (
+              <motion.li key={s.step} variants={staggerItem} className="relative">
+                {/*
+                  The rail is the point. Four boxes in a row say "four things";
+                  a line running through them says "in this order", which is the
+                  only reason the steps are numbered at all. It stops before the
+                  last node so the sequence reads as finished rather than cut.
+                */}
+                {i < SERVICE_PROCESS.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute left-[19px] top-12 hidden h-[calc(100%-0.5rem)] w-px
+                               bg-gradient-to-b from-accent/40 to-transparent
+                               md:block xl:left-12 xl:top-[19px] xl:h-px
+                               xl:w-[calc(100%-3rem)] xl:bg-gradient-to-r"
+                  />
+                )}
+
+                <span
+                  className="relative grid h-10 w-10 place-items-center rounded-full
+                             border border-accent/35 bg-base-900 text-accent
+                             shadow-[0_0_20px_-8px_rgb(var(--accent)/0.8)]"
+                >
+                  <span className="overlay-num text-[12.5px] font-semibold">{s.step}</span>
+                </span>
+
+                <h3 className="mt-5 text-[15.5px] font-semibold tracking-[-0.01em]">{s.title}</h3>
+                <p className="mt-2 max-w-[34ch] text-[13px] leading-relaxed text-ink-muted">
+                  {s.body}
+                </p>
               </motion.li>
             ))}
           </motion.ol>
