@@ -38,6 +38,20 @@ export const COMPANY = {
     days: 'Monday to Saturday',
     note: 'Sunday by appointment',
     schemaFormat: 'Mo-Sa 08:00-21:00',
+
+    /*
+     * The same hours in a form code can compare against, so the live
+     * open/closed badge does not have to parse the schema string.
+     *
+     * `timeZone` matters more than it looks: the shop is open 08:00–21:00 in
+     * Trichy regardless of where the visitor's browser clock is set. Comparing
+     * against local device time would tell someone in London the counter is
+     * shut when it is mid-morning in Tamil Nadu.
+     */
+    timeZone: 'Asia/Kolkata',
+    opensAt: 8,               // 24-hour, shop-local
+    closesAt: 21,
+    openDays: [1, 2, 3, 4, 5, 6], // Mon–Sat; 0 is Sunday
   },
 
   /** Numbers shown in the hero stat band. Kept honest — no invented metrics. */

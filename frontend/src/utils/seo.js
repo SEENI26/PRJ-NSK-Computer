@@ -1,4 +1,5 @@
 import { COMPANY } from '@/data/company';
+import { services } from '@/data/services';
 
 const SITE_NAME = COMPANY.name;
 
@@ -125,6 +126,47 @@ export function applyBusinessSchema() {
     },
     openingHours: COMPANY.hours.schemaFormat,
     foundingDate: String(COMPANY.foundingYear),
+
+    /*
+     * Fields Google actually reads for the local pack. Directory listings
+     * (IndiaMART, JustDial, threebestrated) own the first page for this
+     * category locally, so the job of this markup is to make the entry
+     * unambiguous once someone does reach us.
+     */
+    image: `${origin()}/images/og/og-default.png`,
+    logo: `${origin()}/images/brand/logo.png`,
+    areaServed: {
+      '@type': 'City',
+      name: COMPANY.address.city,
+    },
+    // Shown as the ₹ band in results. Deliberately broad: this is a showroom
+    // with no published prices, so anything narrower would be invented.
+    priceRange: '₹₹',
+
+    /*
+     * The services page exists and nothing advertised it to search engines.
+     * Built from the same data the page renders, so the two cannot drift.
+     */
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Services',
+      itemListElement: services.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.name,
+          description: service.lead,
+        },
+      })),
+    },
+
+    /*
+     * `geo` is deliberately absent. Coordinates for No. 117B, Heber Road are
+     * not recorded anywhere in this project, and a guessed latitude on a local
+     * business sends people to the wrong street — worse than omitting it.
+     * Add it here once the real position is confirmed from the Google
+     * Business Profile.
+     */
   };
 
   let tag = document.getElementById('ld-business');
