@@ -11,10 +11,22 @@
 
   /* Display sizes clamp between mobile and desktop rather than stepping at
      breakpoints, so nothing jumps mid-resize. */
-  .t-hero    { font-size: clamp(2.75rem, 7.2vw, 6.5rem);  line-height: 0.94; letter-spacing: -0.04em;  font-weight: 700; }
-  .t-display { font-size: clamp(2rem,   4.2vw, 3.5rem);   line-height: 1.02; letter-spacing: -0.035em; font-weight: 600; }
-  .t-title   { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; }
-  .t-sub     { font-size: clamp(1rem,   1.3vw, 1.1875rem); line-height: 1.62; letter-spacing: -0.01em; font-weight: 400; }
+  /*
+   * `text-wrap` settings are doing real work at these sizes, not polish.
+   *
+   * `balance` evens the line lengths of a short heading, which is what stops a
+   * six-word headline breaking as five words and one stranded orphan — very
+   * visible at 6.5rem. The browser only balances a handful of lines, which is
+   * exactly the shape of a display heading.
+   *
+   * Body copy gets `pretty` instead: it leaves the line breaking alone and only
+   * refuses to leave a single word on the last line, which is the right trade
+   * for a paragraph where `balance` would be both wrong and expensive.
+   */
+  .t-hero    { font-size: clamp(2.75rem, 7.2vw, 6.5rem);  line-height: 0.94; letter-spacing: -0.04em;  font-weight: 700; text-wrap: balance; }
+  .t-display { font-size: clamp(2rem,   4.2vw, 3.5rem);   line-height: 1.02; letter-spacing: -0.035em; font-weight: 600; text-wrap: balance; }
+  .t-title   { font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; text-wrap: balance; }
+  .t-sub     { font-size: clamp(1rem,   1.3vw, 1.1875rem); line-height: 1.62; letter-spacing: -0.01em; font-weight: 400; text-wrap: pretty; }
 
   .t-eyebrow {
     font-size: 0.6875rem; line-height: 1; letter-spacing: 0.22em;

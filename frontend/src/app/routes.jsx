@@ -30,8 +30,20 @@ const PAGES = [
   { path: ROUTES.about,        Component: AboutContact },
 ];
 
+/**
+ * Space held while a route's chunk downloads.
+ *
+ * The height is not cosmetic. At 70vh the footer landed *inside* the first
+ * viewport, then dropped away the moment the real page mounted — a visible
+ * jump worth 0.158 CLS on every desktop page, well past Google's 0.1 budget.
+ *
+ * Layout shift is only counted for elements in view, and every real page here
+ * is several screens tall, so reserving more than one screen puts the footer
+ * below the fold for the whole of the load. It moves further down afterwards,
+ * but it was never on screen to be seen moving.
+ */
 function RouteFallback() {
-  return <div className="min-h-[70vh]" aria-hidden="true" />;
+  return <div className="min-h-[140vh]" aria-hidden="true" />;
 }
 
 export function AppRoutes() {

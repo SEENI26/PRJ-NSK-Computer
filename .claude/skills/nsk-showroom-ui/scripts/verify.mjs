@@ -36,10 +36,17 @@ const ROUTES = [
 // keeps one desktop and one phone.
 const WIDTHS = FULL ? [1920, 1440, 1366, 768, 430, 390] : [1440, 390];
 
-/** Pre-existing at the time of writing: the lazy-route fallback is shorter
- *  than the real pages, so the footer jumps once on first paint. Flagged
- *  rather than silently ignored, so a genuine regression still stands out. */
-const KNOWN_CLS = 0.16;
+/**
+ * Google's "good" budget. Every route currently measures 0, so this is a real
+ * gate rather than a tolerated baseline.
+ *
+ * It used to sit at 0.16 to accommodate the lazy-route fallback being shorter
+ * than the real pages, which dropped the footer inside the first viewport and
+ * cost 0.158 on every desktop page. That is fixed in `routes.jsx` — if this
+ * number has to go up again, something regressed rather than something being
+ * acceptable.
+ */
+const KNOWN_CLS = 0.1;
 
 async function connect() {
   let targets;

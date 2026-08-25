@@ -23,7 +23,13 @@ export function HeroSection() {
   return (
     <section
       ref={frameRef}
-      className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden pb-24 pt-32 lg:min-h-[720px] lg:pb-28 lg:pt-36"
+      /*
+        dvh, not vh. On iOS Safari `100vh` measures the viewport with the
+        toolbar collapsed, so a 100vh hero is taller than what you can actually
+        see and the whole section shifts as the bar hides on first scroll.
+        `100dvh` tracks the live viewport and holds still.
+      */
+      className="relative flex min-h-[calc(100dvh-72px)] items-center overflow-hidden pb-24 pt-32 lg:min-h-[720px] lg:pb-28 lg:pt-36"
     >
       <HeroBackground tilt={tilt} />
 
