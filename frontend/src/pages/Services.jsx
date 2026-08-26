@@ -245,7 +245,7 @@ export default function Services() {
                 <Button href={COMPANY.phoneHref} variant="secondary" size="lg">
                   <Phone className="h-4 w-4" aria-hidden="true" /> {COMPANY.phone}
                 </Button>
-                <Button to={ROUTES.about} variant="ghost" size="lg">
+                <Button to={`${ROUTES.about}#visit`} variant="ghost" size="lg">
                   Visit the showroom
                 </Button>
               </div>

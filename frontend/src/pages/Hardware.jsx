@@ -104,7 +104,7 @@ export default function Hardware() {
                   <Button href={COMPANY.whatsappHref} variant="secondary" size="sm">
                     <MessageCircle className="h-4 w-4" aria-hidden="true" /> Ask on WhatsApp
                   </Button>
-                  <Button to={ROUTES.about} variant="ghost" size="sm">
+                  <Button to={`${ROUTES.about}?for=hardware#enquiry`} variant="ghost" size="sm">
                     Or send an enquiry
                   </Button>
                 </div>
@@ -176,7 +176,7 @@ export default function Hardware() {
                         What we stock — {openProducts.length}{' '}
                         {openProducts.length === 1 ? 'line' : 'lines'}
                       </h4>
-                      <Button to={ROUTES.about} variant="ghost" size="sm" className="group">
+                      <Button to={`${ROUTES.about}?for=hardware#enquiry`} variant="ghost" size="sm" className="group">
                         Ask about a part
                         <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
                       </Button>
@@ -212,7 +212,7 @@ export default function Hardware() {
       </section>
 
       <CounterDepartments />
-      <CTASection />
+      <CTASection context="hardware" />
     </>
   );
 }

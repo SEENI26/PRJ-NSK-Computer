@@ -196,7 +196,7 @@ export default function GamingPC() {
         </section>
       )}
 
-      <CTASection />
+      <CTASection context="gaming" />
     </div>
   );
 }

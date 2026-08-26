@@ -95,7 +95,7 @@ export default function ProfessionalPC() {
                     aria-hidden="true"
                   />
                 </Button>
-                <Button to={ROUTES.about} variant="secondary" size="lg">
+                <Button to={`${ROUTES.about}?for=trade#enquiry`} variant="secondary" size="lg">
                   Talk to us about a fleet
                 </Button>
               </motion.div>
@@ -296,7 +296,7 @@ export default function ProfessionalPC() {
                 <Button onClick={() => { setBrand('all'); setRole('all'); }} variant="secondary">
                   Clear filters
                 </Button>
-                <Button to={ROUTES.about}>Ask us to source it</Button>
+                <Button to={`${ROUTES.about}?for=professional#enquiry`}>Ask us to source it</Button>
               </div>
             </div>
           )}
@@ -408,7 +408,7 @@ export default function ProfessionalPC() {
                 right one.
               </p>
               <div className="mt-10 flex flex-wrap justify-center gap-3">
-                <Button to={ROUTES.about} size="lg">Get a specification</Button>
+                <Button to={`${ROUTES.about}?for=professional#enquiry`} size="lg">Get a specification</Button>
                 <Button href={COMPANY.whatsappHref} variant="secondary" size="lg">
                   <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
                 </Button>

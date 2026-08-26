@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock, Lock, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { getIcon } from '@/utils/icons';
@@ -27,8 +28,28 @@ import { stagger, staggerItem, fadeUp, revealViewport } from '@/animations';
  * which answers the wrong question: the one people actually have at 8pm on a
  * Saturday is "are they open *now*".
  */
+/**
+ * What `?for=` on the URL means, and which option it preselects.
+ *
+ * Fifteen calls to action across the site pointed here, promising everything
+ * from "get a PC recommendation" to "directions and hours", and every one of
+ * them landed at the top of the page. Carrying the context through means the
+ * form already knows what the visitor was looking at when they clicked.
+ */
+const CONTEXT = {
+  gaming:       { requirement: 'Gaming PC build',        lead: 'Tell us about your gaming build' },
+  professional: { requirement: 'Professional workstation', lead: 'Tell us about the work it has to do' },
+  hardware:     { requirement: 'Component upgrade',      lead: 'Tell us what you are upgrading' },
+  service:      { requirement: 'Repair or service',      lead: 'Tell us what it is doing wrong' },
+  accessories:  { requirement: 'Accessories',            lead: 'Tell us what the desk still needs' },
+  trade:        { requirement: 'Bulk / trade enquiry',   lead: 'Tell us about the fleet' },
+};
+
 export default function AboutContact() {
   usePageMeta('about');
+
+  const [params] = useSearchParams();
+  const context = CONTEXT[params.get('for') ?? ''] ?? null;
 
   return (
     <>
@@ -112,7 +133,7 @@ export default function AboutContact() {
       </section>
 
       {/* ── Find the counter ─────────────────────────────────────────────── */}
-      <section className="py-16" aria-labelledby="visit-heading">
+      <section id="visit" className="scroll-mt-24 py-16" aria-labelledby="visit-heading">
         <Container>
           <SectionTitle
             titleId="visit-heading"
@@ -157,18 +178,18 @@ export default function AboutContact() {
       </section>
 
       {/* ── Enquiry ──────────────────────────────────────────────────────── */}
-      <section className="pb-24" aria-labelledby="contact-heading">
+      <section id="enquiry" className="scroll-mt-24 pb-24" aria-labelledby="contact-heading">
         <Container>
           <SectionTitle
             titleId="contact-heading"
             eyebrow="Get in touch"
-            title="Send an enquiry"
+            title={context ? context.lead : 'Send an enquiry'}
             lead="Tell us what the machine is for, or what it is doing wrong. We reply within one working day — usually the same day during shop hours."
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             <div>
-              <ContactForm />
+              <ContactForm defaultRequirement={context?.requirement} />
 
               {/*
                 What happens to the details the form collects. India's DPDP Act

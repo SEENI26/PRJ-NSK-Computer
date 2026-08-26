@@ -232,7 +232,7 @@ export default function Accessories() {
         </Container>
       </section>
 
-      <CTASection />
+      <CTASection context="accessories" />
     </>
   );
 }

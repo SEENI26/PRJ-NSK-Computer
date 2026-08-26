@@ -44,7 +44,7 @@ export function Footer() {
               at no extra charge.
             </p>
             <Link
-              to={ROUTES.about}
+              to={`${ROUTES.about}#visit`}
               className="mt-5 inline-flex items-center gap-2 text-sm text-accent transition-colors hover:text-white"
             >
               Directions and hours →

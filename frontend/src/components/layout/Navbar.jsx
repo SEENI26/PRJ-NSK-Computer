@@ -96,7 +96,7 @@ export function Navbar() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button to={ROUTES.about} size="sm" className="hidden sm:inline-flex">
+            <Button to={`${ROUTES.about}#enquiry`} size="sm" className="hidden sm:inline-flex">
               Get a PC Recommendation
             </Button>
             <button

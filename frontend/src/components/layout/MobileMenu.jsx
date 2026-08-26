@@ -94,7 +94,7 @@ export function MobileMenu({ open, onClose }) {
             </nav>
 
             <div className="space-y-3 border-t border-white/[0.07] p-6">
-              <Button to={ROUTES.about} onClick={onClose} className="w-full" size="lg">
+              <Button to={`${ROUTES.about}#enquiry`} onClick={onClose} className="w-full" size="lg">
                 Get a PC Recommendation
               </Button>
               <div className="grid grid-cols-2 gap-3">

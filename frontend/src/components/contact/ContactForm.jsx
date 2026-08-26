@@ -25,8 +25,17 @@ const EMPTY = { name: '', phone: '', email: '', requirement: REQUIREMENTS[0], me
  * authority. Field errors come back keyed by field so they render inline
  * rather than as one opaque banner.
  */
-export function ContactForm() {
-  const [form, setForm] = useState(EMPTY);
+/**
+ * @param {string} [defaultRequirement] preselects the dropdown when the visitor
+ *   arrived from a page that already implies what they want — clicking through
+ *   from Gaming should not make anyone re-pick "Gaming PC build".
+ */
+export function ContactForm({ defaultRequirement } = {}) {
+  const [form, setForm] = useState(() =>
+    defaultRequirement && REQUIREMENTS.includes(defaultRequirement)
+      ? { ...EMPTY, requirement: defaultRequirement }
+      : EMPTY,
+  );
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [reference, setReference] = useState('');

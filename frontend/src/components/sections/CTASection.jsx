@@ -6,7 +6,13 @@ import { ROUTES } from '@/utils/constants';
 import { EASE, revealViewport } from '@/animations';
 
 /** The closing ask — §32's final step: contact or visit. */
-export function CTASection() {
+/**
+ * @param {string} [context] passed through to the enquiry form as `?for=`, so
+ *   the closing call to action on a page arrives with the requirement already
+ *   chosen. Home leaves it off — there is no single thing a visitor there
+ *   wants, and guessing would be worse than asking.
+ */
+export function CTASection({ context } = {}) {
   return (
     <section className="py-24 lg:py-32" aria-labelledby="cta-heading">
       <Container>
@@ -37,7 +43,12 @@ export function CTASection() {
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-3">
-              <Button to={ROUTES.about} size="lg">Get a PC Recommendation</Button>
+              <Button
+                to={`${ROUTES.about}${context ? `?for=${context}` : ''}#enquiry`}
+                size="lg"
+              >
+                Get a PC Recommendation
+              </Button>
               <Button href={COMPANY.whatsappHref} variant="secondary" size="lg">
                 <MessageCircle className="h-4 w-4" aria-hidden="true" /> WhatsApp
               </Button>
