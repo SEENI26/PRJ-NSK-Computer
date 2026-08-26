@@ -4,7 +4,8 @@ import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/common';
 import { cn } from '@/utils/helpers';
 import { submitEnquiry } from '@/services/enquiries';
-import { Recaptcha, resetRecaptcha } from './Recaptcha';
+import { Recaptcha, resetRecaptcha, recaptchaConfigured } from './Recaptcha';
+import { Captcha } from './Captcha';
 
 const REQUIREMENTS = [
   'Gaming PC build',
@@ -31,6 +32,10 @@ export function ContactForm() {
   const [reference, setReference] = useState('');
   const [formError, setFormError] = useState('');
   const [token, setToken] = useState('');
+  // The image code path — used unless a reCAPTCHA site key is configured.
+  const [captchaToken, setCaptchaToken] = useState('');
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [captchaNonce, setCaptchaNonce] = useState(0);
   // Null until the widget reports in; false means it is not configured or
   // failed to load, and the form must not wait for a box that will never show.
   const [captchaLive, setCaptchaLive] = useState(null);
@@ -66,8 +71,12 @@ export function ContactForm() {
     event.preventDefault();
     if (!validate()) return;
 
-    if (captchaLive && !token) {
+    if (recaptchaConfigured && captchaLive && !token) {
       setFormError('Please tick the "I am not a robot" box first.');
+      return;
+    }
+    if (!recaptchaConfigured && !captchaAnswer.trim()) {
+      setErrors((e) => ({ ...e, captcha_answer: 'Enter the code shown in the image.' }));
       return;
     }
 
@@ -76,12 +85,16 @@ export function ContactForm() {
     try {
       const result = await submitEnquiry(form, {
         token,
+        captchaToken,
+        captchaAnswer,
         elapsedMs: Date.now() - openedAt.current,
       });
       setReference(result.reference ?? '');
       setStatus('sent');
       setForm(EMPTY);
       setToken('');
+      setCaptchaAnswer('');
+      setCaptchaNonce((n) => n + 1);
       resetRecaptcha();
     } catch (error) {
       if (error.fieldErrors && Object.keys(error.fieldErrors).length) {
@@ -91,8 +104,11 @@ export function ContactForm() {
         setFormError(error.message || 'Could not send that. Please call or WhatsApp us instead.');
         setStatus('error');
       }
-      // Every token is single-use — a retry needs the box ticked again.
+      // Every code is single-use, so a retry needs a fresh one. The typed
+      // answer goes, the error explaining why stays.
       setToken('');
+      setCaptchaAnswer('');
+      setCaptchaNonce((n) => n + 1);
       resetRecaptcha();
     }
   }
@@ -205,7 +221,20 @@ export function ContactForm() {
             </div>
 
             <div className="mt-8">
-              <Recaptcha onChange={setToken} onReady={setCaptchaLive} />
+              {recaptchaConfigured ? (
+                <Recaptcha onChange={setToken} onReady={setCaptchaLive} />
+              ) : (
+                <Captcha
+                  key={captchaNonce}
+                  value={captchaAnswer}
+                  onChange={(v) => {
+                    setCaptchaAnswer(v);
+                    setErrors((e) => ({ ...e, captcha_answer: '' }));
+                  }}
+                  onToken={setCaptchaToken}
+                  error={errors.captcha_answer}
+                />
+              )}
             </div>
 
             {formError && (

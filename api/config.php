@@ -55,9 +55,21 @@ $config = [
         'max_tokens' => 1024,
     ],
 
-    // Rate limits: [max requests, window in seconds]
+    /*
+     * Rate limits: [max requests, window in seconds], per IP.
+     *
+     * `submissions` was 5 a minute, which is generous for a form a person uses
+     * once. It also sets the ceiling on how much a replayed captcha token is
+     * worth — the code is stateless and stays valid for ten minutes, so this
+     * is what caps the damage. Five per five minutes still leaves room to
+     * mistype the code twice and get it right on the third go.
+     */
     'rate_limits' => [
-        'submissions' => [5, 60],
+        'submissions' => [5, 300],
+        // Generous: a page load costs one, a refresh costs one, and React
+        // mounts twice in development. Tight limits here punish people
+        // reloading a form, not bots — `submissions` is the real gate.
+        'captcha'     => [60, 60],
         'ai_chat'     => [20, 60],
         'login'       => [5, 300],
     ],

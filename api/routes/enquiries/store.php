@@ -3,6 +3,7 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/../../lib/captcha.php';
 require_once __DIR__ . '/../../lib/recaptcha.php';
 
 rate_limit('submissions');
@@ -38,18 +39,40 @@ if (is_numeric($elapsed) && (int) $elapsed < 3000) {
     json_out(['data' => ['reference' => $make_reference()]], 201);
 }
 
-// 3. reCAPTCHA. Skipped entirely when no secret is configured — see lib.
-$captcha = recaptcha_check(
-    isset($input['recaptcha_token']) ? (string) $input['recaptcha_token'] : null,
-    $_SERVER['REMOTE_ADDR'] ?? null
-);
+/*
+ * 3. The verification code from the image.
+ *
+ * Unlike the two checks above this one answers explicitly. A person who
+ * mistyped or let the code expire has to be told, or the form looks broken —
+ * the silent treatment is only right for signals no human can trip.
+ *
+ * reCAPTCHA runs instead when a secret is configured, so a site that would
+ * rather use Google can switch without touching this file.
+ */
+if (recaptcha_enabled()) {
+    $check = recaptcha_check(
+        isset($input['recaptcha_token']) ? (string) $input['recaptcha_token'] : null,
+        $_SERVER['REMOTE_ADDR'] ?? null
+    );
 
-if (!$captcha['ok']) {
-    // This one *is* explicit: a real person who let the checkbox expire needs
-    // to be told to tick it again, not silently ignored.
-    fail(422, 'Please confirm the "I am not a robot" check and try again.', [
-        'recaptcha' => ['Verification failed. Tick the box and resend.'],
-    ]);
+    if (!$check['ok']) {
+        fail(422, 'Please confirm the "I am not a robot" check and try again.', [
+            'recaptcha' => ['Verification failed. Tick the box and resend.'],
+        ]);
+    }
+} else {
+    $check = captcha_check(
+        isset($input['captcha_token']) ? (string) $input['captcha_token'] : null,
+        isset($input['captcha_answer']) ? (string) $input['captcha_answer'] : null
+    );
+
+    if (!$check['ok']) {
+        $message = $check['reason'] === 'expired'
+            ? 'That verification code has expired. A new one has been loaded — please enter it.'
+            : 'The verification code did not match. Please try the new one.';
+
+        fail(422, $message, ['captcha_answer' => [$message]]);
+    }
 }
 
 $clean = validate($input, [

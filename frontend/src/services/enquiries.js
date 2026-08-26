@@ -21,7 +21,7 @@ export class EnquiryError extends Error {
 }
 
 /** Map the form's field names onto the API's. */
-function toPayload(form, { token, elapsedMs } = {}) {
+function toPayload(form, { token, captchaToken, captchaAnswer, elapsedMs } = {}) {
   return {
     name: form.name.trim(),
     email: form.email.trim() || undefined,
@@ -37,6 +37,8 @@ function toPayload(form, { token, elapsedMs } = {}) {
     website: form.website ?? '',
     elapsed_ms: elapsedMs,
     recaptcha_token: token || undefined,
+    captcha_token: captchaToken || undefined,
+    captcha_answer: captchaAnswer || undefined,
   };
 }
 

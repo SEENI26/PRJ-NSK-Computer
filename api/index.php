@@ -45,6 +45,7 @@ $routes = [
     ['GET',  '/v1/faqs',               'content/faqs.php'],
     ['GET',  '/v1/settings',           'content/settings.php'],
     ['GET',  '/v1/sections',           'content/sections.php'],
+    ['GET',  '/v1/captcha',            'content/captcha.php'],
     ['GET',  '/v1/offers',             'offers/index.php'],
 
     // Public writes

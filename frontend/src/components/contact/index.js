@@ -4,3 +4,4 @@ export { MapSection } from './MapSection';
 export { OpenStatus, isOpenAt } from './OpenStatus';
 export { BrandsServiced } from './BrandsServiced';
 export { Recaptcha, resetRecaptcha, recaptchaConfigured } from './Recaptcha';
+export { Captcha } from './Captcha';
