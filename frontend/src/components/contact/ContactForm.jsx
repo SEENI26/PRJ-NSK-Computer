@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/common';
 import { cn } from '@/utils/helpers';
 import { submitEnquiry } from '@/services/enquiries';
+import { Recaptcha, resetRecaptcha } from './Recaptcha';
 
 const REQUIREMENTS = [
   'Gaming PC build',
@@ -14,7 +15,7 @@ const REQUIREMENTS = [
   'Bulk / trade enquiry',
 ];
 
-const EMPTY = { name: '', phone: '', email: '', requirement: REQUIREMENTS[0], message: '' };
+const EMPTY = { name: '', phone: '', email: '', requirement: REQUIREMENTS[0], message: '', website: '' };
 
 /**
  * Enquiry form — §18.
@@ -29,6 +30,16 @@ export function ContactForm() {
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [reference, setReference] = useState('');
   const [formError, setFormError] = useState('');
+  const [token, setToken] = useState('');
+  // Null until the widget reports in; false means it is not configured or
+  // failed to load, and the form must not wait for a box that will never show.
+  const [captchaLive, setCaptchaLive] = useState(null);
+  const openedAt = useRef(Date.now());
+
+  // Reset the clock when the form is reused for a second enquiry.
+  useEffect(() => {
+    if (status === 'sent') openedAt.current = Date.now();
+  }, [status]);
 
   const set = (field) => (event) => {
     setForm((f) => ({ ...f, [field]: event.target.value }));
@@ -55,13 +66,23 @@ export function ContactForm() {
     event.preventDefault();
     if (!validate()) return;
 
+    if (captchaLive && !token) {
+      setFormError('Please tick the "I am not a robot" box first.');
+      return;
+    }
+
     setStatus('sending');
     setFormError('');
     try {
-      const result = await submitEnquiry(form);
+      const result = await submitEnquiry(form, {
+        token,
+        elapsedMs: Date.now() - openedAt.current,
+      });
       setReference(result.reference ?? '');
       setStatus('sent');
       setForm(EMPTY);
+      setToken('');
+      resetRecaptcha();
     } catch (error) {
       if (error.fieldErrors && Object.keys(error.fieldErrors).length) {
         setErrors(error.fieldErrors);
@@ -70,11 +91,14 @@ export function ContactForm() {
         setFormError(error.message || 'Could not send that. Please call or WhatsApp us instead.');
         setStatus('error');
       }
+      // Every token is single-use — a retry needs the box ticked again.
+      setToken('');
+      resetRecaptcha();
     }
   }
 
   return (
-    <div className="surface-card p-8 lg:p-10">
+    <div className="surface-card relative p-8 lg:p-10">
       <AnimatePresence mode="wait">
         {status === 'sent' ? (
           <motion.div
@@ -161,6 +185,29 @@ export function ContactForm() {
               </Field>
             </div>
 
+            {/*
+              Honeypot. The API has always looked for this field; the form
+              never rendered it, so the check was doing nothing. Hidden from
+              people three ways — off-screen, aria-hidden, and excluded from
+              the tab order — while remaining a normal input a bot will fill.
+            */}
+            <div aria-hidden="true" className="absolute left-[-9999px] top-0 h-0 w-0 overflow-hidden">
+              <label htmlFor="website">Do not fill this in</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={set('website')}
+              />
+            </div>
+
+            <div className="mt-8">
+              <Recaptcha onChange={setToken} onReady={setCaptchaLive} />
+            </div>
+
             {formError && (
               <p role="alert" className="mt-5 flex items-start gap-2 text-[13px] text-red-400">
                 <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
@@ -168,7 +215,7 @@ export function ContactForm() {
               </p>
             )}
 
-            <Button type="submit" size="lg" className="mt-8 w-full sm:w-auto" disabled={status === 'sending'}>
+            <Button type="submit" size="lg" className="mt-6 w-full sm:w-auto" disabled={status === 'sending'}>
               {status === 'sending' ? 'Sending…' : (<>Send Enquiry <Send className="h-4 w-4" aria-hidden="true" /></>)}
             </Button>
 

@@ -24,6 +24,17 @@ $config = [
      * never reach this list. It matters only if the frontend is ever pointed
      * straight at the API host.
      */
+    /*
+     * reCAPTCHA v2 secret, pairing with VITE_RECAPTCHA_SITE_KEY on the
+     * frontend. Read from the environment first so the real value never has to
+     * live in a tracked file.
+     *
+     * Blank disables verification — the honeypot, the submit-timing check and
+     * the rate limit still apply. See lib/recaptcha.php for why it fails open
+     * rather than blocking the shop's only contact form.
+     */
+    'recaptcha_secret' => getenv('RECAPTCHA_SECRET') ?: '',
+
     'cors_origins' => [
         'http://localhost:3100',
         'http://127.0.0.1:3100',

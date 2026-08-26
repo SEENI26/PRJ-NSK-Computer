@@ -3,10 +3,14 @@
  *
  * The site is otherwise static and local-JSON driven (§27), but the contact
  * form is real: it posts to the PHP API so enquiries land in the staff inbox.
- * This module is the single seam between the two — swap the URL here and
- * nothing else changes.
+ * This module is the single seam between the two.
+ *
+ * It used to read VITE_API_BASE_URL with `??` and refuse to send when it was
+ * unset — and .env ships it empty to mean "same origin, use the dev proxy", so
+ * every enquiry was rejected with "not configured yet" and nothing ever
+ * reached the shop. An empty value is now treated as the intended default.
  */
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
+import { api, ApiError } from '@/services/api';
 
 export class EnquiryError extends Error {
   constructor(message, fieldErrors = {}) {
@@ -16,47 +20,33 @@ export class EnquiryError extends Error {
   }
 }
 
-/** Map our field names onto the API's, and mark the source. */
-function toPayload(form) {
+/** Map the form's field names onto the API's. */
+function toPayload(form, { token, elapsedMs } = {}) {
   return {
     name: form.name.trim(),
-    email: form.email.trim(),
+    email: form.email.trim() || undefined,
     phone: form.phone.trim() || undefined,
+    subject: form.requirement,
+    // The requirement is a select, so it is carried in the subject and repeated
+    // in the body — staff read the message, not the metadata.
     message: `Requirement: ${form.requirement}\n\n${form.message.trim()}`,
-    // The API requires at least one line; a general enquiry has no product, so
-    // it is sent as a single free-text item rather than a catalogue reference.
-    items: [],
+    source: 'website',
+
+    // Anti-spam. `website` is the honeypot the API already checks for: it is
+    // hidden from people and irresistible to bots.
+    website: form.website ?? '',
+    elapsed_ms: elapsedMs,
+    recaptcha_token: token || undefined,
   };
 }
 
-export async function submitEnquiry(form) {
-  if (!API_BASE) {
-    // No backend configured — fail loudly rather than pretending it sent.
-    throw new EnquiryError(
-      'The enquiry service is not configured yet. Please call or WhatsApp us.',
-    );
-  }
-
-  let response;
+export async function submitEnquiry(form, options = {}) {
   try {
-    response = await fetch(`${API_BASE}/api/enquiries`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(toPayload(form)),
-    });
-  } catch {
+    return await api.post('/enquiries', toPayload(form, options));
+  } catch (error) {
+    if (error instanceof ApiError) {
+      throw new EnquiryError(error.message, error.fieldErrors());
+    }
     throw new EnquiryError('Could not reach the server. Check your connection and try again.');
   }
-
-  const payload = await response.json().catch(() => null);
-
-  if (!response.ok) {
-    const error = payload?.error;
-    throw new EnquiryError(
-      error?.message ?? `Request failed (${response.status})`,
-      error?.errors ?? {},
-    );
-  }
-
-  return payload?.data ?? {};
 }
