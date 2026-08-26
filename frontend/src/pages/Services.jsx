@@ -7,6 +7,7 @@ import { SERVICE_GROUPS, SERVICE_PROCESS, services, servicesIn } from '@/data/se
 import { COMPANY } from '@/data/company';
 import { ROUTES } from '@/utils/constants';
 import { usePageMeta } from '@/hooks/usePageTransition';
+import { useSection } from '@/hooks/useSections';
 import { cn } from '@/utils/helpers';
 import { stagger, staggerItem, fadeUp, revealViewport, EASE } from '@/animations';
 
@@ -31,6 +32,27 @@ import { stagger, staggerItem, fadeUp, revealViewport, EASE } from '@/animations
 export default function Services() {
   usePageMeta('services');
 
+  /*
+   * Each section declares the copy it ships with. Anything edited in the admin
+   * panel overrides a field; anything untouched keeps the text below, so this
+   * file stays readable as the source of truth rather than turning into a set
+   * of lookups.
+   */
+  const hero = useSection('services.hero', {
+    eyebrow: 'Service & support',
+    lead: `Repairs, upgrades, data recovery, networking, CCTV and annual maintenance — for a single laptop or for a floor of them. Twenty years of it, at the counter in ${COMPANY.address.city}.`,
+  });
+  const jobs = useSection('services.jobs', {
+    eyebrow: `${services.length} kinds of job`,
+    heading: 'What comes across the counter',
+    lead: 'Listed by the symptom rather than the fix, because that is how the problem arrives. If what is wrong is not here, it is still worth asking — this is the common half, not the whole of it.',
+  });
+  const process = useSection('services.process', {
+    eyebrow: 'How a job runs',
+    heading: 'Four steps, every time',
+    lead: 'The same sequence whether it is one laptop or a twenty-machine contract. It is the part we can promise, because it does not depend on what the fault turns out to be.',
+  });
+
   const [group, setGroup] = useState('all');
   const shown = useMemo(() => servicesIn(group), [group]);
   const activeGroup = SERVICE_GROUPS.find((g) => g.id === group);
@@ -49,14 +71,12 @@ export default function Services() {
 
         <Container>
           <motion.div variants={stagger(0.08)} initial="hidden" animate="visible" className="max-w-3xl">
-            <motion.div variants={staggerItem}><Badge tone="accent">Service &amp; support</Badge></motion.div>
+            <motion.div variants={staggerItem}><Badge tone="accent">{hero.eyebrow}</Badge></motion.div>
             <motion.h1 variants={staggerItem} className="t-hero mt-6 max-w-[16ch]">
               Bring it in. We will <span className="text-gradient">look first.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="t-sub mt-7 max-w-[56ch] text-ink-muted">
-              Repairs, upgrades, data recovery, networking, CCTV and annual maintenance —
-              for a single laptop or for a floor of them. Twenty years of it, at the counter
-              in {COMPANY.address.city}.
+              {hero.lead}
             </motion.p>
 
             <motion.div variants={staggerItem} className="mt-10 flex flex-wrap gap-3">
@@ -94,9 +114,9 @@ export default function Services() {
         <Container>
           <SectionTitle
             titleId="jobs-heading"
-            eyebrow={`${services.length} kinds of job`}
-            title="What comes across the counter"
-            lead="Listed by the symptom rather than the fix, because that is how the problem arrives. If what is wrong is not here, it is still worth asking — this is the common half, not the whole of it."
+            eyebrow={jobs.eyebrow}
+            title={jobs.heading}
+            lead={jobs.lead}
           />
 
           <div className="mt-10 flex flex-wrap items-center gap-2.5">
@@ -140,9 +160,9 @@ export default function Services() {
         <Container>
           <SectionTitle
             titleId="process-heading"
-            eyebrow="How a job runs"
-            title="Four steps, every time"
-            lead="The same sequence whether it is one laptop or a twenty-machine contract. It is the part we can promise, because it does not depend on what the fault turns out to be."
+            eyebrow={process.eyebrow}
+            title={process.heading}
+            lead={process.lead}
           />
 
           {/*

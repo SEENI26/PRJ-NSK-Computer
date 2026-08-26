@@ -44,6 +44,7 @@ $routes = [
     ['GET',  '/v1/blog/{slug}',        'blog/show.php'],
     ['GET',  '/v1/faqs',               'content/faqs.php'],
     ['GET',  '/v1/settings',           'content/settings.php'],
+    ['GET',  '/v1/sections',           'content/sections.php'],
     ['GET',  '/v1/offers',             'offers/index.php'],
 
     // Public writes
@@ -74,6 +75,8 @@ $routes = [
     ['POST',   '/v1/admin/upload',           'admin/upload.php'],
     ['GET',    '/v1/admin/settings',         'admin/settings/index.php'],
     ['PUT',    '/v1/admin/settings',         'admin/settings/update.php'],
+    ['GET',    '/v1/admin/sections',         'admin/sections/index.php'],
+    ['PUT',    '/v1/admin/sections',         'admin/sections/update.php'],
 ];
 
 /*

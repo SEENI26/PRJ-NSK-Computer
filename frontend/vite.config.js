@@ -12,8 +12,25 @@ export default defineConfig({
     strictPort: true,
     // The contact form posts to the PHP API. Proxying keeps it same-origin in
     // development, so there is no CORS to configure.
+    /*
+     * The PHP API is served by XAMPP's Apache out of htdocs, so its real path
+     * contains the project folder — and a space. Proxying keeps the browser on
+     * one origin, which matters for two reasons beyond tidiness: percent-
+     * encoding that space in every fetch is error-prone, and the admin session
+     * cookie travels without any SameSite negotiation when it is same-origin.
+     */
     proxy: {
-      '/api': { target: 'http://localhost:8000', changeOrigin: true },
+      '/api': {
+        target: 'http://localhost',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/api/, '/NKS computers Website/api'),
+      },
+      // Uploaded images are written beside the API, not into public/.
+      '/uploads': {
+        target: 'http://localhost',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/uploads/, '/NKS computers Website/api/uploads'),
+      },
     },
   },
   build: {
