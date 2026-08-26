@@ -40,7 +40,7 @@ export default function Services() {
    */
   const hero = useSection('services.hero', {
     eyebrow: 'Service & support',
-    lead: `Repairs, upgrades, data recovery, networking, CCTV and annual maintenance — for a single laptop or for a floor of them. Twenty years of it, at the counter in ${COMPANY.address.city}.`,
+    lead: `Repairs, upgrades, data recovery, networking, CCTV, biometric attendance and annual maintenance — for a single laptop or for a floor of them. All of it at the counter in ${COMPANY.address.city}.`,
   });
   const jobs = useSection('services.jobs', {
     eyebrow: `${services.length} kinds of job`,

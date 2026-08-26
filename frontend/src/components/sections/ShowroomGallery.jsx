@@ -24,7 +24,7 @@ export function ShowroomGallery() {
           titleId="showroom-heading"
           eyebrow="Inside the showroom"
           title="Come and see the machines"
-          lead={`Twenty years of builds, spares and service on Heber Main Road. Drag the wall to look around — then come in and we will show you the real thing.`}
+          lead={`Builds, spares and service on Heber Main Road. Drag the wall to look around — then come in and we will show you the real thing.`}
           action={
             <Button to={`${ROUTES.about}#visit`} variant="secondary">
               Directions and hours

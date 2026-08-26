@@ -8,8 +8,17 @@ export const COMPANY = {
   name: 'NSK Computer Zone',
   legalName: 'NSK Computer Zone Pvt Ltd.',
   tagline: 'Build better. Perform faster.',
-  foundingYear: 2005,
-  experienceYears: 20,
+  /*
+   * NSK Computer Zone Private Limited was incorporated in May 2022. The site
+   * previously claimed 2005 and "twenty years at the counter" throughout;
+   * confirmed with the owner that 2022 is the real start, so every tenure
+   * claim on the site now derives from this one number.
+   */
+  foundingYear: 2022,
+  /* Derived, so it cannot quietly go stale the way a hardcoded 20 did. */
+  get experienceYears() {
+    return Math.max(1, new Date().getFullYear() - this.foundingYear);
+  },
 
   /*
    * Corrected from the shop's own Google listing (NSK COMPUTER ZONE (P)
@@ -69,7 +78,7 @@ export const COMPANY = {
 
   /** Numbers shown in the hero stat band. Kept honest — no invented metrics. */
   stats: [
-    { value: '20+',  label: 'Years in hardware' },
+    { value: '2022', label: 'Trading since' },
     { value: '10',   label: 'Hardware departments' },
     { value: '48h',  label: 'Build and test' },
     { value: 'Free', label: 'Fitting at counter' },

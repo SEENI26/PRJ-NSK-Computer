@@ -13,7 +13,7 @@ export function WhyChooseUs() {
           titleId="why-heading"
           eyebrow={`Since ${COMPANY.foundingYear}`}
           title="Why people come back"
-          lead="Twenty years at the counter. The value is in being told what you actually need, and in the part working when you get it home."
+          lead="The value is in being told what you actually need, and in the part working when you get it home."
         />
 
         <motion.ul

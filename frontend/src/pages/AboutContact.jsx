@@ -69,7 +69,7 @@ export default function AboutContact() {
               <Badge tone="accent">Since {COMPANY.foundingYear}</Badge>
             </motion.div>
             <motion.h1 variants={staggerItem} className="t-hero mt-6 max-w-[16ch]">
-              Twenty years at the <span className="text-gradient">counter.</span>
+              Everything, over one <span className="text-gradient">counter.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="t-sub mt-7 text-ink-muted">
               {COMPANY.legalName} has been supplying, building and repairing computers in{' '}
