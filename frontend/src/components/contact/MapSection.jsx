@@ -11,7 +11,13 @@ import { COMPANY } from '@/data/company';
 export function MapSection() {
   const key = import.meta.env.VITE_GOOGLE_MAPS_KEY;
   const query = encodeURIComponent(`${COMPANY.legalName}, ${COMPANY.address.full}`);
-  const directions = `https://www.google.com/maps/search/?api=1&query=${query}`;
+  /*
+   * Prefer the shop's own listing link. Searching by name and address is a
+   * guess that can resolve to a different business with a similar name; the
+   * share link resolves to exactly one place.
+   */
+  const directions = COMPANY.mapsUrl
+    ?? `https://www.google.com/maps/search/?api=1&query=${query}`;
 
   return (
     <div className="surface-card overflow-hidden">

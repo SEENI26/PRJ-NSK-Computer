@@ -51,9 +51,9 @@ export const PAGE_META = {
     path: '/accessories',
   },
   services: {
-    title: 'Computer Repair, Upgrades, Networking & CCTV',
+    title: 'Computer Repair, Upgrades, Networking, CCTV & Biometrics',
     description:
-      'Desktop and laptop repair, data recovery, hardware upgrades, custom builds, networking, CCTV and annual maintenance in Tiruchirappalli. Diagnosis before any quote.',
+      'Desktop and laptop repair, data recovery, hardware upgrades, custom builds, networking, CCTV, biometric attendance systems and annual maintenance in Tiruchirappalli. Diagnosis before any quote.',
     path: '/services',
   },
   about: {
@@ -161,7 +161,7 @@ export function applyBusinessSchema() {
     },
 
     /*
-     * `geo` is deliberately absent. Coordinates for No. 117B, Heber Road are
+     * `geo` is deliberately absent. Coordinates for No. 117, Heber Main Road are
      * not recorded anywhere in this project, and a guessed latitude on a local
      * business sends people to the wrong street — worse than omitting it.
      * Add it here once the real position is confirmed from the Google

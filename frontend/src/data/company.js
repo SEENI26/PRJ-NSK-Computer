@@ -11,8 +11,15 @@ export const COMPANY = {
   foundingYear: 2005,
   experienceYears: 20,
 
+  /*
+   * Corrected from the shop's own Google listing (NSK COMPUTER ZONE (P)
+   * LIMITED) and cross-checked against IndiaMART and Dun & Bradstreet, which
+   * agree. The previous value said "117B, Heber Road, Bhima Nagar,
+   * Sangillyandapuram" — wrong door number, wrong road name and a locality
+   * that is not part of the registered address.
+   */
   address: {
-    street: 'No. 117B, Heber Road, Bhima Nagar, Sangillyandapuram',
+    street: 'No. 117, Heber Main Road, Beema Nagar',
     city: 'Tiruchirappalli',
     state: 'Tamil Nadu',
     postalCode: '620001',
@@ -21,6 +28,12 @@ export const COMPANY = {
       return `${this.street}, ${this.city}, ${this.state} ${this.postalCode}`;
     },
   },
+
+  /*
+   * The business's own Google listing. Better than searching by name and
+   * address: a text search can land on a similarly named place, this cannot.
+   */
+  mapsUrl: 'https://share.google/F8gzvzd23XYcAU2Tx',
 
   phone: '+91 97914 30774',
   phoneHref: 'tel:+919791430774',

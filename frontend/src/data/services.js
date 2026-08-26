@@ -181,6 +181,25 @@ export const services = [
     note: 'Camera count matters less than where they point. The survey is what decides whether the footage is usable.',
   },
   {
+    id: 'biometrics',
+    group: 'install',
+    name: 'Biometric & attendance systems',
+    lead: 'Fingerprint and card readers, and the attendance software behind them.',
+    symptoms: [
+      'Still marking attendance on paper',
+      'Reader stops recognising fingerprints',
+      'Need attendance data out as a report',
+      'Adding readers at a second site',
+    ],
+    covers: [
+      'Reader selection and mounting',
+      'Enrolment and shift configuration',
+      'Attendance reports and payroll export',
+      'Service on existing installations',
+    ],
+    note: 'The reader is the easy part. What decides whether the system survives is how shifts and exceptions are configured on day one.',
+  },
+  {
     id: 'server-setup',
     group: 'install',
     name: 'Server & workstation setup',

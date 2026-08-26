@@ -139,7 +139,7 @@ export default function AboutContact() {
             titleId="visit-heading"
             eyebrow="Find the counter"
             title="Come in with the machine"
-            lead="Most repairs are decided faster across the counter than over a phone call. We are on Heber Road in Bhima Nagar, and there is no appointment needed during shop hours."
+            lead="Most repairs are decided faster across the counter than over a phone call. We are on Heber Main Road in Beema Nagar, and there is no appointment needed during shop hours."
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">

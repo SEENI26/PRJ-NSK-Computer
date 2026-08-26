@@ -143,6 +143,23 @@ const Amc = () => (
   </>
 );
 
+/* Biometrics — a finger on the plate, which is the whole interaction. */
+const Biometrics = () => (
+  <>
+    <rect x="11" y="6" width="26" height="36" rx="4" {...line} />
+    {[0, 1, 2].map((i) => (
+      <path
+        key={i}
+        d={`M${19 - i * 3} 27 a${5 + i * 3} ${6 + i * 3} 0 0 1 ${10 + i * 6} 0`}
+        {...line}
+        opacity={0.9 - i * 0.2}
+      />
+    ))}
+    <line x1="24" y1="27" x2="24" y2="20" {...line} opacity="0.8" />
+    <line x1="17" y1="36" x2="31" y2="36" {...line} strokeWidth="1" opacity="0.4" />
+  </>
+);
+
 const GLYPHS = {
   'desktop-repair': DesktopRepair,
   'laptop-repair': LaptopRepair,
@@ -151,6 +168,7 @@ const GLYPHS = {
   'custom-build': CustomBuild,
   networking: Networking,
   cctv: Cctv,
+  biometrics: Biometrics,
   'server-setup': ServerSetup,
   amc: Amc,
 };
